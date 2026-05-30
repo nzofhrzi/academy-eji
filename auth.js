@@ -1,10 +1,28 @@
 // auth.js
 // Utility autentikasi Academy Eji — di-include di semua halaman
-// Versi: 1.0.0
+// Versi: 1.1.0
 
 const Auth = (() => {
   const TOKEN_KEY = 'eji_session';
   const USER_KEY  = 'eji_user';
+  const TIMEOUT_MS = 10000; // 10 detik timeout untuk semua request
+
+  // ── Helper: fetch dengan timeout
+  async function fetchWithTimeout(url, options = {}) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
+    try {
+      const r = await fetch(url, { ...options, signal: controller.signal });
+      clearTimeout(timeout);
+      return r;
+    } catch (e) {
+      clearTimeout(timeout);
+      if (e.name === 'AbortError') {
+        throw new Error('TIMEOUT');
+      }
+      throw e;
+    }
+  }
 
   // ── Ambil token dari localStorage
   function getToken() {
@@ -36,7 +54,7 @@ const Auth = (() => {
     if (!token) return null;
 
     try {
-      const r = await fetch('/api/auth/verify', {
+      const r = await fetchWithTimeout('/api/auth/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token })
@@ -51,7 +69,7 @@ const Auth = (() => {
         return null;
       }
     } catch {
-      // Jika offline, fallback ke data lokal (tapi tetap cek expiry midnight)
+      // Jika offline atau timeout, fallback ke data lokal
       const user = getUser();
       return user;
     }
@@ -74,32 +92,46 @@ const Auth = (() => {
 
   // ── Login
   async function login(username) {
-    const r = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username })
-    });
-    const data = await r.json();
-    if (r.ok) {
-      saveSession(data.token, data.user);
-      return { ok: true, user: data.user };
+    try {
+      const r = await fetchWithTimeout('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username })
+      });
+      const data = await r.json();
+      if (r.ok) {
+        saveSession(data.token, data.user);
+        return { ok: true, user: data.user };
+      }
+      return { ok: false, error: data.error || 'Login gagal.' };
+    } catch (e) {
+      if (e.message === 'TIMEOUT') {
+        return { ok: false, error: 'Koneksi timeout. Periksa jaringan dan coba lagi.' };
+      }
+      return { ok: false, error: 'Gagal terhubung ke server. Coba lagi.' };
     }
-    return { ok: false, error: data.error };
   }
 
   // ── Register
   async function register(username) {
-    const r = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username })
-    });
-    const data = await r.json();
-    if (r.ok) {
-      saveSession(data.token, data.user);
-      return { ok: true, user: data.user };
+    try {
+      const r = await fetchWithTimeout('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username })
+      });
+      const data = await r.json();
+      if (r.ok) {
+        saveSession(data.token, data.user);
+        return { ok: true, user: data.user };
+      }
+      return { ok: false, error: data.error || 'Pendaftaran gagal.' };
+    } catch (e) {
+      if (e.message === 'TIMEOUT') {
+        return { ok: false, error: 'Koneksi timeout. Periksa jaringan dan coba lagi.' };
+      }
+      return { ok: false, error: 'Gagal terhubung ke server. Coba lagi.' };
     }
-    return { ok: false, error: data.error };
   }
 
   // ── Logout
