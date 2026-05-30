@@ -1,5 +1,13 @@
 {
   "outputDirectory": ".",
+  "functions": {
+    "auth/[action].js": {
+      "runtime": "@vercel/node@3"
+    },
+    "api/**/*.js": {
+      "runtime": "@vercel/node@3"
+    }
+  },
   "rewrites": [
     { "source": "/api/ujicoba/:action", "destination": "/api/ujicoba/[action]" },
     { "source": "/api/auth/:action",    "destination": "/auth/[action]" }
