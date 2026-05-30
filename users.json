@@ -41,8 +41,9 @@
     {
       "id": "usr_1780135378898",
       "username": "Windi",
-      "role": "tamu",
-      "created_at": "2026-05-30T10:02:58.898Z"
+      "role": "vip",
+      "created_at": "2026-05-30T10:02:58.898Z",
+      "upgraded_at": "2026-05-30T13:34:08.399Z"
     }
   ]
 }
