@@ -61,5 +61,14 @@
     "totalSoal": 25,
     "waktuDipakai": 574,
     "timestamp": "2026-05-29T15:08:46.109Z"
+  },
+  {
+    "tesKey": "iq",
+    "tesNama": "Tes IQ",
+    "pesertaNama": "Novia Savira",
+    "skor": 17,
+    "totalSoal": 25,
+    "waktuDipakai": 463,
+    "timestamp": "2026-05-30T07:52:12.060Z"
   }
 ]
