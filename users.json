@@ -35,8 +35,9 @@
     {
       "id": "usr_1780127965434",
       "username": "Firmansyah",
-      "role": "tamu",
-      "created_at": "2026-05-30T07:59:25.434Z"
+      "role": "vip",
+      "created_at": "2026-05-30T07:59:25.434Z",
+      "upgraded_at": "2026-05-30T13:34:14.212Z"
     },
     {
       "id": "usr_1780135378898",
