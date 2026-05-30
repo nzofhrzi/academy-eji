@@ -1,0 +1,331 @@
+{
+  "nama": "Tes IQ",
+  "durasi": 2700,
+  "soal": [
+    {
+      "id": 1,
+      "kategori": "Deret Angka",
+      "teks": "Temukan pola: 2, 6, 12, 20, 30, ?",
+      "hint": "Perhatikan selisih antar angka.",
+      "opsi": [
+        "40",
+        "42",
+        "44",
+        "46"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 2,
+      "kategori": "Analogi",
+      "teks": "Dokter : Rumah Sakit = Guru : ?",
+      "hint": null,
+      "opsi": [
+        "Siswa",
+        "Buku",
+        "Sekolah",
+        "Ilmu"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 3,
+      "kategori": "Logika",
+      "teks": "Semua bunga mawar berwarna merah. Setangkai bunga di meja adalah mawar. Maka...",
+      "hint": null,
+      "opsi": [
+        "Bunga di meja pasti berwarna merah",
+        "Bunga di meja mungkin tidak merah",
+        "Semua bunga di dunia merah",
+        "Mawar tidak selalu merah"
+      ],
+      "jawaban": 0
+    },
+    {
+      "id": 4,
+      "kategori": "Deret Angka",
+      "teks": "1, 4, 9, 16, 25, ?",
+      "hint": "Pola bilangan kuadrat.",
+      "opsi": [
+        "30",
+        "36",
+        "35",
+        "32"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 5,
+      "kategori": "Matriks",
+      "teks": "Jika A > B dan B > C, maka...",
+      "hint": null,
+      "opsi": [
+        "C > A",
+        "A > C",
+        "B > A",
+        "C = A"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 6,
+      "kategori": "Deret Angka",
+      "teks": "3, 6, 11, 18, 27, ?",
+      "hint": "Selisih antar angka membentuk pola.",
+      "opsi": [
+        "36",
+        "38",
+        "40",
+        "42"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 7,
+      "kategori": "Analogi",
+      "teks": "Panas : Api = Dingin : ?",
+      "hint": null,
+      "opsi": [
+        "Air",
+        "Es",
+        "Angin",
+        "Batu"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 8,
+      "kategori": "Deret Huruf",
+      "teks": "A, C, E, G, ?",
+      "hint": "Huruf dengan jarak 2.",
+      "opsi": [
+        "H",
+        "I",
+        "J",
+        "K"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 9,
+      "kategori": "Logika",
+      "teks": "Jika hari ini Senin, maka 100 hari lagi adalah hari apa?",
+      "hint": "100 mod 7 = 2",
+      "opsi": [
+        "Selasa",
+        "Rabu",
+        "Kamis",
+        "Jumat"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 10,
+      "kategori": "Deret Angka",
+      "teks": "2, 3, 5, 8, 13, 21, ?",
+      "hint": "Deret Fibonacci.",
+      "opsi": [
+        "32",
+        "33",
+        "34",
+        "35"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 11,
+      "kategori": "Analogi",
+      "teks": "Burung : Terbang = Ikan : ?",
+      "hint": null,
+      "opsi": [
+        "Berlari",
+        "Berenang",
+        "Melompat",
+        "Merayap"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 12,
+      "kategori": "Deret Angka",
+      "teks": "100, 50, 25, 12.5, ?",
+      "hint": "Dibagi 2 setiap langkah.",
+      "opsi": [
+        "6",
+        "6.25",
+        "7",
+        "5"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 13,
+      "kategori": "Logika",
+      "teks": "Lima orang duduk berurutan. Budi di sebelah kiri Ana. Ana di sebelah kiri Cici. Budi ada di posisi ke berapa?",
+      "hint": null,
+      "opsi": [
+        "Pertama",
+        "Kedua",
+        "Ketiga",
+        "Keempat"
+      ],
+      "jawaban": 0
+    },
+    {
+      "id": 14,
+      "kategori": "Matriks",
+      "teks": "Jika P = Q + 5 dan Q = 10, maka P – Q = ?",
+      "hint": null,
+      "opsi": [
+        "5",
+        "10",
+        "15",
+        "20"
+      ],
+      "jawaban": 0
+    },
+    {
+      "id": 15,
+      "kategori": "Deret Angka",
+      "teks": "1, 2, 4, 8, 16, ?",
+      "hint": "Dikali 2 setiap langkah.",
+      "opsi": [
+        "24",
+        "28",
+        "32",
+        "36"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 16,
+      "kategori": "Analogi",
+      "teks": "Pena : Menulis = Kamera : ?",
+      "hint": null,
+      "opsi": [
+        "Merekam",
+        "Memotret",
+        "Mencetak",
+        "Menggambar"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 17,
+      "kategori": "Deret Angka",
+      "teks": "7, 14, 21, 28, ?",
+      "hint": "Kelipatan 7.",
+      "opsi": [
+        "32",
+        "35",
+        "38",
+        "42"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 18,
+      "kategori": "Logika",
+      "teks": "Tidak ada kucing yang bisa terbang. Tom adalah kucing. Maka...",
+      "hint": null,
+      "opsi": [
+        "Tom bisa terbang",
+        "Tom tidak bisa terbang",
+        "Semua kucing bisa terbang",
+        "Tom bukan hewan"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 19,
+      "kategori": "Deret Huruf",
+      "teks": "Z, X, V, T, ?",
+      "hint": "Jarak 2 huruf ke belakang.",
+      "opsi": [
+        "S",
+        "R",
+        "Q",
+        "P"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 20,
+      "kategori": "Deret Angka",
+      "teks": "1, 3, 7, 15, 31, ?",
+      "hint": "(n × 2) + 1",
+      "opsi": [
+        "61",
+        "62",
+        "63",
+        "65"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 21,
+      "kategori": "Analogi",
+      "teks": "Sepatu : Kaki = Sarung Tangan : ?",
+      "hint": null,
+      "opsi": [
+        "Jari",
+        "Tangan",
+        "Kepala",
+        "Bahu"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 22,
+      "kategori": "Matriks",
+      "teks": "Jika sisi persegi = 5 cm, berapa luasnya?",
+      "hint": null,
+      "opsi": [
+        "10 cm²",
+        "20 cm²",
+        "25 cm²",
+        "30 cm²"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 23,
+      "kategori": "Deret Angka",
+      "teks": "0, 1, 1, 2, 3, 5, 8, ?",
+      "hint": "Fibonacci.",
+      "opsi": [
+        "11",
+        "12",
+        "13",
+        "15"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 24,
+      "kategori": "Logika",
+      "teks": "Semua X adalah Y. Semua Y adalah Z. Maka...",
+      "hint": null,
+      "opsi": [
+        "Semua X adalah Z",
+        "Semua Z adalah X",
+        "Beberapa X bukan Z",
+        "Tidak ada X yang Z"
+      ],
+      "jawaban": 0
+    },
+    {
+      "id": 25,
+      "kategori": "Deret Angka",
+      "teks": "4, 9, 16, 25, 36, ?",
+      "hint": "Bilangan kuadrat mulai dari 2.",
+      "opsi": [
+        "45",
+        "47",
+        "49",
+        "51"
+      ],
+      "jawaban": 2
+    }
+  ]
+}

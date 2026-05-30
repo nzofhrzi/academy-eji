@@ -1,0 +1,526 @@
+{
+  "nama": "UKBI",
+  "durasi": 4500,
+  "soal": [
+    {
+      "id": 1,
+      "kategori": "Ejaan",
+      "teks": "Pilih kalimat dengan ejaan PUEBI yang benar:",
+      "hint": null,
+      "opsi": [
+        "Ibu membeli: sayur, buah dan ikan di pasar.",
+        "Ibu membeli sayur, buah, dan ikan di pasar.",
+        "Ibu membeli sayur; buah; dan ikan di pasar.",
+        "Ibu membeli sayur — buah dan ikan di pasar."
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 2,
+      "kategori": "Kosakata",
+      "teks": "Kata 'mubazir' dalam 'Penggunaan kertas yang mubazir harus dihindari' bersinonim dengan:",
+      "hint": null,
+      "opsi": [
+        "Berlebihan",
+        "Hemat",
+        "Efisien",
+        "Produktif"
+      ],
+      "jawaban": 0
+    },
+    {
+      "id": 3,
+      "kategori": "Tata Bahasa",
+      "teks": "Kalimat manakah yang menggunakan kata bentukan benar?",
+      "hint": "Perhatikan imbuhan.",
+      "opsi": [
+        "Dia meng-cat dinding.",
+        "Dia mengecat dinding.",
+        "Dia mengcat dinding.",
+        "Dia men-cat dinding."
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 4,
+      "kategori": "Ejaan",
+      "teks": "Penulisan kata yang benar untuk 'kerjasama' menurut KBBI adalah:",
+      "hint": null,
+      "opsi": [
+        "kerja sama",
+        "kerjasama",
+        "kerja-sama",
+        "Kerja Sama"
+      ],
+      "jawaban": 0
+    },
+    {
+      "id": 5,
+      "kategori": "Kosakata",
+      "teks": "Antonim dari kata 'eksplisit' adalah:",
+      "hint": null,
+      "opsi": [
+        "Jelas",
+        "Implisit",
+        "Terbuka",
+        "Langsung"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 6,
+      "kategori": "Tata Bahasa",
+      "teks": "Kalimat aktif yang benar adalah:",
+      "hint": null,
+      "opsi": [
+        "Surat itu ditulis oleh Ani.",
+        "Ani menulis surat itu.",
+        "Surat itu Ani tulis.",
+        "Ditulis surat oleh Ani."
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 7,
+      "kategori": "Pemahaman",
+      "teks": "'Keberhasilan suatu bangsa ditentukan oleh kualitas sumber daya manusianya.' Inti kalimat tersebut adalah:",
+      "hint": null,
+      "opsi": [
+        "Bangsa yang berhasil",
+        "Keberhasilan ditentukan SDM",
+        "Kualitas sumber daya",
+        "Sumber daya manusia bangsa"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 8,
+      "kategori": "Ejaan",
+      "teks": "Penulisan bilangan yang benar menurut PUEBI:",
+      "hint": null,
+      "opsi": [
+        "Lima belas orang hadir.",
+        "15 orang hadir.",
+        "Lima-belas orang hadir.",
+        "Limabelas orang hadir."
+      ],
+      "jawaban": 0
+    },
+    {
+      "id": 9,
+      "kategori": "Kosakata",
+      "teks": "Kata 'komprehensif' bermakna:",
+      "hint": null,
+      "opsi": [
+        "Sempit dan terbatas",
+        "Menyeluruh dan lengkap",
+        "Sederhana dan mudah",
+        "Singkat dan padat"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 10,
+      "kategori": "Tata Bahasa",
+      "teks": "Penggunaan kata penghubung yang tepat: 'Dia rajin belajar, ___ nilainya tetap jelek.'",
+      "hint": null,
+      "opsi": [
+        "dan",
+        "serta",
+        "tetapi",
+        "karena"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 11,
+      "kategori": "Ejaan",
+      "teks": "Huruf kapital dipakai pada:",
+      "hint": null,
+      "opsi": [
+        "Nama jabatan secara umum",
+        "Nama orang dan nama diri",
+        "Semua kata dalam kalimat",
+        "Kata sifat di awal kalimat"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 12,
+      "kategori": "Kosakata",
+      "teks": "Kata 'problematika' bermakna hal-hal yang bersifat:",
+      "hint": null,
+      "opsi": [
+        "Mudah diselesaikan",
+        "Bermasalah/bersoal",
+        "Menyenangkan",
+        "Sederhana"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 13,
+      "kategori": "Tata Bahasa",
+      "teks": "'Para hadirin sekalian harap berdiri.' Kesalahan kalimat ini adalah:",
+      "hint": "Perhatikan kata yang berlebihan.",
+      "opsi": [
+        "Tidak ada kesalahan",
+        "Pemborosan kata (para + hadirin + sekalian)",
+        "Kata kerja salah",
+        "Susunan kalimat salah"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 14,
+      "kategori": "Pemahaman",
+      "teks": "Paragraf induktif ditandai dengan:",
+      "hint": null,
+      "opsi": [
+        "Simpulan di awal paragraf",
+        "Simpulan di akhir paragraf",
+        "Tanpa simpulan",
+        "Simpulan di tengah paragraf"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 15,
+      "kategori": "Ejaan",
+      "teks": "Tanda koma digunakan sebelum:",
+      "hint": null,
+      "opsi": [
+        "Setiap kata",
+        "Konjungsi antarkalimat",
+        "Kata sambung 'dan' dalam kalimat majemuk setara",
+        "Semua bilangan"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 16,
+      "kategori": "Kosakata",
+      "teks": "Makna kata 'ambigu' adalah:",
+      "hint": null,
+      "opsi": [
+        "Jelas",
+        "Bermakna ganda",
+        "Positif",
+        "Kuat"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 17,
+      "kategori": "Tata Bahasa",
+      "teks": "Kalimat pasif yang baku adalah:",
+      "hint": null,
+      "opsi": [
+        "Bukunya dibaca oleh saya.",
+        "Saya baca bukunya.",
+        "Bukunya saya baca.",
+        "Baca oleh saya buku."
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 18,
+      "kategori": "Ejaan",
+      "teks": "Penulisan gelar yang benar:",
+      "hint": null,
+      "opsi": [
+        "Dr Budi Santoso",
+        "dr. Budi Santoso",
+        "DR. Budi Santoso",
+        "Dr. Budi Santoso"
+      ],
+      "jawaban": 3
+    },
+    {
+      "id": 19,
+      "kategori": "Kosakata",
+      "teks": "Kata 'paradoks' berarti:",
+      "hint": null,
+      "opsi": [
+        "Pernyataan yang selalu benar",
+        "Pernyataan yang tampak bertentangan tapi mengandung kebenaran",
+        "Pernyataan yang salah",
+        "Pernyataan yang netral"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 20,
+      "kategori": "Pemahaman",
+      "teks": "Kalimat 'Harga sembako melonjak tajam akibat kemarau panjang.' Ide pokok kalimat ini adalah:",
+      "hint": null,
+      "opsi": [
+        "Kemarau panjang melanda",
+        "Harga sembako naik karena kemarau",
+        "Sembako menjadi langka",
+        "Panen gagal"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 21,
+      "kategori": "Ejaan",
+      "teks": "Singkatan yang benar untuk 'Yayasan':",
+      "hint": null,
+      "opsi": [
+        "yay.",
+        "Yay",
+        "Yys.",
+        "Yys"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 22,
+      "kategori": "Kosakata",
+      "teks": "Sinonim dari 'proliferasi' adalah:",
+      "hint": null,
+      "opsi": [
+        "Penurunan",
+        "Penyebaran/perkembangbiakan",
+        "Penghapusan",
+        "Pembatasan"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 23,
+      "kategori": "Tata Bahasa",
+      "teks": "Kata 'mempermasalahkan' berasal dari kata dasar:",
+      "hint": null,
+      "opsi": [
+        "Masalah",
+        "Permasalahan",
+        "Bermasalah",
+        "Permasalah"
+      ],
+      "jawaban": 0
+    },
+    {
+      "id": 24,
+      "kategori": "Ejaan",
+      "teks": "Penulisan kata 'di' yang benar sebagai preposisi:",
+      "hint": "Bandingkan 'di' awalan (imbuhan) vs preposisi (kata depan).",
+      "opsi": [
+        "dipasar",
+        "di pasar",
+        "di-pasar",
+        "Di pasar"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 25,
+      "kategori": "Pemahaman",
+      "teks": "Teks yang bertujuan memengaruhi pembaca untuk setuju dengan pendapat penulis disebut teks:",
+      "hint": null,
+      "opsi": [
+        "Narasi",
+        "Deskripsi",
+        "Persuasi",
+        "Eksposisi"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 26,
+      "kategori": "Kosakata",
+      "teks": "Kata 'eufemisme' adalah penggunaan kata yang bersifat:",
+      "hint": null,
+      "opsi": [
+        "Kasar",
+        "Lebih halus/sopan",
+        "Teknis",
+        "Ilmiah"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 27,
+      "kategori": "Tata Bahasa",
+      "teks": "Dalam kalimat majemuk setara, konjungsi yang tepat untuk menyatakan pertentangan adalah:",
+      "hint": null,
+      "opsi": [
+        "dan",
+        "serta",
+        "melainkan/tetapi",
+        "kemudian"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 28,
+      "kategori": "Ejaan",
+      "teks": "Tanda titik dua (:) digunakan pada:",
+      "hint": null,
+      "opsi": [
+        "Akhir setiap kalimat",
+        "Setelah kata sapaan",
+        "Perincian atau pemerian",
+        "Pengganti tanda hubung"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 29,
+      "kategori": "Kosakata",
+      "teks": "Lawan kata dari 'konvensional' adalah:",
+      "hint": null,
+      "opsi": [
+        "Tradisional",
+        "Inovatif/modern",
+        "Kuno",
+        "Sederhana"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 30,
+      "kategori": "Pemahaman",
+      "teks": "Majas yang menyatakan sesuatu dengan cara berlawanan dari yang dimaksud disebut:",
+      "hint": null,
+      "opsi": [
+        "Metafora",
+        "Hiperbola",
+        "Ironi",
+        "Personifikasi"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 31,
+      "kategori": "Tata Bahasa",
+      "teks": "Penggunaan akhiran '-kan' yang benar:",
+      "hint": null,
+      "opsi": [
+        "Dia menghentikan mobilnya.",
+        "Dia menghenti mobilnya.",
+        "Dia hentikan mobilnya.",
+        "Dia berhentikan mobilnya."
+      ],
+      "jawaban": 0
+    },
+    {
+      "id": 32,
+      "kategori": "Ejaan",
+      "teks": "Penulisan akronim yang benar:",
+      "hint": "Akronim dibaca sebagai kata, bukan dieja.",
+      "opsi": [
+        "BUMN",
+        "B.U.M.N",
+        "B.U.M.N.",
+        "b.u.m.n"
+      ],
+      "jawaban": 0
+    },
+    {
+      "id": 33,
+      "kategori": "Kosakata",
+      "teks": "Kata 'dikotomi' berarti pembagian menjadi:",
+      "hint": null,
+      "opsi": [
+        "Tiga bagian",
+        "Dua bagian yang bertentangan",
+        "Banyak bagian",
+        "Satu kesatuan"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 34,
+      "kategori": "Pemahaman",
+      "teks": "Kalimat yang mengandung majas personifikasi adalah:",
+      "hint": null,
+      "opsi": [
+        "Rambutnya seperti emas.",
+        "Angin berbisik lembut di telingaku.",
+        "Dia sekuat baja.",
+        "Matanya bintang kejora."
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 35,
+      "kategori": "Tata Bahasa",
+      "teks": "Kalimat efektif yang benar adalah:",
+      "hint": "Hindari pemborosan kata.",
+      "opsi": [
+        "Dia pergi ke sekolah dengan berjalan kaki.",
+        "Dia pergi ke sekolah berjalan kaki.",
+        "Dia berjalan kaki pergi ke sekolah.",
+        "Berjalan kaki dia pergi ke sekolah."
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 36,
+      "kategori": "Ejaan",
+      "teks": "Penulisan kata majemuk yang benar:",
+      "hint": null,
+      "opsi": [
+        "matahari",
+        "mata-hari",
+        "mata hari",
+        "Mata Hari"
+      ],
+      "jawaban": 0
+    },
+    {
+      "id": 37,
+      "kategori": "Kosakata",
+      "teks": "Kata 'tentatif' bermakna:",
+      "hint": null,
+      "opsi": [
+        "Pasti dan tetap",
+        "Bersifat sementara/belum pasti",
+        "Sangat penting",
+        "Mendesak"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 38,
+      "kategori": "Pemahaman",
+      "teks": "Paragraf yang kalimat utamanya ada di awal disebut paragraf:",
+      "hint": null,
+      "opsi": [
+        "Induktif",
+        "Deduktif",
+        "Campuran",
+        "Ineratif"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 39,
+      "kategori": "Tata Bahasa",
+      "teks": "'Buku itu sangat tebal sekali.' Kesalahan kalimat ini adalah:",
+      "hint": null,
+      "opsi": [
+        "Salah penggunaan 'itu'",
+        "Pemborosan kata: 'sangat' dan 'sekali'",
+        "Salah penggunaan 'tebal'",
+        "Tidak ada kesalahan"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 40,
+      "kategori": "Ejaan",
+      "teks": "Kata serapan yang penulisannya benar:",
+      "hint": null,
+      "opsi": [
+        "sistim",
+        "sistem",
+        "sistiem",
+        "sistem"
+      ],
+      "jawaban": 1
+    }
+  ]
+}

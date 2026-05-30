@@ -1,0 +1,266 @@
+{
+  "nama": "Pemahaman Bacaan",
+  "durasi": 1800,
+  "soal": [
+    {
+      "id": 1,
+      "kategori": "Ide Pokok",
+      "teks": "Bacalah paragraf berikut:\n\n\"Sampah plastik telah menjadi ancaman serius bagi ekosistem laut. Setiap tahun, jutaan ton plastik berakhir di lautan, membahayakan kehidupan biota laut. Penelitian terbaru menunjukkan bahwa mikroplastik kini ditemukan bahkan di daerah terpencil seperti Kutub Utara.\"\n\nIde pokok paragraf tersebut adalah...",
+      "hint": null,
+      "opsi": [
+        "Mikroplastik ditemukan di Kutub Utara",
+        "Sampah plastik mengancam ekosistem laut",
+        "Jutaan ton plastik dibuang setiap tahun",
+        "Penelitian laut dilakukan di berbagai wilayah"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 2,
+      "kategori": "Inferensi",
+      "teks": "\"Sejak listrik masuk ke desa itu tahun lalu, warung yang dulu tutup pukul 18.00 kini buka hingga tengah malam. Anak-anak belajar di malam hari, dan para petani mulai menggunakan pompa air bertenaga listrik.\"\n\nApa yang dapat disimpulkan dari teks tersebut?",
+      "hint": null,
+      "opsi": [
+        "Listrik membuat desa itu menjadi kota",
+        "Listrik meningkatkan aktivitas dan produktivitas warga desa",
+        "Warung di desa kini tidak pernah tutup",
+        "Petani tidak lagi memerlukan tenaga manusia"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 3,
+      "kategori": "Makna Kata",
+      "teks": "\"Para ilmuwan mengungkapkan bahwa penemuan ini bersifat revolusioner karena dapat mengubah cara pandang dunia terhadap energi terbarukan.\"\n\nKata 'revolusioner' bermakna...",
+      "hint": null,
+      "opsi": [
+        "Sangat mahal dan sulit diterapkan",
+        "Membawa perubahan mendasar yang besar",
+        "Bersifat sementara",
+        "Hanya berlaku di negara maju"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 4,
+      "kategori": "Detail Teks",
+      "teks": "Bacalah:\n\n\"Pada abad ke-19, Revolusi Industri mengubah cara manusia bekerja secara dramatis. Mesin uap menggantikan tenaga manusia dan hewan. Pabrik-pabrik besar bermunculan di kota-kota, menarik jutaan pekerja dari desa.\"\n\nApa yang menyebabkan banyak orang pindah ke kota?",
+      "hint": null,
+      "opsi": [
+        "Pertanian tidak menguntungkan",
+        "Munculnya pabrik-pabrik besar",
+        "Transportasi yang lebih baik",
+        "Pengaruh pemerintah"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 5,
+      "kategori": "Judul",
+      "teks": "\"Olahraga rutin terbukti memberikan manfaat luar biasa bagi kesehatan fisik dan mental. Jantung menjadi lebih kuat, metabolisme meningkat, dan stres berkurang. Bahkan 30 menit berjalan kaki sehari sudah cukup untuk merasakan manfaatnya.\"\n\nJudul yang paling tepat untuk paragraf ini adalah:",
+      "hint": null,
+      "opsi": [
+        "Cara Menurunkan Berat Badan",
+        "Manfaat Olahraga Rutin bagi Kesehatan",
+        "Pentingnya Jantung yang Sehat",
+        "Berjalan Kaki 30 Menit"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 6,
+      "kategori": "Inferensi",
+      "teks": "\"Toko buku itu sepi pengunjung. Di rak-raknya, buku-buku berdebu. Kasir tampak mengantuk. Tidak ada suara selain bunyi AC.\"\n\nDapat disimpulkan bahwa toko buku tersebut...",
+      "hint": null,
+      "opsi": [
+        "Baru dibuka",
+        "Jarang dikunjungi",
+        "Penuh diskon",
+        "Sedang direnovasi"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 7,
+      "kategori": "Makna Kata",
+      "teks": "\"Gubernur menegaskan bahwa program tersebut bersifat komprehensif, mencakup seluruh aspek pembangunan dari infrastruktur hingga sumber daya manusia.\"\n\nKata 'komprehensif' dalam kalimat di atas bermakna:",
+      "hint": null,
+      "opsi": [
+        "Terbatas pada satu bidang",
+        "Menyeluruh dan mencakup semua aspek",
+        "Mahal dan rumit",
+        "Baru dan inovatif"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 8,
+      "kategori": "Ide Pokok",
+      "teks": "\"Membaca buku secara rutin memiliki banyak keuntungan. Pertama, membaca meningkatkan kosakata. Kedua, membaca melatih konsentrasi. Ketiga, membaca memperluas pengetahuan dan wawasan seseorang.\"\n\nIde pokok paragraf tersebut adalah:",
+      "hint": null,
+      "opsi": [
+        "Cara meningkatkan kosakata",
+        "Keuntungan membaca buku rutin",
+        "Pentingnya konsentrasi",
+        "Cara memperluas wawasan"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 9,
+      "kategori": "Detail Teks",
+      "teks": "\"Indonesia memiliki lebih dari 17.000 pulau yang tersebar dari Sabang sampai Merauke. Dengan luas wilayah sekitar 1,9 juta km², Indonesia adalah negara kepulauan terbesar di dunia. Keanekaragaman budaya dan bahasa menjadikannya unik.\"\n\nBerapa luas wilayah Indonesia?",
+      "hint": null,
+      "opsi": [
+        "17.000 km²",
+        "1,9 juta km²",
+        "1,9 km²",
+        "190.000 km²"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 10,
+      "kategori": "Inferensi",
+      "teks": "\"Setiap hari Ratna bangun pukul 04.00, berolahraga 30 menit, lalu menyiapkan bekal untuk anak-anaknya sebelum pergi kerja. Sepulang kerja, ia masih sempat menghadiri rapat RT.\"\n\nSifat Ratna yang dapat disimpulkan dari teks adalah:",
+      "hint": null,
+      "opsi": [
+        "Pemalu dan pendiam",
+        "Disiplin dan berdedikasi tinggi",
+        "Suka berpesta",
+        "Tidak peduli lingkungan"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 11,
+      "kategori": "Makna Kata",
+      "teks": "\"Produk itu laris manis di pasaran karena harganya sangat terjangkau bagi semua kalangan masyarakat.\"\n\nMakna frasa 'laris manis' dalam kalimat tersebut adalah:",
+      "hint": null,
+      "opsi": [
+        "Rasanya manis",
+        "Sangat banyak terjual",
+        "Berwarna menarik",
+        "Mudah didapat"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 12,
+      "kategori": "Ide Pokok",
+      "teks": "\"Perubahan iklim adalah tantangan global terbesar abad ini. Suhu bumi terus meningkat akibat emisi gas rumah kaca. Dampaknya terasa di seluruh penjuru dunia: banjir, kekeringan, badai ekstrem, dan naiknya permukaan laut.\"\n\nIde pokok paragraf ini adalah:",
+      "hint": null,
+      "opsi": [
+        "Dampak banjir dan kekeringan",
+        "Perubahan iklim sebagai tantangan global terbesar",
+        "Emisi gas rumah kaca berbahaya",
+        "Permukaan laut yang naik"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 13,
+      "kategori": "Detail Teks",
+      "teks": "\"Program beasiswa Lembaga X memberikan bantuan kepada 500 mahasiswa berprestasi setiap tahunnya. Syaratnya: IPK minimal 3,5, aktif berorganisasi, dan berasal dari keluarga tidak mampu. Pendaftaran dibuka setiap bulan Maret.\"\n\nSalah satu syarat mendapatkan beasiswa tersebut adalah:",
+      "hint": null,
+      "opsi": [
+        "IPK minimal 3,0",
+        "Berasal dari keluarga tidak mampu",
+        "Mendaftar di bulan April",
+        "Berusia maksimal 25 tahun"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 14,
+      "kategori": "Judul",
+      "teks": "\"Pola makan sehat tidak harus mahal. Sayuran hijau, tempe, tahu, dan ikan lokal adalah pilihan bergizi yang terjangkau. Yang penting adalah variasi dan keseimbangan nutrisi, bukan harga bahan makanan.\"\n\nJudul paling tepat untuk paragraf ini:",
+      "hint": null,
+      "opsi": [
+        "Makan Mahal Lebih Sehat",
+        "Pola Makan Sehat Bisa Terjangkau",
+        "Pentingnya Sayuran Hijau",
+        "Tempe dan Tahu Makanan Murah"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 15,
+      "kategori": "Inferensi",
+      "teks": "\"Di kantor baru itu, semua karyawan tampak sibuk sejak pagi. Tidak ada yang mengobrol santai. Jam makan siang pun digunakan sebagian besar untuk bekerja.\"\n\nAtmosfer kantor tersebut dapat disimpulkan sebagai:",
+      "hint": null,
+      "opsi": [
+        "Santai dan menyenangkan",
+        "Profesional dan penuh tekanan",
+        "Sepi dan lengang",
+        "Penuh konflik"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 16,
+      "kategori": "Makna Kata",
+      "teks": "\"Kebijakan baru itu menuai pro dan kontra di kalangan masyarakat. Sebagian mendukung, namun sebagian lain menentang keras.\"\n\nMakna 'pro dan kontra' dalam kalimat tersebut adalah:",
+      "hint": null,
+      "opsi": [
+        "Semua mendukung",
+        "Semua menentang",
+        "Dukungan dan penolakan",
+        "Tidak ada yang peduli"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 17,
+      "kategori": "Detail Teks",
+      "teks": "\"Pohon mangrove berperan penting dalam menjaga keseimbangan ekosistem pesisir. Akarnya yang kuat mencegah abrasi pantai. Daunnya yang gugur menjadi sumber makanan bagi biota laut. Mangrove juga menyerap karbon lebih banyak dari hutan tropis biasa.\"\n\nFungsi mangrove yang disebutkan dalam teks TIDAK termasuk:",
+      "hint": null,
+      "opsi": [
+        "Mencegah abrasi pantai",
+        "Sumber makanan biota laut",
+        "Menyerap polusi udara perkotaan",
+        "Menyerap karbon"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 18,
+      "kategori": "Ide Pokok",
+      "teks": "\"Kecanduan media sosial pada remaja menjadi perhatian serius. Remaja yang terlalu sering bermain media sosial cenderung mengalami gangguan tidur, penurunan prestasi akademik, dan masalah kesehatan mental seperti kecemasan dan depresi.\"\n\nIde pokok paragraf tersebut:",
+      "hint": null,
+      "opsi": [
+        "Cara mengatasi kecanduan media sosial",
+        "Dampak negatif kecanduan media sosial pada remaja",
+        "Gangguan tidur akibat teknologi",
+        "Kesehatan mental remaja Indonesia"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 19,
+      "kategori": "Inferensi",
+      "teks": "\"Pak Ahmad selalu tiba di kantor 30 menit lebih awal. Ia selalu menyelesaikan tugasnya sebelum batas waktu. Ia tidak pernah melewatkan satu pun rapat penting.\"\n\nKarakter yang paling mencerminkan Pak Ahmad adalah:",
+      "hint": null,
+      "opsi": [
+        "Ambisius dan egois",
+        "Bertanggung jawab dan disiplin",
+        "Pemalu dan pasif",
+        "Ceroboh tapi beruntung"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 20,
+      "kategori": "Judul",
+      "teks": "\"Energi surya adalah salah satu solusi terbaik menghadapi krisis energi global. Panel surya kini semakin murah dan efisien. Berbagai negara berlomba memasang instalasi panel surya untuk mengurangi ketergantungan pada bahan bakar fosil.\"\n\nJudul yang tepat untuk paragraf ini:",
+      "hint": null,
+      "opsi": [
+        "Harga Panel Surya yang Murah",
+        "Energi Surya sebagai Solusi Krisis Energi",
+        "Bahan Bakar Fosil yang Menipis",
+        "Persaingan Negara dalam Energi"
+      ],
+      "jawaban": 1
+    }
+  ]
+}

@@ -1,0 +1,396 @@
+{
+  "nama": "TOEFL",
+  "durasi": 3600,
+  "soal": [
+    {
+      "id": 1,
+      "kategori": "Structure",
+      "teks": "The professor ____ the lecture before the students arrived.",
+      "hint": "Kalimat menggunakan past tense.",
+      "opsi": [
+        "begin",
+        "began",
+        "begins",
+        "beginning"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 2,
+      "kategori": "Structure",
+      "teks": "She ____ to the library every afternoon.",
+      "hint": "Subject singular menggunakan verb + s.",
+      "opsi": [
+        "go",
+        "goes",
+        "gone",
+        "going"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 3,
+      "kategori": "Structure",
+      "teks": "If I ____ enough money, I would travel abroad.",
+      "hint": "Conditional type 2 menggunakan past form.",
+      "opsi": [
+        "have",
+        "had",
+        "has",
+        "having"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 4,
+      "kategori": "Vocabulary",
+      "teks": "The word 'ancient' is closest in meaning to ____.",
+      "hint": "'Ancient' berarti kuno atau tua.",
+      "opsi": [
+        "modern",
+        "old",
+        "young",
+        "future"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 5,
+      "kategori": "Reading",
+      "teks": "What is the synonym of 'rapid'?",
+      "hint": "'Rapid' berarti cepat.",
+      "opsi": [
+        "slow",
+        "quick",
+        "weak",
+        "small"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 6,
+      "kategori": "Structure",
+      "teks": "Neither the students nor the teacher ____ ready.",
+      "hint": "Verb mengikuti subject terdekat yaitu 'teacher'.",
+      "opsi": [
+        "are",
+        "were",
+        "is",
+        "be"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 7,
+      "kategori": "Structure",
+      "teks": "The book ____ on the table yesterday.",
+      "hint": "Past tense singular menggunakan 'was'.",
+      "opsi": [
+        "is",
+        "was",
+        "were",
+        "be"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 8,
+      "kategori": "Vocabulary",
+      "teks": "The opposite of 'expand' is ____.",
+      "hint": "'Shrink' adalah lawan kata dari expand.",
+      "opsi": [
+        "increase",
+        "grow",
+        "shrink",
+        "develop"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 9,
+      "kategori": "Reading",
+      "teks": "What does 'fragile' mean?",
+      "hint": "'Fragile' berarti mudah pecah.",
+      "opsi": [
+        "strong",
+        "breakable",
+        "heavy",
+        "safe"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 10,
+      "kategori": "Structure",
+      "teks": "By the time we arrived, the movie ____.",
+      "hint": "Past perfect digunakan untuk aksi yang terjadi lebih dahulu.",
+      "opsi": [
+        "starts",
+        "started",
+        "had started",
+        "starting"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 11,
+      "kategori": "Structure",
+      "teks": "He is interested ____ learning Japanese.",
+      "hint": "Interested in adalah pasangan yang benar.",
+      "opsi": [
+        "at",
+        "in",
+        "on",
+        "to"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 12,
+      "kategori": "Structure",
+      "teks": "The students ____ studying when the teacher entered.",
+      "hint": "Plural subject menggunakan were.",
+      "opsi": [
+        "is",
+        "was",
+        "were",
+        "be"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 13,
+      "kategori": "Vocabulary",
+      "teks": "The word 'purchase' is closest in meaning to ____.",
+      "hint": "'Purchase' berarti membeli.",
+      "opsi": [
+        "sell",
+        "buy",
+        "borrow",
+        "rent"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 14,
+      "kategori": "Reading",
+      "teks": "Which word means 'not common'?",
+      "hint": "'Rare' berarti jarang atau tidak umum.",
+      "opsi": [
+        "usual",
+        "rare",
+        "daily",
+        "normal"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 15,
+      "kategori": "Structure",
+      "teks": "She ____ television when I called her.",
+      "hint": "Past continuous digunakan untuk aksi yang sedang berlangsung.",
+      "opsi": [
+        "watch",
+        "watched",
+        "was watching",
+        "watching"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 16,
+      "kategori": "Structure",
+      "teks": "Many people ____ to the concert last night.",
+      "hint": "Last night menunjukkan past tense.",
+      "opsi": [
+        "go",
+        "goes",
+        "went",
+        "gone"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 17,
+      "kategori": "Vocabulary",
+      "teks": "The opposite of 'increase' is ____.",
+      "hint": "'Reduce' adalah lawan kata increase.",
+      "opsi": [
+        "expand",
+        "reduce",
+        "improve",
+        "develop"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 18,
+      "kategori": "Reading",
+      "teks": "What is the synonym of 'difficult'?",
+      "hint": "'Hard' sinonim dari difficult.",
+      "opsi": [
+        "easy",
+        "hard",
+        "simple",
+        "light"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 19,
+      "kategori": "Structure",
+      "teks": "I have lived here ____ 2018.",
+      "hint": "Since digunakan untuk titik waktu.",
+      "opsi": [
+        "for",
+        "since",
+        "during",
+        "from"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 20,
+      "kategori": "Structure",
+      "teks": "The homework ____ by the students yesterday.",
+      "hint": "Passive voice past tense.",
+      "opsi": [
+        "completed",
+        "was completed",
+        "completing",
+        "completes"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 21,
+      "kategori": "Vocabulary",
+      "teks": "The word 'tiny' is closest in meaning to ____.",
+      "hint": "'Tiny' berarti kecil.",
+      "opsi": [
+        "huge",
+        "small",
+        "wide",
+        "long"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 22,
+      "kategori": "Reading",
+      "teks": "What does 'generous' mean?",
+      "hint": "'Generous' berarti dermawan.",
+      "opsi": [
+        "kind and giving",
+        "angry",
+        "selfish",
+        "lazy"
+      ],
+      "jawaban": 0
+    },
+    {
+      "id": 23,
+      "kategori": "Structure",
+      "teks": "He can ____ very fast.",
+      "hint": "Modal verb diikuti verb 1.",
+      "opsi": [
+        "runs",
+        "ran",
+        "run",
+        "running"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 24,
+      "kategori": "Structure",
+      "teks": "There ____ many books on the shelf.",
+      "hint": "Plural noun menggunakan are.",
+      "opsi": [
+        "is",
+        "are",
+        "was",
+        "be"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 25,
+      "kategori": "Vocabulary",
+      "teks": "The opposite of 'success' is ____.",
+      "hint": "'Failure' adalah lawan kata success.",
+      "opsi": [
+        "victory",
+        "failure",
+        "progress",
+        "achievement"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 26,
+      "kategori": "Reading",
+      "teks": "What is the synonym of 'silent'?",
+      "hint": "'Quiet' sinonim dari silent.",
+      "opsi": [
+        "quiet",
+        "loud",
+        "bright",
+        "happy"
+      ],
+      "jawaban": 0
+    },
+    {
+      "id": 27,
+      "kategori": "Structure",
+      "teks": "She has ____ her assignment already.",
+      "hint": "Present perfect menggunakan V3.",
+      "opsi": [
+        "finish",
+        "finished",
+        "finishing",
+        "finishes"
+      ],
+      "jawaban": 1
+    },
+    {
+      "id": 28,
+      "kategori": "Structure",
+      "teks": "The car ____ by my father every week.",
+      "hint": "Passive voice simple present.",
+      "opsi": [
+        "wash",
+        "washed",
+        "is washed",
+        "washing"
+      ],
+      "jawaban": 2
+    },
+    {
+      "id": 29,
+      "kategori": "Vocabulary",
+      "teks": "The word 'assist' is closest in meaning to ____.",
+      "hint": "'Assist' berarti membantu.",
+      "opsi": [
+        "help",
+        "ignore",
+        "fight",
+        "leave"
+      ],
+      "jawaban": 0
+    },
+    {
+      "id": 30,
+      "kategori": "Reading",
+      "teks": "What does 'honest' mean?",
+      "hint": "'Honest' berarti jujur.",
+      "opsi": [
+        "truthful",
+        "dishonest",
+        "angry",
+        "rude"
+      ],
+      "jawaban": 0
+    }
+  ]
+}
