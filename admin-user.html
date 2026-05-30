@@ -460,7 +460,9 @@ async function submitAdminGate() {
       document.getElementById('auth-gate-overlay').classList.remove('visible');
       loadUsers();
     } else {
+      const data = await res.json().catch(() => ({}));
       errEl.style.display = 'block';
+      errEl.innerHTML = `<i class='bx bx-error-circle'></i> ${data.error || 'Admin key salah atau tidak valid.'}`;
     }
   } catch(e) {
     errEl.style.display = 'block';
