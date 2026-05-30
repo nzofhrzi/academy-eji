@@ -2,7 +2,15 @@
 // Sistem autentikasi Academy Eji
 // Actions: register, login, verify, upgrade, list-users, delete-user
 // Storage: GitHub API (users.json) — pola sama seperti save-data.js
-// Versi: 2.0.0
+// Versi: 2.1.0
+
+const { webcrypto } = require('crypto');
+const crypto = webcrypto;
+const { Buffer } = require('buffer');
+
+// Polyfill atob/btoa untuk Node.js
+const atob = (str) => Buffer.from(str, 'base64').toString('utf-8');
+const btoa = (str) => Buffer.from(str, 'utf-8').toString('base64');
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
