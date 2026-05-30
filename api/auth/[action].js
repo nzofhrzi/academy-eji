@@ -4,15 +4,15 @@
 // Storage: GitHub API (users.json) — pola sama seperti save-data.js
 // Versi: 2.1.0
 
-const { webcrypto } = require('crypto');
-const crypto = webcrypto;
-const { Buffer } = require('buffer');
 
-// Polyfill atob/btoa untuk Node.js
+import { webcrypto } from 'crypto';
+import { Buffer } from 'buffer';
+
+const crypto = webcrypto;
 const atob = (str) => Buffer.from(str, 'base64').toString('utf-8');
 const btoa = (str) => Buffer.from(str, 'utf-8').toString('base64');
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
