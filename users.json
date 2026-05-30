@@ -17,6 +17,12 @@
       "username": "Satoshi Nakamoto",
       "role": "tamu",
       "created_at": "2026-05-30T07:28:30.314Z"
+    },
+    {
+      "id": "usr_1780126232972",
+      "username": "Enzo Fahrezi",
+      "role": "tamu",
+      "created_at": "2026-05-30T07:30:32.972Z"
     }
   ]
 }
