@@ -46,6 +46,12 @@
       "role": "vip",
       "created_at": "2026-05-30T14:56:26.213Z",
       "upgraded_at": "2026-05-30T15:13:04.047Z"
+    },
+    {
+      "id": "usr_1780181641803",
+      "username": "Ilham",
+      "role": "tamu",
+      "created_at": "2026-05-30T22:54:01.803Z"
     }
   ]
 }
