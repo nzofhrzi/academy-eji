@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Academy Eji - Mengerjakan Tes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root {
+  --primary:#2563eb;--primary-light:#eff6ff;--primary-dark:#1d4ed8;
+  --accent:#f97316;--success:#10b981;--warn:#f59e0b;--danger:#ef4444;
+  --sidebar-w:260px;--header-h:70px;--radius:12px;
+  --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  --bg:#f3f4f6;--surface:#ffffff;--surface2:#f8fafc;--border:#e2e8f0;
+  --ink:#0f172a;--ink2:#334155;--ink3:#64748b;--ink4:#94a3b8;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,0.05);
+  --shadow-lg:0 10px 25px -3px rgba(0,0,0,0.08);
+}
+[data-theme="dark"] {
+  --bg:#0f172a;--surface:#1e293b;--surface2:#334155;--border:#334155;
+  --ink:#f8fafc;--ink2:#cbd5e1;--ink3:#94a3b8;--ink4:#64748b;
+  --primary-light:#1e3a8a;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,0.4);
+  --shadow-lg:0 10px 25px -3px rgba(0,0,0,0.5);
+}
+body { font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;font-size:14px;transition:background-color 0.3s,color 0.3s; }
+
+/* ── TOPBAR (full width, no sidebar) ── */
+#topbar {
+  height:var(--header-h);background:var(--surface);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 30px;position:sticky;top:0;z-index:50;
+  box-shadow:var(--shadow-sm);
+}
+.tb-left { display:flex;align-items:center;gap:16px; }
+.tb-brand { display:flex;align-items:center;gap:10px; }
+.logo-icon { width:34px;height:34px;background:linear-gradient(135deg,var(--primary),#60a5fa);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px; }
+.logo-text { font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-0.5px; }
+.logo-text span { color:var(--primary); }
+.tb-divider { width:1px;height:28px;background:var(--border); }
+.tb-tes-label { font-size:13px;color:var(--ink3); }
+.tb-tes-name { font-size:15px;font-weight:700;color:var(--ink); }
+
+.tb-right { display:flex;align-items:center;gap:20px; }
+
+/* TIMER */
+.timer-wrap {
+  display:flex;align-items:center;gap:10px;
+  padding:8px 18px;border-radius:20px;
+  background:var(--surface2);border:1.5px solid var(--border);
+  transition:all 0.3s;
+}
+.timer-wrap.warn { border-color:#f59e0b;background:#fffbeb; }
+.timer-wrap.danger { border-color:#ef4444;background:#fef2f2;animation:pulse 1s infinite; }
+[data-theme="dark"] .timer-wrap.warn { background:#1c1004;border-color:#d97706; }
+[data-theme="dark"] .timer-wrap.danger { background:#1a0808; }
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.03)} }
+.timer-icon { font-size:18px;color:var(--ink3); }
+.timer-wrap.warn .timer-icon { color:#d97706; }
+.timer-wrap.danger .timer-icon { color:#ef4444; }
+#timer-display { font-size:16px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:0.02em; }
+.timer-wrap.warn #timer-display { color:#d97706; }
+.timer-wrap.danger #timer-display { color:#ef4444; }
+
+.icon-btn { width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--ink2);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:var(--transition); }
+.icon-btn:hover { background:var(--bg);color:var(--primary); }
+
+/* ── PROGRESS BAR ── */
+#progress-bar-wrap {
+  height:4px;background:var(--border);position:sticky;top:var(--header-h);z-index:49;
+}
+#progress-bar {
+  height:100%;background:linear-gradient(90deg,var(--primary),#60a5fa);
+  transition:width 0.4s ease;
+  border-radius:0 4px 4px 0;
+}
+
+/* ── MAIN LAYOUT ── */
+#main-layout {
+  display:grid;
+  grid-template-columns:1fr 300px;
+  gap:24px;
+  padding:30px;
+  max-width:1200px;
+  margin:0 auto;
+  min-height:calc(100vh - var(--header-h) - 4px);
+  align-items:start;
+}
+
+/* ── SOAL PANEL ── */
+.soal-panel {
+  background:var(--surface);border:1px solid var(--border);border-radius:20px;
+  overflow:hidden;box-shadow:var(--shadow-md);
+}
+
+.soal-header {
+  padding:24px 32px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--surface2);
+}
+.soal-counter { font-size:13px;color:var(--ink3);font-weight:500; }
+.soal-counter strong { color:var(--ink);font-size:15px; }
+.soal-tags { display:flex;gap:8px; }
+.soal-tag {
+  padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;
+  background:var(--primary-light);color:var(--primary);
+}
+
+.soal-body { padding:32px; }
+.soal-text {
+  font-family:'Lora',serif;
+  font-size:18px;line-height:1.7;color:var(--ink);
+  margin-bottom:28px;
+}
+.soal-hint {
+  font-size:13px;color:var(--ink3);margin-bottom:24px;
+  padding:12px 16px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);
+  font-style:italic;
+}
+
+/* OPTIONS */
+.options-list { display:flex;flex-direction:column;gap:12px; }
+.option-item {
+  display:flex;align-items:center;gap:16px;
+  padding:16px 20px;border-radius:14px;
+  border:1.5px solid var(--border);
+  cursor:pointer;transition:var(--transition);
+  background:var(--surface);
+  position:relative;overflow:hidden;
+}
+.option-item:hover { border-color:var(--primary);background:var(--primary-light);transform:translateX(4px); }
+.option-item.selected { border-color:var(--primary);background:var(--primary-light); }
+.option-item.selected .opt-letter { background:var(--primary);color:#fff;border-color:var(--primary); }
+.opt-letter {
+  width:36px;height:36px;border-radius:10px;
+  border:1.5px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:var(--ink3);
+  flex-shrink:0;transition:var(--transition);
+}
+.opt-text { font-size:14px;color:var(--ink2);line-height:1.5;transition:color 0.2s; }
+.option-item.selected .opt-text { color:var(--primary);font-weight:500; }
+
+/* SOAL FOOTER */
+.soal-footer {
+  padding:20px 32px;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--surface2);
+  gap:12px;
+}
+.btn { display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;font-family:'Sora',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:var(--transition); }
+.btn-outline { background:transparent;border:1.5px solid var(--border);color:var(--ink2); }
+.btn-outline:hover { background:var(--border);color:var(--ink); }
+.btn-outline:disabled { opacity:0.4;cursor:not-allowed;transform:none !important; }
+.btn-primary { background:var(--primary);color:#fff; }
+.btn-primary:hover { background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 4px 12px rgba(37,99,235,0.3); }
+.btn-danger { background:var(--danger);color:#fff; }
+.btn-danger:hover { background:#b91c1c;transform:translateY(-2px);box-shadow:0 4px 12px rgba(239,68,68,0.3); }
+.btn-skip { background:transparent;border:1.5px solid var(--warn);color:var(--warn);font-size:12px;padding:8px 14px; }
+.btn-skip:hover { background:#fffbeb; }
+[data-theme="dark"] .btn-skip:hover { background:#1c1004; }
+
+/* ── SIDEBAR PANEL ── */
+.sidebar-panel { position:sticky;top:calc(var(--header-h) + 30px); }
+
+.nav-panel {
+  background:var(--surface);border:1px solid var(--border);border-radius:16px;
+  overflow:hidden;box-shadow:var(--shadow-sm);margin-bottom:16px;
+}
+.nav-panel-header {
+  padding:16px 20px;border-bottom:1px solid var(--border);
+  font-size:13px;font-weight:700;color:var(--ink);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-legend { display:flex;gap:10px;margin-bottom:14px;padding:0 20px;flex-wrap:wrap; }
+.legend-item { display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink3); }
+.legend-dot { width:10px;height:10px;border-radius:3px; }
+.ld-dijawab { background:var(--primary); }
+.ld-aktif { background:var(--accent); }
+.ld-belum { background:var(--border); }
+
+.nav-grid {
+  display:grid;grid-template-columns:repeat(5,1fr);gap:8px;
+  padding:0 20px 20px;
+}
+.nav-btn {
+  aspect-ratio:1;border-radius:8px;border:1.5px solid var(--border);
+  background:var(--surface2);font-size:12px;font-weight:600;
+  color:var(--ink3);cursor:pointer;transition:var(--transition);
+  display:flex;align-items:center;justify-content:center;
+}
+.nav-btn:hover { border-color:var(--primary);color:var(--primary); }
+.nav-btn.aktif { border-color:var(--accent);background:#fff7ed;color:#c2410c; }
+[data-theme="dark"] .nav-btn.aktif { background:#431407;color:#fb923c; }
+.nav-btn.dijawab { border-color:var(--primary);background:var(--primary);color:#fff; }
+.nav-btn.ditandai { border-color:var(--warn);background:#fffbeb;color:#d97706; position:relative; }
+[data-theme="dark"] .nav-btn.ditandai { background:#1c1004; }
+.nav-btn.ditandai::after { content:'★';position:absolute;top:-3px;right:-3px;font-size:9px;color:var(--warn); }
+
+/* Progress info */
+.progress-panel {
+  background:var(--surface);border:1px solid var(--border);border-radius:16px;
+  padding:20px;box-shadow:var(--shadow-sm);margin-bottom:16px;
+}
+.prog-title { font-size:12px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px; }
+.prog-row { display:flex;justify-content:space-between;align-items:center;margin-bottom:8px; }
+.prog-label { font-size:12px;color:var(--ink3); }
+.prog-val { font-size:13px;font-weight:700;color:var(--ink); }
+.prog-bar-wrap { height:6px;background:var(--border);border-radius:10px;overflow:hidden;margin-top:10px; }
+.prog-bar-fill { height:100%;background:linear-gradient(90deg,var(--primary),#60a5fa);border-radius:10px;transition:width 0.4s ease; }
+
+/* Tandai soal */
+.btn-tandai {
+  width:100%;padding:10px;border-radius:10px;
+  border:1.5px solid var(--warn);
+  background:transparent;color:var(--warn);
+  font-family:'Sora',sans-serif;font-size:12px;font-weight:600;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:var(--transition);
+}
+.btn-tandai:hover,.btn-tandai.active { background:#fffbeb;border-color:var(--warn); }
+[data-theme="dark"] .btn-tandai:hover,[data-theme="dark"] .btn-tandai.active { background:#1c1004; }
+.btn-tandai.active { color:#d97706; }
+
+/* SUBMIT MODAL */
+#modal-overlay {
+  position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  opacity:0;pointer-events:none;transition:all 0.3s;backdrop-filter:blur(5px);
+}
+#modal-overlay.open { opacity:1;pointer-events:all; }
+#modal {
+  background:var(--surface);border-radius:20px;box-shadow:var(--shadow-lg);
+  width:100%;max-width:460px;
+  transform:translateY(30px) scale(0.95);transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  overflow:hidden;
+}
+#modal-overlay.open #modal { transform:translateY(0) scale(1); }
+.modal-header {
+  padding:28px 28px 0;text-align:center;
+}
+.modal-icon {
+  width:64px;height:64px;border-radius:20px;
+  background:linear-gradient(135deg,var(--primary),#60a5fa);
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px;color:#fff;margin:0 auto 16px;
+  box-shadow:0 8px 24px rgba(37,99,235,0.3);
+}
+.modal-title { font-family:'Lora',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:8px; }
+.modal-sub { font-size:13px;color:var(--ink3);line-height:1.6; }
+.modal-stats {
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  padding:24px 28px;
+}
+.ms-item { text-align:center;padding:14px;border-radius:12px;background:var(--surface2);border:1px solid var(--border); }
+.ms-val { font-size:20px;font-weight:700;color:var(--ink); }
+.ms-label { font-size:11px;color:var(--ink3);margin-top:2px; }
+.modal-actions { display:flex;gap:12px;padding:0 28px 28px; }
+.modal-actions .btn { flex:1;justify-content:center; }
+
+/* ANIMATE */
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.soal-panel { animation:fadeUp 0.35s ease both; }
+
+/* RESPONSIVE */
+@media(max-width:900px) {
+  #main-layout { grid-template-columns:1fr; }
+  .sidebar-panel { position:static; }
+}
+@media(max-width:600px) {
+  #main-layout { padding:16px; gap:16px; }
+  .soal-body { padding:20px; }
+  .soal-footer { flex-wrap:wrap; }
+  #topbar { padding:0 16px; }
+  .tb-right { gap:12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+
+<!-- LOADING SCREEN -->
+<div id="loading-screen" style="position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:16px;">
+  <div style="width:48px;height:48px;border:4px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+  <div style="font-size:15px;font-weight:600;color:var(--ink);">Memuat soal...</div>
+  <div style="font-size:13px;color:var(--ink3);">Mengambil data dari server</div>
+</div>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
+<div id="tes-wrap">
+<div id="topbar">
+  <div class="tb-left">
+    <div class="tb-brand">
+      <div class="logo-icon"><i class='bx bxs-graduation'></i></div>
+      <div class="logo-text">Academy<span>Eji.</span></div>
+    </div>
+    <div class="tb-divider"></div>
+    <div>
+      <div class="tb-tes-label">Sedang mengerjakan</div>
+      <div class="tb-tes-name" id="tes-name-label">Memuat...</div>
+    </div>
+  </div>
+  <div class="tb-right">
+    <div class="timer-wrap" id="timer-wrap">
+      <i class='bx bx-time-five timer-icon'></i>
+      <span id="timer-display">--:--</span>
+    </div>
+    <button class="icon-btn" id="theme-toggle" title="Toggle Dark Mode"><i class='bx bx-moon'></i></button>
+  </div>
+</div>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar-wrap">
+  <div id="progress-bar" style="width:0%"></div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div id="main-layout">
+
+  <!-- SOAL PANEL -->
+  <div class="soal-panel">
+    <div class="soal-header">
+      <div class="soal-counter">Soal <strong id="soal-current">1</strong> dari <strong id="soal-total">—</strong></div>
+      <div class="soal-tags">
+        <span class="soal-tag" id="soal-kategori">—</span>
+      </div>
+    </div>
+
+    <div class="soal-body">
+      <div class="soal-text" id="soal-text">Memuat soal...</div>
+      <div class="soal-hint" id="soal-hint" style="display:none;"></div>
+      <div class="options-list" id="options-list"></div>
+    </div>
+
+    <div class="soal-footer">
+      <button class="btn btn-outline" id="btn-prev" onclick="navSoal(-1)">
+        <i class='bx bx-left-arrow-alt'></i> Sebelumnya
+      </button>
+      <button class="btn btn-skip" id="btn-skip" onclick="skipSoal()">
+        <i class='bx bx-skip-next'></i> Lewati
+      </button>
+      <button class="btn btn-primary" id="btn-next" onclick="navSoal(1)">
+        Selanjutnya <i class='bx bx-right-arrow-alt'></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- SIDEBAR PANEL -->
+  <div class="sidebar-panel">
+
+    <!-- Progress Info -->
+    <div class="progress-panel">
+      <div class="prog-title">Progres</div>
+      <div class="prog-row">
+        <span class="prog-label">Dijawab</span>
+        <span class="prog-val" id="prog-dijawab">0 / 0</span>
+      </div>
+      <div class="prog-row">
+        <span class="prog-label">Dilewati</span>
+        <span class="prog-val" id="prog-skip">0</span>
+      </div>
+      <div class="prog-bar-wrap">
+        <div class="prog-bar-fill" id="prog-bar-fill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- Tombol Tandai -->
+    <button class="btn-tandai" id="btn-tandai" onclick="tandaiSoal()" style="margin-bottom:16px;">
+      <i class='bx bx-bookmark'></i> Tandai Soal Ini
+    </button>
+
+    <!-- Navigasi Soal -->
+    <div class="nav-panel">
+      <div class="nav-panel-header">
+        <span>Navigasi Soal</span>
+      </div>
+      <div class="nav-legend">
+        <div class="legend-item"><div class="legend-dot ld-dijawab"></div> Dijawab</div>
+        <div class="legend-item"><div class="legend-dot ld-aktif" style="background:var(--accent)"></div> Aktif</div>
+        <div class="legend-item"><div class="legend-dot ld-belum"></div> Belum</div>
+      </div>
+      <div class="nav-grid" id="nav-grid"></div>
+    </div>
+
+    <!-- Tombol Submit -->
+    <button class="btn btn-danger" onclick="openSubmitModal()" style="width:100%;justify-content:center;">
+      <i class='bx bx-check-circle'></i> Kumpulkan Jawaban
+    </button>
+
+  </div>
+</div>
+
+<!-- SUBMIT MODAL -->
+<div id="modal-overlay">
+  <div id="modal">
+    <div class="modal-header">
+      <div class="modal-icon"><i class='bx bx-send'></i></div>
+      <div class="modal-title">Kumpulkan Jawaban?</div>
+      <p class="modal-sub">Pastikan kamu sudah menjawab semua soal sebelum mengumpulkan.</p>
+    </div>
+    <div class="modal-stats">
+      <div class="ms-item">
+        <div class="ms-val" id="ms-dijawab">0</div>
+        <div class="ms-label">Dijawab</div>
+      </div>
+      <div class="ms-item">
+        <div class="ms-val" id="ms-belum">0</div>
+        <div class="ms-label">Belum dijawab</div>
+      </div>
+      <div class="ms-item">
+        <div class="ms-val" id="ms-ditandai">0</div>
+        <div class="ms-label">Ditandai</div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal()"><i class='bx bx-x'></i> Kembali</button>
+      <button class="btn btn-primary" onclick="submitTes()"><i class='bx bx-check'></i> Ya, Kumpulkan</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- #tes-wrap -->
+
+<script>
+// ── THEME ──
+const htmlEl = document.documentElement;
+const themeToggle = document.getElementById('theme-toggle');
+if (localStorage.getItem('theme') === 'dark') {
+  htmlEl.setAttribute('data-theme','dark');
+  themeToggle.innerHTML = "<i class='bx bx-sun'></i>";
+}
+themeToggle.addEventListener('click', () => {
+  if (htmlEl.getAttribute('data-theme') === 'dark') {
+    htmlEl.setAttribute('data-theme','light');
+    themeToggle.innerHTML = "<i class='bx bx-moon'></i>";
+    localStorage.setItem('theme','light');
+  } else {
+    htmlEl.setAttribute('data-theme','dark');
+    themeToggle.innerHTML = "<i class='bx bx-sun'></i>";
+    localStorage.setItem('theme','dark');
+  }
+});
+
+// ── PARAMS ──
+const urlP = new URLSearchParams(window.location.search);
+const tesKey = urlP.get('tes') || 'toefl';
+const pesertaNama = sessionStorage.getItem('peserta_nama') || urlP.get('nama') || 'Peserta';
+
+// Fallback durasi (jika API tidak mengembalikan)
+const DURASI_DEFAULT = { toefl: 3600, iq: 2700, ukbi: 4500, reading: 1800 };
+
+// ── GLOBAL STATE ──
+let tes = null;
+let state = null;
+
+// ── HIDE TES WRAP, SHOW LOADING ──
+document.getElementById('tes-wrap').style.display = 'none';
+
+// ── FETCH SOAL DARI API ──
+async function initTes() {
+  const loadingEl = document.getElementById('loading-screen');
+  try {
+    const res = await fetch(`/api/ujicoba/get-soal?tes=${tesKey}`);
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`HTTP ${res.status}: ${errText}`);
+    }
+    tes = await res.json();
+    if (!tes.durasi) tes.durasi = DURASI_DEFAULT[tesKey] || 3600;
+    if (!tes.soal || !tes.soal.length) throw new Error('Data soal kosong.');
+
+    state = {
+      soalIdx: 0,
+      jawaban: {},
+      ditandai: new Set(),
+      dilewati: new Set(),
+      timeLeft: tes.durasi,
+      timerInterval: null,
+      submitted: false
+    };
+
+    // Load saved state (sessionStorage — tidak permanen)
+    const saved = sessionStorage.getItem(`tes_state_${tesKey}`);
+    if (saved) {
+      try {
+        const s = JSON.parse(saved);
+        state.jawaban = s.jawaban || {};
+        state.ditandai = new Set(s.ditandai || []);
+        state.dilewati = new Set(s.dilewati || []);
+        state.timeLeft = s.timeLeft ?? tes.durasi;
+      } catch(e) {}
+    }
+
+    // Tampilkan tes
+    loadingEl.style.display = 'none';
+    document.getElementById('tes-wrap').style.display = 'block';
+    document.getElementById('tes-name-label').textContent = tes.nama;
+    document.getElementById('soal-total').textContent = tes.soal.length;
+    document.title = `Academy Eji - ${tes.nama}`;
+
+    renderSoal();
+    updateNavGrid();
+    startTimer();
+
+  } catch(err) {
+    loadingEl.innerHTML = `
+      <div style="text-align:center;padding:40px;max-width:400px;">
+        <i class='bx bx-error-circle' style="font-size:52px;color:var(--danger);margin-bottom:16px;display:block;"></i>
+        <div style="font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px;">Gagal Memuat Soal</div>
+        <div style="font-size:13px;color:var(--ink3);margin-bottom:24px;line-height:1.6;">${err.message}</div>
+        <a href="instruksi.html?tes=${tesKey}" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--primary);color:#fff;border-radius:10px;text-decoration:none;font-weight:600;">
+          <i class='bx bx-left-arrow-alt'></i> Kembali ke Instruksi
+        </a>
+      </div>
+    `;
+  }
+}
+
+function saveState() {
+  if (!state) return;
+  sessionStorage.setItem(`tes_state_${tesKey}`, JSON.stringify({
+    jawaban: state.jawaban,
+    ditandai: [...state.ditandai],
+    dilewati: [...state.dilewati],
+    timeLeft: state.timeLeft
+  }));
+}
+
+// ── RENDER SOAL ──
+function renderSoal() {
+  const s = tes.soal[state.soalIdx];
+  if (!s) return;
+
+  document.getElementById('soal-current').textContent = state.soalIdx + 1;
+  document.getElementById('soal-kategori').textContent = s.kategori || '';
+  document.getElementById('soal-text').textContent = s.teks;
+
+  const hintEl = document.getElementById('soal-hint');
+  if (s.hint) {
+    hintEl.style.display = 'block';
+    hintEl.textContent = '💡 ' + s.hint;
+  } else {
+    hintEl.style.display = 'none';
+  }
+
+  const selectedIdx = state.jawaban[s.id] !== undefined ? state.jawaban[s.id] : null;
+  document.getElementById('options-list').innerHTML = s.opsi.map((o, i) => `
+    <div class="option-item ${selectedIdx === i ? 'selected' : ''}" onclick="pilihJawaban(${i})">
+      <div class="opt-letter">${'ABCD'[i]}</div>
+      <div class="opt-text">${o}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('btn-prev').disabled = state.soalIdx === 0;
+  const isLast = state.soalIdx === tes.soal.length - 1;
+  const btnNext = document.getElementById('btn-next');
+  if (isLast) {
+    btnNext.onclick = openSubmitModal;
+    btnNext.className = 'btn btn-danger';
+    btnNext.innerHTML = `Selesai <i class='bx bx-check-double'></i>`;
+  } else {
+    btnNext.onclick = () => navSoal(1);
+    btnNext.className = 'btn btn-primary';
+    btnNext.innerHTML = `Selanjutnya <i class='bx bx-right-arrow-alt'></i>`;
+  }
+
+  const tandaiBtn = document.getElementById('btn-tandai');
+  if (state.ditandai.has(s.id)) {
+    tandaiBtn.classList.add('active');
+    tandaiBtn.innerHTML = "<i class='bx bxs-bookmark'></i> Sudah Ditandai";
+  } else {
+    tandaiBtn.classList.remove('active');
+    tandaiBtn.innerHTML = "<i class='bx bx-bookmark'></i> Tandai Soal Ini";
+  }
+
+  updateProgress();
+  updateNavGrid();
+}
+
+function pilihJawaban(idx) {
+  const s = tes.soal[state.soalIdx];
+  state.jawaban[s.id] = idx;
+  // Hapus dari dilewati jika dijawab
+  state.dilewati.delete(s.id);
+  saveState();
+  renderSoal();
+}
+
+function navSoal(dir) {
+  const newIdx = state.soalIdx + dir;
+  if (newIdx < 0 || newIdx >= tes.soal.length) return;
+  state.soalIdx = newIdx;
+  renderSoal();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goToSoal(idx) {
+  state.soalIdx = idx;
+  renderSoal();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function skipSoal() {
+  const s = tes.soal[state.soalIdx];
+  state.dilewati.add(s.id);
+  saveState();
+  if (state.soalIdx < tes.soal.length - 1) navSoal(1);
+}
+
+function tandaiSoal() {
+  const s = tes.soal[state.soalIdx];
+  if (state.ditandai.has(s.id)) state.ditandai.delete(s.id);
+  else state.ditandai.add(s.id);
+  saveState();
+  renderSoal();
+}
+
+// ── NAV GRID ──
+function updateNavGrid() {
+  const grid = document.getElementById('nav-grid');
+  grid.innerHTML = tes.soal.map((s, i) => {
+    let cls = 'nav-btn';
+    if (i === state.soalIdx) cls += ' aktif';
+    else if (state.jawaban[s.id] !== undefined) cls += ' dijawab';
+    else if (state.ditandai.has(s.id)) cls += ' ditandai';
+    return `<button class="${cls}" onclick="goToSoal(${i})">${i + 1}</button>`;
+  }).join('');
+}
+
+// ── PROGRESS ──
+function updateProgress() {
+  const total = tes.soal.length;
+  const dijawab = Object.keys(state.jawaban).length;
+  const skip = state.dilewati.size;
+  const pct = (dijawab / total) * 100;
+
+  document.getElementById('prog-dijawab').textContent = `${dijawab} / ${total}`;
+  document.getElementById('prog-skip').textContent = skip;
+  document.getElementById('prog-bar-fill').style.width = pct + '%';
+  document.getElementById('progress-bar').style.width = ((state.soalIdx + 1) / total * 100) + '%';
+}
+
+// ── TIMER ──
+function formatTime(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+}
+
+function startTimer() {
+  document.getElementById('timer-display').textContent = formatTime(state.timeLeft);
+  const wrap = document.getElementById('timer-wrap');
+  state.timerInterval = setInterval(() => {
+    if (state.submitted) { clearInterval(state.timerInterval); return; }
+    state.timeLeft--;
+    document.getElementById('timer-display').textContent = formatTime(state.timeLeft);
+    wrap.classList.remove('warn','danger');
+    if (state.timeLeft <= 60) wrap.classList.add('danger');
+    else if (state.timeLeft <= 5 * 60) wrap.classList.add('warn');
+    if (state.timeLeft % 30 === 0) saveState();
+    if (state.timeLeft <= 0) {
+      clearInterval(state.timerInterval);
+      submitTes(true);
+    }
+  }, 1000);
+}
+
+// ── MODAL ──
+function openSubmitModal() {
+  const total = tes.soal.length;
+  const dijawab = Object.keys(state.jawaban).length;
+  document.getElementById('ms-dijawab').textContent = dijawab;
+  document.getElementById('ms-belum').textContent = total - dijawab;
+  document.getElementById('ms-ditandai').textContent = state.ditandai.size;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+// ── SUBMIT ──
+async function submitTes(autoSubmit = false) {
+  if (state.submitted) return;
+  state.submitted = true;
+  clearInterval(state.timerInterval);
+  closeModal();
+
+  let benar = 0;
+  tes.soal.forEach(s => {
+    if (state.jawaban[s.id] === s.jawaban) benar++;
+  });
+
+  const waktuDipakai = tes.durasi - state.timeLeft;
+  const hasil = {
+    tesKey,
+    tesNama: tes.nama,
+    pesertaNama,
+    totalSoal: tes.soal.length,
+    dijawab: Object.keys(state.jawaban).length,
+    benar,
+    waktuDipakai,
+    jawaban: state.jawaban,
+    soal: tes.soal,
+    timestamp: new Date().toISOString()
+  };
+
+  // Simpan ke sessionStorage untuk halaman hasil
+  sessionStorage.setItem(`hasil_${tesKey}`, JSON.stringify(hasil));
+  sessionStorage.removeItem(`tes_state_${tesKey}`);
+
+  // Kirim ke GitHub via API (background)
+  try {
+    fetch('/api/ujicoba/simpan-hasil', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        tesKey,
+        tesNama: tes.nama,
+        pesertaNama,
+        skor: benar,
+        totalSoal: tes.soal.length,
+        waktuDipakai,
+        timestamp: hasil.timestamp
+      })
+    }).catch(e => console.warn('Gagal simpan ke GitHub:', e));
+  } catch(e) {}
+
+  window.location.href = `hasil.html?tes=${tesKey}`;
+}
+
+// ── INIT ──
+initTes();
+</script>
+<script src="../auth.js"></script>
+<script src="../auth-gate.js"></script>
+</body>
+</html>

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Academy Eji - Hasil Tes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root {
+  --primary:#2563eb;--primary-light:#eff6ff;--primary-dark:#1d4ed8;
+  --accent:#f97316;--success:#10b981;--warn:#f59e0b;--danger:#ef4444;
+  --sidebar-w:260px;--header-h:70px;--radius:12px;
+  --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  --bg:#f3f4f6;--surface:#ffffff;--surface2:#f8fafc;--border:#e2e8f0;
+  --ink:#0f172a;--ink2:#334155;--ink3:#64748b;--ink4:#94a3b8;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,0.05);
+  --shadow-lg:0 10px 25px -3px rgba(0,0,0,0.08);
+}
+[data-theme="dark"] {
+  --bg:#0f172a;--surface:#1e293b;--surface2:#334155;--border:#334155;
+  --ink:#f8fafc;--ink2:#cbd5e1;--ink3:#94a3b8;--ink4:#64748b;
+  --primary-light:#1e3a8a;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,0.4);
+  --shadow-lg:0 10px 25px -3px rgba(0,0,0,0.5);
+}
+body { font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex;font-size:14px;transition:background-color 0.3s,color 0.3s; }
+
+/* SIDEBAR */
+#sidebar { width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;z-index:50;transition:transform 0.3s; }
+.sidebar-logo { height:var(--header-h);display:flex;align-items:center;gap:12px;padding:0 24px;border-bottom:1px solid var(--border); }
+.logo-icon { width:36px;height:36px;background:linear-gradient(135deg,var(--primary),#60a5fa);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;flex-shrink:0;box-shadow:0 4px 10px rgba(37,99,235,0.3); }
+.logo-text { font-size:18px;font-weight:700;color:var(--ink);letter-spacing:-0.5px; }
+.logo-text span { color:var(--primary); }
+.sidebar-scroll { flex:1;overflow-y:auto;padding-top:10px; }
+.sidebar-scroll::-webkit-scrollbar { width:6px; }
+.sidebar-scroll::-webkit-scrollbar-thumb { background:var(--border);border-radius:10px; }
+.sidebar-section { padding:16px 24px 8px;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink4); }
+.nav-item { display:flex;align-items:center;gap:12px;padding:10px 16px;border-radius:10px;cursor:pointer;color:var(--ink2);font-size:14px;font-weight:500;transition:var(--transition);margin:4px 12px;text-decoration:none; }
+.nav-item:hover { background:var(--surface2);color:var(--ink);transform:translateX(4px); }
+.nav-item.active { background:var(--primary-light);color:var(--primary);font-weight:600; }
+.nav-item .nav-icon { font-size:20px;flex-shrink:0; }
+.sidebar-footer { padding:20px;border-top:1px solid var(--border); }
+.user-profile { display:flex;align-items:center;gap:12px; }
+.user-avatar { width:40px;height:40px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--primary); }
+.user-name { font-size:13px;font-weight:600;color:var(--ink); }
+.user-role { font-size:11px;color:var(--ink3); }
+
+/* WRAPPER */
+#wrapper { margin-left:var(--sidebar-w);flex:1;min-height:100vh;display:flex;flex-direction:column; }
+#topbar { height:var(--header-h);background:rgba(255,255,255,0.8);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:40; }
+[data-theme="dark"] #topbar { background:rgba(30,41,59,0.8); }
+.topbar-left { display:flex;align-items:center;gap:16px; }
+.page-title { font-size:18px;font-weight:600;color:var(--ink); }
+.breadcrumb { font-size:13px;color:var(--ink4);display:flex;align-items:center;gap:6px; }
+.topbar-right { display:flex;align-items:center;gap:16px; }
+.icon-btn { width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--ink2);display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;transition:var(--transition); }
+.icon-btn:hover { background:var(--bg);color:var(--primary);transform:translateY(-2px); }
+
+#main { padding:30px;flex:1;max-width:900px;width:100%; }
+
+/* SCORE HERO */
+.score-hero {
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;box-shadow:var(--shadow-md);
+  margin-bottom:24px;
+  animation:fadeUp 0.4s ease both;
+}
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+.score-banner {
+  padding:40px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.score-banner::before {
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,#1e40af,#3b82f6,#60a5fa);
+  opacity:1;
+}
+.score-banner > * { position:relative;z-index:1; }
+
+.score-grade {
+  display:inline-flex;align-items:center;justify-content:center;
+  width:100px;height:100px;border-radius:50%;
+  background:rgba(255,255,255,0.2);
+  border:3px solid rgba(255,255,255,0.4);
+  font-family:'Lora',serif;font-size:40px;font-weight:700;color:#fff;
+  margin-bottom:20px;
+  backdrop-filter:blur(10px);
+}
+.score-pct { font-size:52px;font-weight:700;color:#fff;line-height:1; }
+.score-pct span { font-size:24px;opacity:0.8; }
+.score-label { font-size:14px;color:rgba(255,255,255,0.8);margin-top:6px; }
+.score-predikat {
+  display:inline-block;margin-top:12px;
+  padding:6px 18px;border-radius:20px;
+  background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);
+  font-size:13px;font-weight:600;color:#fff;
+  backdrop-filter:blur(4px);
+}
+
+.score-stats {
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border);
+}
+.ss-item {
+  padding:20px;text-align:center;
+  border-right:1px solid var(--border);
+}
+.ss-item:last-child { border-right:none; }
+.ss-val { font-size:22px;font-weight:700;color:var(--ink); }
+.ss-val.green { color:var(--success); }
+.ss-val.red { color:var(--danger); }
+.ss-val.blue { color:var(--primary); }
+.ss-label { font-size:11px;color:var(--ink3);margin-top:4px; }
+
+/* REVIEW */
+.review-section {
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;overflow:hidden;box-shadow:var(--shadow-sm);
+  margin-bottom:24px;
+  animation:fadeUp 0.4s ease 0.15s both;
+}
+.review-header {
+  padding:20px 24px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:var(--ink);
+}
+.review-header i { color:var(--primary); }
+
+.review-item {
+  padding:20px 24px;border-bottom:1px solid var(--border);
+  transition:background 0.2s;
+}
+.review-item:last-child { border-bottom:none; }
+.review-item:hover { background:var(--surface2); }
+
+.ri-top { display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px; }
+.ri-num { font-size:11px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:0.05em; }
+.ri-status {
+  display:flex;align-items:center;gap:6px;
+  padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;flex-shrink:0;
+}
+.rs-benar { background:#ecfdf5;color:#059669; }
+.rs-salah { background:#fef2f2;color:#dc2626; }
+.rs-skip { background:#f5f3ff;color:#7c3aed; }
+[data-theme="dark"] .rs-benar { background:#022c22;color:#6ee7b7; }
+[data-theme="dark"] .rs-salah { background:#1a0808;color:#fca5a5; }
+[data-theme="dark"] .rs-skip { background:#1e0a45;color:#c4b5fd; }
+
+.ri-teks { font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:12px; }
+.ri-opsi { display:flex;flex-direction:column;gap:6px; }
+.ro-item {
+  display:flex;align-items:center;gap:10px;
+  padding:8px 12px;border-radius:8px;border:1px solid var(--border);
+  font-size:12px;
+}
+.ro-item.jawaban-benar { background:#ecfdf5;border-color:#10b981;color:#065f46;font-weight:600; }
+.ro-item.jawaban-salah { background:#fef2f2;border-color:#ef4444;color:#991b1b; }
+[data-theme="dark"] .ro-item.jawaban-benar { background:#022c22;border-color:#059669;color:#6ee7b7; }
+[data-theme="dark"] .ro-item.jawaban-salah { background:#1a0808;border-color:#dc2626;color:#fca5a5; }
+.ro-letter { width:22px;height:22px;border-radius:6px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0; }
+.ro-item.jawaban-benar .ro-letter { background:#10b981;color:#fff; }
+.ro-item.jawaban-salah .ro-letter { background:#ef4444;color:#fff; }
+
+/* ACTION BUTTONS */
+.action-row {
+  display:flex;gap:12px;flex-wrap:wrap;
+  animation:fadeUp 0.4s ease 0.25s both;
+}
+.btn { display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:10px;font-family:'Sora',sans-serif;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:var(--transition);text-decoration:none; }
+.btn-outline { background:transparent;border:1.5px solid var(--border);color:var(--ink2); }
+.btn-outline:hover { background:var(--border);color:var(--ink); }
+.btn-primary { background:var(--primary);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.2); }
+.btn-primary:hover { background:var(--primary-dark);transform:translateY(-2px); }
+.btn-success { background:var(--success);color:#fff; }
+.btn-success:hover { background:#059669;transform:translateY(-2px); }
+
+/* RESPONSIVE */
+#sidebar-toggle { display:none;background:transparent;border:none;font-size:28px;cursor:pointer;color:var(--ink); }
+#sidebar-overlay { display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:49;backdrop-filter:blur(2px); }
+@media(max-width:992px) {
+  #sidebar{transform:translateX(-100%);}
+  #sidebar.open{transform:translateX(0);}
+  #sidebar-overlay.open{display:block;}
+  #wrapper{margin-left:0;}
+  #sidebar-toggle{display:block;}
+}
+@media(max-width:640px) {
+  .score-stats{grid-template-columns:repeat(2,1fr);}
+  .ss-item:nth-child(2){border-right:none;}
+  #main{padding:14px;}
+  .score-card{padding:18px 14px;}
+  .action-row{flex-direction:column;gap:8px;}
+  .action-row .btn{width:100%;justify-content:center;}
+}
+@media(max-width:420px) {
+  #main{padding:10px;}
+  .score-stats{grid-template-columns:1fr 1fr;}
+  .ss-val{font-size:20px;}
+  .review-header{padding:12px 14px;font-size:13px;}
+}
+</style>
+</head>
+<body>
+
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon"><i class='bx bxs-graduation'></i></div>
+    <div class="logo-text">Academy<span>Eji.</span></div>
+  </div>
+  <div class="sidebar-scroll">
+    <div class="sidebar-section">Menu Utama</div>
+    <a class="nav-item" href="../index.html"><i class='bx bx-grid-alt nav-icon'></i> Dashboard</a>
+    <a class="nav-item" href="index.html"><i class='bx bx-trophy nav-icon'></i> Kelas Uji Coba</a>
+    <a class="nav-item" href="../config.html"><i class='bx bx-info-circle nav-icon'></i> Tentang Kami</a>
+      <a class="nav-item" id="nav-upgrade-vip" href="../premium/index.html" style="color:#d97706;display:none;"><i class='bx bxs-crown nav-icon'></i> Upgrade Premium</a>
+    <div class="sidebar-section" style="margin-top:15px;">Manajemen</div>
+    <a class="nav-item" href="../admin.html"><i class='bx bx-user-pin nav-icon'></i> Admin Panel</a>
+    <a class="nav-item" href="admin-soal.html"><i class='bx bx-edit nav-icon'></i> Kelola Soal</a>
+    <div class="sidebar-section" style="margin-top:15px;">Analitik</div>
+    <a class="nav-item" href="../analytics.html"><i class='bx bx-bar-chart-alt-2 nav-icon'></i> Traffic Klik</a>
+  </div>
+  <div class="sidebar-footer">
+    <div class="user-profile">
+      <div class="user-avatar"><i class='bx bxs-user'></i></div>
+      <div class="user-info">
+        <span class="user-name">Admin Eji</span>
+        <span class="user-role">Super Admin</span>
+      </div>
+    </div>
+  </div>
+</nav>
+<div id="sidebar-overlay"></div>
+
+<div id="wrapper">
+  <div id="topbar">
+    <div class="topbar-left">
+      <button id="sidebar-toggle"><i class='bx bx-menu'></i></button>
+      <div>
+        <div class="page-title">Hasil Tes</div>
+        <div class="breadcrumb">
+          <a href="index.html" style="color:var(--ink4);text-decoration:none;">Kelas Uji Coba</a>
+          <i class='bx bx-chevron-right'></i> Hasil
+        </div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <button class="icon-btn" id="theme-toggle"><i class='bx bx-moon'></i></button>
+    </div>
+  </div>
+
+  <div id="main">
+
+    <!-- SCORE HERO -->
+    <div class="score-hero">
+      <div class="score-banner" id="score-banner">
+        <div class="score-grade" id="score-grade">—</div>
+        <div class="score-pct" id="score-pct">—<span>%</span></div>
+        <div class="score-label" id="score-label">—</div>
+        <div class="score-predikat" id="score-predikat">—</div>
+      </div>
+      <div class="score-stats">
+        <div class="ss-item">
+          <div class="ss-val green" id="ss-benar">0</div>
+          <div class="ss-label">Benar</div>
+        </div>
+        <div class="ss-item">
+          <div class="ss-val red" id="ss-salah">0</div>
+          <div class="ss-label">Salah</div>
+        </div>
+        <div class="ss-item">
+          <div class="ss-val" id="ss-skip" style="color:var(--ink3)">0</div>
+          <div class="ss-label">Dilewati</div>
+        </div>
+        <div class="ss-item">
+          <div class="ss-val blue" id="ss-waktu">—</div>
+          <div class="ss-label">Waktu Dipakai</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PEMBAHASAN -->
+    <div class="review-section">
+      <div class="review-header">
+        <i class='bx bx-book-alt'></i> Pembahasan Jawaban
+      </div>
+      <div id="review-list">
+        <!-- filled by JS -->
+      </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="action-row">
+      <a href="index.html" class="btn btn-outline"><i class='bx bx-left-arrow-alt'></i> Pilih Tes Lain</a>
+      <a href="#" class="btn btn-primary" id="btn-ulang"><i class='bx bx-refresh'></i> Ulangi Tes Ini</a>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div id="admin-panel" style="display:none;margin-top:24px;">
+      <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:24px;">
+        <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px;"><i class='bx bx-shield-alt-2' style='color:var(--primary);margin-right:6px;'></i>Admin Scoreboard</div>
+        <p style="font-size:12px;color:var(--ink3);margin-bottom:18px;">Kelola data scoreboard. Tindakan ini tidak dapat dibatalkan.</p>
+
+        <div id="admin-login-area">
+          <div style="display:flex;gap:10px;align-items:center;">
+            <input type="password" id="admin-key-input" placeholder="Masukkan Admin Key..."
+              style="flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'Sora',sans-serif;font-size:13px;background:var(--surface);color:var(--ink);outline:none;" />
+            <button onclick="adminLogin()" style="padding:10px 18px;background:var(--primary);color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;white-space:nowrap;">
+              <i class='bx bx-log-in'></i> Masuk
+            </button>
+          </div>
+          <div id="admin-login-error" style="display:none;font-size:12px;color:var(--danger);margin-top:8px;"><i class='bx bx-error-circle'></i> Key tidak valid.</div>
+        </div>
+
+        <div id="admin-controls" style="display:none;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;padding:8px 12px;background:var(--primary-light);border-radius:8px;">
+            <i class='bx bx-check-circle' style='color:var(--primary);'></i>
+            <span style="font-size:13px;color:var(--primary);font-weight:600;">Terautentikasi sebagai Admin</span>
+            <button onclick="adminLogout()" style="margin-left:auto;padding:4px 10px;border:1px solid var(--primary);background:transparent;color:var(--primary);border-radius:6px;cursor:pointer;font-size:12px;">Logout</button>
+          </div>
+
+          <div style="margin-bottom:16px;">
+            <div style="font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:10px;">Entri Scoreboard</div>
+            <div id="admin-entry-list" style="max-height:300px;overflow-y:auto;border:1px solid var(--border);border-radius:10px;">
+              <div style="text-align:center;padding:16px;color:var(--ink3);font-size:13px;">Memuat data...</div>
+            </div>
+          </div>
+
+          <div style="border-top:1px solid var(--border);padding-top:16px;">
+            <button onclick="confirmResetAll()" style="width:100%;padding:11px;background:transparent;color:var(--danger);border:1.5px solid var(--danger);border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;">
+              <i class='bx bx-trash'></i> Reset Seluruh Scoreboard
+            </button>
+          </div>
+        </div>
+
+        <div id="admin-alert" style="display:none;margin-top:12px;padding:10px 14px;border-radius:8px;font-size:13px;"></div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:12px;">
+      <button onclick="toggleAdminPanel()" id="btn-admin-toggle"
+        style="padding:6px 14px;background:transparent;color:var(--ink4);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;">
+        <i class='bx bx-cog'></i> Admin
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── THEME ──
+const htmlEl = document.documentElement;
+const themeToggle = document.getElementById('theme-toggle');
+if (localStorage.getItem('theme') === 'dark') {
+  htmlEl.setAttribute('data-theme','dark');
+  themeToggle.innerHTML = "<i class='bx bx-sun'></i>";
+}
+themeToggle.addEventListener('click', () => {
+  if (htmlEl.getAttribute('data-theme') === 'dark') {
+    htmlEl.setAttribute('data-theme','light');
+    themeToggle.innerHTML = "<i class='bx bx-moon'></i>";
+    localStorage.setItem('theme','light');
+  } else {
+    htmlEl.setAttribute('data-theme','dark');
+    themeToggle.innerHTML = "<i class='bx bx-sun'></i>";
+    localStorage.setItem('theme','dark');
+  }
+});
+
+// ── SIDEBAR ──
+document.getElementById('sidebar-toggle').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('open');
+});
+document.getElementById('sidebar-overlay').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
+});
+
+// ── LOAD HASIL ──
+const params = new URLSearchParams(window.location.search);
+const tesKey = params.get('tes') || 'toefl';
+
+// Coba sessionStorage dulu, fallback ke localStorage (backward compat)
+const hasilRaw = sessionStorage.getItem(`hasil_${tesKey}`) || localStorage.getItem(`hasil_${tesKey}`);
+if (!hasilRaw) {
+  document.getElementById('score-pct').textContent = 'N/A';
+  document.getElementById('score-predikat').textContent = 'Tidak ada data hasil';
+} else {
+  const hasil = JSON.parse(hasilRaw);
+
+  const pct = Math.round((hasil.benar / hasil.totalSoal) * 100);
+  const grade = pct >= 90 ? 'A' : pct >= 75 ? 'B' : pct >= 60 ? 'C' : pct >= 50 ? 'D' : 'E';
+  const predikat = pct >= 90 ? '🏆 Sangat Baik' : pct >= 75 ? '⭐ Baik' : pct >= 60 ? '✅ Cukup' : pct >= 50 ? '⚠️ Perlu Latihan' : '❌ Perlu Banyak Latihan';
+  const salah = hasil.dijawab - hasil.benar;
+  const skip = hasil.totalSoal - hasil.dijawab;
+
+  const m = Math.floor(hasil.waktuDipakai / 60);
+  const s = hasil.waktuDipakai % 60;
+
+  // Tampilkan nama peserta
+  if (hasil.pesertaNama) {
+    const namaEl = document.getElementById('score-label');
+    namaEl.textContent = `${hasil.pesertaNama} · ${hasil.tesNama}`;
+  }
+
+  document.getElementById('score-grade').textContent = grade;
+  document.getElementById('score-pct').innerHTML = `${pct}<span>%</span>`;
+  if (!hasil.pesertaNama) {
+    document.getElementById('score-label').textContent = `Skor tes ${hasil.tesNama}`;
+  }
+  document.getElementById('score-predikat').textContent = predikat;
+  document.getElementById('ss-benar').textContent = hasil.benar;
+  document.getElementById('ss-salah').textContent = salah;
+  document.getElementById('ss-skip').textContent = skip;
+  document.getElementById('ss-waktu').textContent = `${m}m ${s}s`;
+
+  // Warna banner sesuai nilai
+  const bannerColors = {
+    A: 'linear-gradient(135deg,#065f46,#10b981,#34d399)',
+    B: 'linear-gradient(135deg,#1e40af,#3b82f6,#60a5fa)',
+    C: 'linear-gradient(135deg,#92400e,#f59e0b,#fcd34d)',
+    D: 'linear-gradient(135deg,#7c2d12,#ea580c,#fb923c)',
+    E: 'linear-gradient(135deg,#7f1d1d,#ef4444,#fca5a5)',
+  };
+  document.getElementById('score-banner').style.background = bannerColors[grade] || bannerColors.B;
+
+  // Pembahasan
+  document.getElementById('review-list').innerHTML = hasil.soal.map((s, i) => {
+    const userAns = hasil.jawaban[s.id];
+    const isBenar = userAns === s.jawaban;
+    const isSkip = userAns === undefined;
+
+    let statusHTML = '';
+    if (isSkip) statusHTML = `<span class="ri-status rs-skip"><i class='bx bx-minus-circle'></i> Dilewati</span>`;
+    else if (isBenar) statusHTML = `<span class="ri-status rs-benar"><i class='bx bx-check-circle'></i> Benar</span>`;
+    else statusHTML = `<span class="ri-status rs-salah"><i class='bx bx-x-circle'></i> Salah</span>`;
+
+    const opsiHTML = s.opsi.map((o, j) => {
+      const isBenarOpsi = j === s.jawaban;
+      const isPilihan = j === userAns;
+      let cls = 'ro-item';
+      if (isBenarOpsi) cls += ' jawaban-benar';
+      else if (isPilihan && !isBenarOpsi) cls += ' jawaban-salah';
+      return `
+        <div class="${cls}">
+          <div class="ro-letter">${'ABCD'[j]}</div>
+          <span>${o}</span>
+          ${isBenarOpsi ? "<i class='bx bx-check' style='margin-left:auto;color:#10b981'></i>" : ''}
+          ${isPilihan && !isBenarOpsi ? "<i class='bx bx-x' style='margin-left:auto;color:#ef4444'></i>" : ''}
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div class="review-item">
+        <div class="ri-top">
+          <div class="ri-num">Soal ${i + 1} &middot; ${s.kategori}</div>
+          ${statusHTML}
+        </div>
+        <div class="ri-teks">${s.teks}</div>
+        <div class="ri-opsi">${opsiHTML}</div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('btn-ulang').href = `instruksi.html?tes=${tesKey}`;
+  document.title = `Academy Eji - Hasil ${hasil.tesNama}`;
+}
+
+// ── ADMIN PANEL ──
+let adminKeyStored = '';
+let scoreboardData = [];
+
+function toggleAdminPanel() {
+  const panel = document.getElementById('admin-panel');
+  const isHidden = panel.style.display === 'none';
+  panel.style.display = isHidden ? 'block' : 'none';
+  document.getElementById('btn-admin-toggle').innerHTML = isHidden
+    ? "<i class='bx bx-x'></i> Tutup Admin"
+    : "<i class='bx bx-cog'></i> Admin";
+}
+
+async function adminLogin() {
+  const key = document.getElementById('admin-key-input').value.trim();
+  const errEl = document.getElementById('admin-login-error');
+  if (!key) return;
+  errEl.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/ujicoba?action=verify-admin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': key },
+      body: JSON.stringify({ key })
+    });
+    if (res.ok) {
+      adminKeyStored = key;
+      document.getElementById('admin-login-area').style.display = 'none';
+      document.getElementById('admin-controls').style.display = 'block';
+      loadScoreboard();
+    } else {
+      errEl.style.display = 'block';
+    }
+  } catch(e) {
+    errEl.style.display = 'block';
+    errEl.innerHTML = "<i class='bx bx-error-circle'></i> Gagal menghubungi server.";
+  }
+}
+
+function adminLogout() {
+  adminKeyStored = '';
+  document.getElementById('admin-login-area').style.display = 'block';
+  document.getElementById('admin-controls').style.display = 'none';
+  document.getElementById('admin-key-input').value = '';
+}
+
+async function loadScoreboard() {
+  const listEl = document.getElementById('admin-entry-list');
+  listEl.innerHTML = '<div style="text-align:center;padding:16px;color:var(--ink3);font-size:13px;">Memuat...</div>';
+  try {
+    const res = await fetch('/api/ujicoba?action=get-hasil');
+    if (!res.ok) throw new Error('Gagal mengambil data');
+    scoreboardData = await res.json();
+    renderEntryList();
+  } catch(e) {
+    listEl.innerHTML = `<div style="padding:16px;color:var(--danger);font-size:13px;">Gagal: ${e.message}</div>`;
+  }
+}
+
+function renderEntryList() {
+  const listEl = document.getElementById('admin-entry-list');
+  if (!scoreboardData.length) {
+    listEl.innerHTML = '<div style="text-align:center;padding:16px;color:var(--ink3);font-size:13px;">Scoreboard kosong.</div>';
+    return;
+  }
+  listEl.innerHTML = scoreboardData.map((e, i) => {
+    const ts = e.timestamp ? new Date(e.timestamp).toLocaleString('id-ID') : '-';
+    return `
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);font-size:13px;">
+        <div style="flex:1;min-width:0;">
+          <div style="font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${e.pesertaNama || 'Anonim'}</div>
+          <div style="color:var(--ink3);font-size:11px;">${e.tesNama || e.tesKey} &middot; ${e.skor}/${e.totalSoal} &middot; ${ts}</div>
+        </div>
+        <button onclick="deleteEntry(${i})" title="Hapus entri ini"
+          style="flex-shrink:0;padding:5px 10px;background:transparent;color:var(--danger);border:1px solid var(--danger);border-radius:7px;cursor:pointer;font-size:12px;">
+          <i class='bx bx-trash'></i>
+        </button>
+      </div>
+    `;
+  }).join('');
+}
+
+async function deleteEntry(idx) {
+  if (!confirm(`Hapus entri "${scoreboardData[idx]?.pesertaNama}" ini?`)) return;
+  await callDeleteApi({ mode: 'single', index: idx });
+}
+
+async function confirmResetAll() {
+  if (!confirm('Yakin ingin MENGHAPUS SEMUA data scoreboard? Tindakan ini tidak bisa dibatalkan.')) return;
+  await callDeleteApi({ mode: 'reset' });
+}
+
+async function callDeleteApi(body) {
+  showAdminAlert('Memproses...', 'info');
+  try {
+    const res = await fetch('/api/ujicoba?action=delete-hasil', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKeyStored },
+      body: JSON.stringify({ ...body, adminKey: adminKeyStored })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      showAdminAlert(`✅ ${data.message}`, 'success');
+      await loadScoreboard();
+    } else if (res.status === 403) {
+      showAdminAlert('❌ Admin key tidak valid. Silakan logout dan login ulang.', 'error');
+      adminLogout();
+    } else {
+      showAdminAlert(`❌ Gagal: ${data.error}`, 'error');
+    }
+  } catch(e) {
+    showAdminAlert(`❌ Error: ${e.message}`, 'error');
+  }
+}
+
+function showAdminAlert(msg, type) {
+  const el = document.getElementById('admin-alert');
+  const colors = { success: '#dcfce7', error: '#fee2e2', info: '#eff6ff' };
+  const textColors = { success: '#166534', error: '#991b1b', info: '#1e40af' };
+  el.style.display = 'block';
+  el.style.background = colors[type] || colors.info;
+  el.style.color = textColors[type] || textColors.info;
+  el.innerHTML = msg;
+}
+
+document.getElementById('admin-key-input')?.addEventListener('keydown', e => {
+  if (e.key === 'Enter') adminLogin();
+});
+
+</script>
+<script src="../auth.js"></script>
+<script src="../auth-gate.js"></script>
+</body>
+</html>
