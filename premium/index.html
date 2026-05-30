@@ -56,7 +56,8 @@
     .topbar-right { display: flex; align-items: center; gap: 8px; }
     .icon-btn { width: 36px; height: 36px; border: none; background: var(--surface2); color: var(--ink3); border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: var(--transition); }
     .icon-btn:hover { background: var(--border); color: var(--ink); }
-    #sidebar-toggle { display: none; }
+    #sidebar-toggle { display: none; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--ink); padding: 6px; border-radius: 8px; line-height: 1; transition: var(--transition); }
+    #sidebar-toggle:hover { background: var(--surface2); color: var(--primary); }
     #sidebar-overlay { display: none; }
     #main { padding: 24px; flex: 1; }
 
@@ -129,7 +130,7 @@
       #sidebar-overlay { display: block; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 49; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
       #sidebar-overlay.open { opacity: 1; pointer-events: auto; }
       #wrapper { margin-left: 0; }
-      #sidebar-toggle { display: flex; }
+      #sidebar-toggle { display: flex; align-items: center; justify-content: center; }
       .compare-grid { grid-template-columns: 1fr; }
       .premium-hero { padding: 32px 20px; }
       .hero-title { font-size: 24px; }
