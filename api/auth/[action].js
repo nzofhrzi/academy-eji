@@ -1,18 +1,10 @@
-// api/auth/[action].js
+// auth/[action].js
 // Sistem autentikasi Academy Eji
 // Actions: register, login, verify, upgrade, list-users, delete-user
-// Storage: GitHub API (users.json) — pola sama seperti save-data.js
-// Versi: 2.1.0
+// ⚡ Storage: Upstash Redis (gratis, <20ms)
+// Versi: 1.1.0 — tambah timeout Redis, try/catch tiap handler, error lebih deskriptif
 
-
-import { webcrypto } from 'crypto';
-import { Buffer } from 'buffer';
-
-const crypto = webcrypto;
-const atob = (str) => Buffer.from(str, 'base64').toString('utf-8');
-const btoa = (str) => Buffer.from(str, 'utf-8').toString('base64');
-
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -35,58 +27,69 @@ export default async function handler(req, res) {
     console.error(`[auth/${action}] Unhandled error:`, err);
     return res.status(500).json({ error: 'Terjadi kesalahan server. Silakan coba lagi.' });
   }
-};
-
-// ─── GITHUB API HELPERS ───────────────────────────────────────────────────────
-
-const USERS_FILE = 'users.json';
-
-function getGHConfig() {
-  const { GITHUB_OWNER, GITHUB_REPO, GITHUB_PAT } = process.env;
-  if (!GITHUB_OWNER || !GITHUB_REPO || !GITHUB_PAT) return null;
-  return {
-    url: `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${USERS_FILE}`,
-    headers: {
-      Authorization: `Bearer ${GITHUB_PAT}`,
-      Accept: 'application/vnd.github+json',
-      'Content-Type': 'application/json',
-      'X-GitHub-Api-Version': '2022-11-28',
-    }
-  };
 }
 
-async function getUsers() {
-  const gh = getGHConfig();
-  if (!gh) throw new Error('ENV_MISSING');
+// ─── UPSTASH REDIS HELPERS ────────────────────────────────────────────────────
 
-  const r = await fetch(gh.url, { headers: gh.headers });
-  if (!r.ok) throw new Error(`GitHub GET error: ${r.status}`);
+const USERS_KEY = 'academy_eji_users';
+const REDIS_TIMEOUT_MS = 8000; // 8 detik timeout ke Upstash
 
-  const j = await r.json();
-  const decoded = Buffer.from(j.content, 'base64').toString('utf-8');
-  return { data: JSON.parse(decoded), sha: j.sha };
-}
-
-async function saveUsers(data, sha) {
-  const gh = getGHConfig();
-  if (!gh) throw new Error('ENV_MISSING');
-
-  const content = Buffer.from(JSON.stringify(data, null, 2), 'utf-8').toString('base64');
-  const r = await fetch(gh.url, {
-    method: 'PUT',
-    headers: gh.headers,
-    body: JSON.stringify({
-      message: 'Update users.json via auth API',
-      content,
-      sha,
-    })
-  });
-
-  if (!r.ok) {
-    const errBody = await r.text();
-    throw new Error(`GitHub PUT error ${r.status}: ${errBody}`);
+function checkRedisEnv(res) {
+  const { UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN } = process.env;
+  if (!UPSTASH_REDIS_REST_URL || !UPSTASH_REDIS_REST_TOKEN) {
+    res.status(500).json({
+      error: 'Konfigurasi Redis belum diatur. Tambahkan UPSTASH_REDIS_REST_URL dan UPSTASH_REDIS_REST_TOKEN di Vercel.'
+    });
+    return null;
   }
-  return true;
+  return { url: UPSTASH_REDIS_REST_URL, token: UPSTASH_REDIS_REST_TOKEN };
+}
+
+// fetch ke Upstash dengan timeout agar tidak hang selamanya
+async function redisFetch(url, options = {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), REDIS_TIMEOUT_MS);
+  try {
+    const r = await fetch(url, { ...options, signal: controller.signal });
+    clearTimeout(timeout);
+    return r;
+  } catch (e) {
+    clearTimeout(timeout);
+    if (e.name === 'AbortError') throw new Error('REDIS_TIMEOUT');
+    throw e;
+  }
+}
+
+async function redisGet(env, key) {
+  const r = await redisFetch(`${env.url}/get/${key}`, {
+    headers: { Authorization: `Bearer ${env.token}` }
+  });
+  if (!r.ok) throw new Error(`Redis GET gagal: ${r.status}`);
+  const j = await r.json();
+  return j.result ? JSON.parse(j.result) : null;
+}
+
+async function redisSet(env, key, value) {
+  const r = await redisFetch(`${env.url}/set/${key}`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${env.token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(JSON.stringify(value))
+  });
+  if (!r.ok) throw new Error(`Redis SET gagal: ${r.status}`);
+  const j = await r.json();
+  return j.result === 'OK';
+}
+
+async function getUsers(env) {
+  const data = await redisGet(env, USERS_KEY);
+  return data || { users: [] };
+}
+
+async function saveUsers(env, data) {
+  return await redisSet(env, USERS_KEY, data);
 }
 
 // ─── HELPERS ──────────────────────────────────────────────────────────────────
@@ -158,6 +161,7 @@ async function verifyToken(token) {
 
 async function handleRegister(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Gunakan POST.' });
+  const env = checkRedisEnv(res); if (!env) return;
 
   const { username } = req.body || {};
   if (!username || typeof username !== 'string') {
@@ -169,36 +173,41 @@ async function handleRegister(req, res) {
     return res.status(400).json({ error: 'Nama harus 2–40 karakter.' });
   }
 
-  let result;
+  let data;
   try {
-    result = await getUsers();
+    data = await getUsers(env);
   } catch (e) {
-    const msg = e.message === 'ENV_MISSING'
-      ? 'Konfigurasi GitHub belum diatur di Vercel.'
-      : 'Gagal membaca data user dari GitHub.';
+    console.error('[register] getUsers error:', e.message);
+    const msg = e.message === 'REDIS_TIMEOUT'
+      ? 'Koneksi ke database timeout. Coba lagi.'
+      : 'Gagal membaca data user.';
     return res.status(500).json({ error: msg });
   }
 
-  const { data, sha } = result;
   const users = data.users || [];
-
   const exists = users.find(u => u.username.toLowerCase() === clean.toLowerCase());
   if (exists) {
     return res.status(409).json({ error: 'Nama sudah terdaftar. Silakan login.' });
   }
 
-  users.push({
+  const newUser = {
     id: `usr_${Date.now()}`,
     username: clean,
     role: 'tamu',
     created_at: new Date().toISOString()
-  });
+  };
+  users.push(newUser);
   data.users = users;
 
   try {
-    await saveUsers(data, sha);
+    const saved = await saveUsers(env, data);
+    if (!saved) return res.status(500).json({ error: 'Gagal menyimpan data user.' });
   } catch (e) {
-    return res.status(500).json({ error: 'Gagal menyimpan data user.' });
+    console.error('[register] saveUsers error:', e.message);
+    const msg = e.message === 'REDIS_TIMEOUT'
+      ? 'Koneksi ke database timeout saat menyimpan. Coba lagi.'
+      : 'Gagal menyimpan data user.';
+    return res.status(500).json({ error: msg });
   }
 
   const token = await makeToken(clean, 'tamu');
@@ -213,6 +222,7 @@ async function handleRegister(req, res) {
 
 async function handleLogin(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Gunakan POST.' });
+  const env = checkRedisEnv(res); if (!env) return;
 
   const { username } = req.body || {};
   if (!username || typeof username !== 'string') {
@@ -221,14 +231,18 @@ async function handleLogin(req, res) {
 
   const clean = username.trim();
 
-  let result;
+  let data;
   try {
-    result = await getUsers();
+    data = await getUsers(env);
   } catch (e) {
-    return res.status(500).json({ error: 'Gagal membaca data user.' });
+    console.error('[login] getUsers error:', e.message);
+    const msg = e.message === 'REDIS_TIMEOUT'
+      ? 'Koneksi ke database timeout. Coba lagi.'
+      : 'Gagal membaca data user.';
+    return res.status(500).json({ error: msg });
   }
 
-  const users = result.data.users || [];
+  const users = data.users || [];
   const user = users.find(u => u.username.toLowerCase() === clean.toLowerCase());
   if (!user) {
     return res.status(404).json({ error: 'Nama tidak ditemukan. Silakan daftar terlebih dahulu.' });
@@ -259,17 +273,19 @@ async function handleVerify(req, res) {
 async function handleUpgrade(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Gunakan POST.' });
   if (!checkAdmin(req, res)) return;
+  const env = checkRedisEnv(res); if (!env) return;
 
   const { username, role } = req.body || {};
   if (!username || !role) return res.status(400).json({ error: 'username dan role diperlukan.' });
   if (!['tamu', 'vip'].includes(role)) return res.status(400).json({ error: 'Role harus "tamu" atau "vip".' });
 
-  let result;
-  try { result = await getUsers(); } catch (e) {
+  let data;
+  try {
+    data = await getUsers(env);
+  } catch (e) {
     return res.status(500).json({ error: 'Gagal membaca data user.' });
   }
 
-  const { data, sha } = result;
   const users = data.users || [];
   const idx = users.findIndex(u => u.username.toLowerCase() === username.toLowerCase());
   if (idx === -1) return res.status(404).json({ error: 'User tidak ditemukan.' });
@@ -278,7 +294,10 @@ async function handleUpgrade(req, res) {
   users[idx].upgraded_at = new Date().toISOString();
   data.users = users;
 
-  try { await saveUsers(data, sha); } catch (e) {
+  try {
+    const saved = await saveUsers(env, data);
+    if (!saved) return res.status(500).json({ error: 'Gagal menyimpan.' });
+  } catch (e) {
     return res.status(500).json({ error: 'Gagal menyimpan.' });
   }
 
@@ -289,13 +308,16 @@ async function handleUpgrade(req, res) {
 
 async function handleListUsers(req, res) {
   if (!checkAdmin(req, res)) return;
+  const env = checkRedisEnv(res); if (!env) return;
 
-  let result;
-  try { result = await getUsers(); } catch (e) {
+  let data;
+  try {
+    data = await getUsers(env);
+  } catch (e) {
     return res.status(500).json({ error: 'Gagal membaca data user.' });
   }
 
-  return res.status(200).json({ users: result.data.users || [] });
+  return res.status(200).json({ users: data.users || [] });
 }
 
 // ─── DELETE USER (Admin only) ─────────────────────────────────────────────────
@@ -303,22 +325,27 @@ async function handleListUsers(req, res) {
 async function handleDeleteUser(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Gunakan POST.' });
   if (!checkAdmin(req, res)) return;
+  const env = checkRedisEnv(res); if (!env) return;
 
   const { username } = req.body || {};
   if (!username) return res.status(400).json({ error: 'username diperlukan.' });
 
-  let result;
-  try { result = await getUsers(); } catch (e) {
+  let data;
+  try {
+    data = await getUsers(env);
+  } catch (e) {
     return res.status(500).json({ error: 'Gagal membaca data user.' });
   }
 
-  const { data, sha } = result;
   const before = (data.users || []).length;
   data.users = (data.users || []).filter(u => u.username.toLowerCase() !== username.toLowerCase());
 
   if (data.users.length === before) return res.status(404).json({ error: 'User tidak ditemukan.' });
 
-  try { await saveUsers(data, sha); } catch (e) {
+  try {
+    const saved = await saveUsers(env, data);
+    if (!saved) return res.status(500).json({ error: 'Gagal menyimpan.' });
+  } catch (e) {
     return res.status(500).json({ error: 'Gagal menyimpan.' });
   }
 
