@@ -58,6 +58,12 @@
       "username": "Kahfi",
       "role": "tamu",
       "created_at": "2026-05-30T23:51:14.784Z"
+    },
+    {
+      "id": "usr_1780186176448",
+      "username": "Tito",
+      "role": "tamu",
+      "created_at": "2026-05-31T00:09:36.448Z"
     }
   ]
 }
