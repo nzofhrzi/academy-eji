@@ -65,6 +65,12 @@
       "username": "Tito",
       "role": "tamu",
       "created_at": "2026-05-31T00:09:36.448Z"
+    },
+    {
+      "id": "usr_1780201420278",
+      "username": "ardo",
+      "role": "tamu",
+      "created_at": "2026-05-31T04:23:40.278Z"
     }
   ]
 }
