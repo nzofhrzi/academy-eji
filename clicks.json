@@ -741,6 +741,13 @@
       "kategori_id": "id_0bdwwqs",
       "timestamp": "2026-05-31T14:14:42.360Z",
       "date": "2026-05-31"
+    },
+    {
+      "artikel_id": "id_artikel_003",
+      "artikel_judul": "Artikel Review Produk",
+      "kategori_id": "id_yv3a2aw",
+      "timestamp": "2026-06-01T23:02:14.373Z",
+      "date": "2026-06-01"
     }
   ]
 }
