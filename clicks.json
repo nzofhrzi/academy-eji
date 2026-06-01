@@ -755,6 +755,13 @@
       "kategori_id": "id_yv3a2aw",
       "timestamp": "2026-06-01T23:02:23.020Z",
       "date": "2026-06-01"
+    },
+    {
+      "artikel_id": "id_artikel_006",
+      "artikel_judul": "Artikel Berita Jurnalistik",
+      "kategori_id": "id_yv3a2aw",
+      "timestamp": "2026-06-01T23:02:29.495Z",
+      "date": "2026-06-01"
     }
   ]
 }
