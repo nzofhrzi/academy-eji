@@ -188,7 +188,7 @@
 
       .sidebar-footer {
         padding: 20px;
-        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
         flex-shrink: 0;
       }
       .user-profile {
@@ -785,6 +785,34 @@
         <div class="logo-text">Academy<span>Eji.</span></div>
       </div>
 
+
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="user-avatar"><i class="bx bxs-user"></i></div>
+          <div class="user-info">
+            <span class="user-name" id="sidebar-username">Memuat...</span>
+            <span class="user-role" id="sidebar-role">—</span>
+          </div>
+          <button
+            id="logout-btn"
+            title="Keluar"
+            style="
+              display: none;
+              background: none;
+              border: none;
+              cursor: pointer;
+              color: var(--ink3);
+              font-size: 18px;
+              padding: 4px;
+              margin-left: auto;
+            "
+            onclick="Auth.logout()"
+          >
+            <i class="bx bx-log-out"></i>
+          </button>
+        </div>
+      </div>
+
       <div class="sidebar-scroll">
         <div class="sidebar-section">Menu Utama</div>
         <a class="nav-item active" href="index.html">
@@ -828,35 +856,7 @@
         <a class="nav-item" href="analytics.html">
           <i class="bx bx-bar-chart-alt-2 nav-icon"></i> Traffic Klik
         </a>
-      </div>
-
-      <div class="sidebar-footer">
-        <div class="user-profile">
-          <div class="user-avatar"><i class="bx bxs-user"></i></div>
-          <div class="user-info">
-            <span class="user-name" id="sidebar-username">Memuat...</span>
-            <span class="user-role" id="sidebar-role">—</span>
-          </div>
-          <button
-            id="logout-btn"
-            title="Keluar"
-            style="
-              display: none;
-              background: none;
-              border: none;
-              cursor: pointer;
-              color: var(--ink3);
-              font-size: 18px;
-              padding: 4px;
-              margin-left: auto;
-            "
-            onclick="Auth.logout()"
-          >
-            <i class="bx bx-log-out"></i>
-          </button>
-        </div>
-      </div>
-    </nav>
+      </div></nav>
 
     <!-- Overlay untuk mobile -->
     <div id="sidebar-overlay"></div>
