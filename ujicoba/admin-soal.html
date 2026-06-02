@@ -44,7 +44,7 @@ body { font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);min-h
 .nav-item:hover { background:var(--surface2);color:var(--ink);transform:translateX(4px); }
 .nav-item.active { background:var(--primary-light);color:var(--primary);font-weight:600; }
 .nav-item .nav-icon { font-size:20px;flex-shrink:0; }
-.sidebar-footer { padding:20px;border-top:1px solid var(--border); }
+.sidebar-footer { padding:20px;border-bottom: 1px solid var(--border); }
 .user-avatar { width:40px;height:40px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--primary); }
 .user-name { font-size:13px;font-weight:600;color:var(--ink); }
 .user-role { font-size:11px;color:var(--ink3); }
@@ -211,6 +211,17 @@ body { font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);min-h
     <div class="logo-icon"><i class='bx bxs-graduation'></i></div>
     <div class="logo-text">Academy<span>Eji.</span></div>
   </div>
+
+      <div class="sidebar-footer">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="user-avatar"><i class='bx bxs-user'></i></div>
+      <div>
+        <div class="user-name">Admin Eji</div>
+        <div class="user-role">Super Admin</div>
+      </div>
+    </div>
+  </div>
+
   <div class="sidebar-scroll">
     <div class="sidebar-section">Menu Utama</div>
     <a class="nav-item" href="../index.html"><i class='bx bx-grid-alt nav-icon'></i> Dashboard</a>
@@ -221,17 +232,7 @@ body { font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);min-h
     <a class="nav-item active" href="admin-soal.html"><i class='bx bx-edit nav-icon'></i> Kelola Soal</a>
     <div class="sidebar-section" style="margin-top:15px;">Analitik</div>
     <a class="nav-item" href="../analytics.html"><i class='bx bx-bar-chart-alt-2 nav-icon'></i> Traffic Klik</a>
-  </div>
-  <div class="sidebar-footer">
-    <div style="display:flex;align-items:center;gap:12px;">
-      <div class="user-avatar"><i class='bx bxs-user'></i></div>
-      <div>
-        <div class="user-name">Admin Eji</div>
-        <div class="user-role">Super Admin</div>
-      </div>
-    </div>
-  </div>
-</nav>
+  </div></nav>
 <div id="sidebar-overlay"></div>
 
 <div id="wrapper">
