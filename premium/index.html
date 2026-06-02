@@ -40,7 +40,7 @@
     .nav-item:hover { background: var(--surface2); color: var(--ink); transform: translateX(4px); }
     .nav-item.active { background: var(--gold-light); color: var(--gold-dark); font-weight: 600; border-right: 3px solid var(--gold); }
     .nav-item .nav-icon { font-size: 20px; flex-shrink: 0; }
-    .sidebar-footer { padding: 16px; border-top: 1px solid var(--border); }
+    .sidebar-footer { padding: 16px; border-bottom: 1px solid var(--border); }
     .user-profile { display: flex; align-items: center; gap: 10px; }
     .user-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; flex-shrink: 0; }
     .user-name { font-size: 13px; font-weight: 600; color: var(--ink); }
@@ -146,17 +146,8 @@
       <div class="logo-icon"><i class='bx bxs-graduation'></i></div>
       <div class="logo-text">Academy<span>Eji.</span></div>
     </div>
-    <div class="sidebar-scroll">
-      <div class="sidebar-section">Menu Utama</div>
-      <a class="nav-item" href="../index.html"><i class='bx bx-home-alt nav-icon'></i> Dashboard</a>
-      <a class="nav-item" href="../article-landing.html"><i class='bx bx-news nav-icon'></i> Artikel &amp; Wawasan</a>
-      <a class="nav-item" href="../prompt/index.html"><i class='bx bx-bot nav-icon'></i> Tools &amp; Prompt AI</a>
-      <a class="nav-item" href="../referensi/index.html"><i class='bx bx-book-open nav-icon'></i> Referensi &amp; Ebook</a>
-      <a class="nav-item" href="../ujicoba/index.html"><i class='bx bx-trophy nav-icon'></i> Kelas Uji Coba</a>
-      <a class="nav-item active" href="index.html" style="color:#d97706;"><i class='bx bxs-crown nav-icon'></i> Upgrade Premium</a>
-      <a class="nav-item" href="../config.html"><i class='bx bx-info-circle nav-icon'></i> Tentang Kami</a>
-    </div>
-    <div class="sidebar-footer">
+
+      <div class="sidebar-footer">
       <div class="user-profile">
         <div class="user-avatar"><i class='bx bxs-user'></i></div>
         <div class="user-info">
@@ -166,7 +157,17 @@
         <button id="logout-btn" title="Keluar" style="display:none;background:none;border:none;cursor:pointer;color:var(--ink3);font-size:18px;padding:4px;margin-left:auto;" onclick="Auth.logout()"><i class='bx bx-log-out'></i></button>
       </div>
     </div>
-  </nav>
+
+    <div class="sidebar-scroll">
+      <div class="sidebar-section">Menu Utama</div>
+      <a class="nav-item" href="../index.html"><i class='bx bx-home-alt nav-icon'></i> Dashboard</a>
+      <a class="nav-item" href="../article-landing.html"><i class='bx bx-news nav-icon'></i> Artikel &amp; Wawasan</a>
+      <a class="nav-item" href="../prompt/index.html"><i class='bx bx-bot nav-icon'></i> Tools &amp; Prompt AI</a>
+      <a class="nav-item" href="../referensi/index.html"><i class='bx bx-book-open nav-icon'></i> Referensi &amp; Ebook</a>
+      <a class="nav-item" href="../ujicoba/index.html"><i class='bx bx-trophy nav-icon'></i> Kelas Uji Coba</a>
+      <a class="nav-item active" href="index.html" style="color:#d97706;"><i class='bx bxs-crown nav-icon'></i> Upgrade Premium</a>
+      <a class="nav-item" href="../config.html"><i class='bx bx-info-circle nav-icon'></i> Tentang Kami</a>
+    </div></nav>
 
   <div id="sidebar-overlay"></div>
 
