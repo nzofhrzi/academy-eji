@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generate Makalah Instant — Academy EJI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --primary:#2563eb;--primary-light:#eff6ff;--primary-dark:#1d4ed8;
+      --accent:#f97316;--success:#10b981;--warn:#f59e0b;--purple:#7c3aed;
+      --sidebar-w:260px;--header-h:70px;--radius:12px;
+      --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+      --bg:#f3f4f6;--surface:#ffffff;--surface2:#f8fafc;
+      --border:#e2e8f0;--ink:#0f172a;--ink2:#334155;--ink3:#64748b;--ink4:#94a3b8;
+      --shadow-sm:0 1px 3px rgba(0,0,0,.05),0 1px 2px rgba(0,0,0,.03);
+      --shadow-md:0 4px 6px -1px rgba(0,0,0,.07),0 2px 4px -1px rgba(0,0,0,.04);
+      --shadow-lg:0 10px 25px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05);
+    }
+    [data-theme="dark"]{
+      --bg:#0f172a;--surface:#1e293b;--surface2:#334155;--border:#334155;
+      --ink:#f8fafc;--ink2:#cbd5e1;--ink3:#94a3b8;--ink4:#64748b;
+      --primary-light:#1e3a8a;
+      --shadow-sm:0 1px 3px rgba(0,0,0,.3);
+      --shadow-md:0 4px 6px -1px rgba(0,0,0,.4);
+      --shadow-lg:0 10px 25px -3px rgba(0,0,0,.5);
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:"Sora",sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;}
+
+    /* ── SIDEBAR ── */
+    #sidebar{width:var(--sidebar-w);position:fixed;top:0;left:0;height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;box-shadow:var(--shadow-sm);}
+    .sidebar-logo{height:var(--header-h);display:flex;align-items:center;gap:12px;padding:0 20px;border-bottom:1px solid var(--border);}
+    .logo-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--primary),#60a5fa);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;}
+    .logo-text{font-weight:700;font-size:15px;color:var(--ink);}
+    .logo-sub{font-size:11px;color:var(--ink4);}
+    .sidebar-footer{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+    .user-avatar{width:36px;height:36px;border-radius:50%;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:16px;}
+    .user-info{flex:1;min-width:0;}
+    .user-name{font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .user-role{font-size:11px;color:var(--ink4);}
+    .btn-logout{background:none;border:none;color:var(--ink4);cursor:pointer;padding:4px;border-radius:6px;transition:var(--transition);}
+    .btn-logout:hover{color:#ef4444;background:#fef2f2;}
+    .sidebar-scroll{flex:1;overflow-y:auto;padding:12px 0;}
+    .sidebar-scroll::-webkit-scrollbar{width:4px;}
+    .sidebar-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+    .sidebar-section{padding:6px 20px 4px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink4);}
+    .nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:13.5px;font-weight:500;color:var(--ink2);text-decoration:none;border-radius:8px;margin:1px 8px;transition:var(--transition);}
+    .nav-item:hover{background:var(--surface2);color:var(--ink);}
+    .nav-item.active{background:var(--primary-light);color:var(--primary);}
+    .nav-icon{font-size:18px;pointer-events:none;}
+
+    /* ── MAIN ── */
+    #main{margin-left:var(--sidebar-w);min-height:100vh;padding:32px;}
+
+    /* ── PAGE HEADER ── */
+    .page-hero{
+      background:linear-gradient(135deg,#7c3aed 0%,#2563eb 100%);
+      border-radius:16px;padding:28px 32px;margin-bottom:28px;color:white;
+      display:flex;align-items:center;gap:20px;
+      box-shadow:0 8px 32px rgba(124,58,237,.25);
+      position:relative;overflow:hidden;
+    }
+    .page-hero::before{
+      content:'';position:absolute;right:-40px;top:-40px;
+      width:180px;height:180px;border-radius:50%;
+      background:rgba(255,255,255,.06);
+    }
+    .page-hero::after{
+      content:'';position:absolute;right:60px;bottom:-60px;
+      width:240px;height:240px;border-radius:50%;
+      background:rgba(255,255,255,.04);
+    }
+    .hero-icon{font-size:42px;flex-shrink:0;z-index:1;}
+    .hero-text{z-index:1;}
+    .hero-text h1{font-size:22px;font-weight:700;margin-bottom:4px;}
+    .hero-text p{font-size:13px;opacity:.85;line-height:1.5;}
+    .vip-badge{
+      background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
+      padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;
+      display:inline-flex;align-items:center;gap:5px;margin-top:8px;
+    }
+
+    /* ── LAYOUT ── */
+    .main-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;}
+
+    /* ── FORM CARD ── */
+    .form-card{background:var(--surface);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow-sm);border:1px solid var(--border);}
+    .form-section-title{font-size:13px;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.07em;margin:20px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+    .form-section-title:first-child{margin-top:0;}
+    .form-group{margin-bottom:16px;}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    label{display:block;font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:5px;}
+    label span.req{color:#ef4444;}
+    input[type=text],input[type=number],select,textarea{
+      width:100%;padding:10px 13px;border-radius:9px;border:1px solid var(--border);
+      background:var(--surface2);color:var(--ink);font-family:"Sora",sans-serif;
+      font-size:13px;transition:var(--transition);outline:none;
+    }
+    input[type=text]:focus,input[type=number]:focus,select:focus,textarea:focus{
+      border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.1);
+      background:var(--surface);
+    }
+    textarea{resize:vertical;min-height:80px;line-height:1.5;}
+    select{cursor:pointer;}
+    .input-hint{font-size:11px;color:var(--ink4);margin-top:4px;}
+
+    /* Anggota dynamic */
+    #anggota-list{display:flex;flex-direction:column;gap:8px;margin-bottom:8px;}
+    .anggota-row{display:flex;gap:8px;align-items:center;}
+    .anggota-row input{flex:1;}
+    .btn-remove-anggota{
+      background:none;border:1px solid var(--border);border-radius:8px;
+      width:34px;height:34px;cursor:pointer;color:var(--ink4);flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;font-size:16px;
+      transition:var(--transition);
+    }
+    .btn-remove-anggota:hover{border-color:#ef4444;color:#ef4444;background:#fef2f2;}
+    .btn-add-anggota{
+      background:none;border:1px dashed var(--border);border-radius:8px;
+      padding:7px 14px;cursor:pointer;color:var(--ink3);font-size:12px;
+      font-family:"Sora",sans-serif;font-weight:600;transition:var(--transition);
+      display:flex;align-items:center;gap:6px;width:100%;justify-content:center;
+    }
+    .btn-add-anggota:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-light);}
+
+    /* ── GENERATE BUTTON ── */
+    .btn-generate{
+      width:100%;padding:15px;border-radius:12px;border:none;
+      background:linear-gradient(135deg,#7c3aed,#2563eb);
+      color:white;font-size:15px;font-weight:700;cursor:pointer;
+      font-family:"Sora",sans-serif;transition:var(--transition);
+      display:flex;align-items:center;justify-content:center;gap:8px;
+      margin-top:8px;box-shadow:0 4px 16px rgba(124,58,237,.3);
+    }
+    .btn-generate:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 24px rgba(124,58,237,.4);}
+    .btn-generate:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+
+    /* ── VIP LOCK ── */
+    .vip-lock{
+      position:relative;border-radius:12px;overflow:hidden;
+    }
+    .vip-lock-overlay{
+      position:absolute;inset:0;z-index:10;
+      background:rgba(255,255,255,.85);backdrop-filter:blur(3px);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:12px;border-radius:12px;
+    }
+    [data-theme="dark"] .vip-lock-overlay{background:rgba(15,23,42,.85);}
+    .vip-lock-overlay .lock-icon{font-size:36px;}
+    .vip-lock-overlay p{font-size:13px;color:var(--ink2);font-weight:600;text-align:center;max-width:200px;}
+    .btn-upgrade-vip{
+      background:linear-gradient(135deg,#f97316,#ef4444);
+      color:white;border:none;padding:10px 22px;border-radius:10px;
+      font-size:13px;font-weight:700;cursor:pointer;font-family:"Sora",sans-serif;
+      text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+      transition:var(--transition);
+    }
+    .btn-upgrade-vip:hover{opacity:.9;transform:translateY(-1px);}
+
+    /* ── OUTPUT CARD ── */
+    .output-card{background:var(--surface);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow-sm);border:1px solid var(--border);position:sticky;top:24px;}
+    .output-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+    .output-title{font-size:15px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:8px;}
+    .output-actions{display:flex;gap:8px;}
+    .btn-action{
+      background:var(--surface2);border:1px solid var(--border);border-radius:8px;
+      padding:7px 14px;cursor:pointer;color:var(--ink2);font-size:12px;
+      font-family:"Sora",sans-serif;font-weight:600;transition:var(--transition);
+      display:flex;align-items:center;gap:5px;
+    }
+    .btn-action:hover{background:var(--primary-light);color:var(--primary);border-color:var(--primary);}
+    .btn-action:disabled{opacity:.4;cursor:not-allowed;}
+
+    /* OUTPUT BOX */
+    #output-box{
+      min-height:400px;max-height:70vh;overflow-y:auto;
+      background:var(--surface2);border-radius:10px;border:1px solid var(--border);
+      padding:20px;font-family:"Lora",serif;font-size:14px;line-height:1.8;
+      color:var(--ink2);white-space:pre-wrap;word-break:break-word;
+    }
+    #output-box::-webkit-scrollbar{width:5px;}
+    #output-box::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+
+    /* Empty state */
+    .output-empty{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      height:100%;min-height:360px;color:var(--ink4);text-align:center;gap:12px;
+    }
+    .output-empty .empty-icon{font-size:48px;opacity:.4;}
+    .output-empty p{font-size:13px;max-width:220px;line-height:1.6;}
+
+    /* Cursor blink */
+    .typing-cursor{
+      display:inline-block;width:2px;height:1em;background:var(--primary);
+      margin-left:2px;vertical-align:text-bottom;animation:blink .7s infinite;
+    }
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+    /* Status bar */
+    .status-bar{
+      display:flex;align-items:center;gap:8px;margin-top:12px;
+      padding:8px 12px;border-radius:8px;font-size:12px;font-weight:600;
+    }
+    .status-bar.generating{background:#eff6ff;color:var(--primary);}
+    .status-bar.done{background:#f0fdf4;color:#065f46;}
+    .status-bar.error{background:#fef2f2;color:#991b1b;}
+    .status-bar.hidden{display:none;}
+    .spinner{width:14px;height:14px;border:2px solid rgba(37,99,235,.2);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* TOAST */
+    #toast{position:fixed;bottom:24px;right:24px;z-index:9999;padding:13px 18px;border-radius:12px;font-size:13px;font-weight:600;box-shadow:var(--shadow-lg);transform:translateY(80px);opacity:0;transition:all .35s cubic-bezier(0.4,0,0.2,1);display:flex;align-items:center;gap:8px;}
+    #toast.show{transform:translateY(0);opacity:1;}
+    #toast.success{background:#d1fae5;color:#065f46;}
+    #toast.error{background:#fee2e2;color:#991b1b;}
+    #toast.info{background:#dbeafe;color:#1e40af;}
+
+    /* ── RESPONSIVE ── */
+    #sidebar-toggle{display:none;}
+    #sidebar-overlay{display:none;}
+    @media(max-width:1100px){
+      .main-grid{grid-template-columns:1fr;}
+      .output-card{position:static;}
+    }
+    @media(max-width:768px){
+      #sidebar{transform:translateX(-100%);transition:var(--transition);}
+      #sidebar.open{transform:translateX(0);box-shadow:var(--shadow-lg);}
+      #sidebar-overlay{display:block;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:99;opacity:0;pointer-events:none;transition:var(--transition);}
+      #sidebar-overlay.open{opacity:1;pointer-events:all;}
+      #sidebar-toggle{display:flex;position:fixed;top:16px;left:16px;z-index:101;width:40px;height:40px;border-radius:10px;background:var(--surface);border:1px solid var(--border);align-items:center;justify-content:center;cursor:pointer;font-size:20px;color:var(--ink);box-shadow:var(--shadow-sm);}
+      #main{margin-left:0;padding:16px;padding-top:72px;}
+      .form-row{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<button id="sidebar-toggle"><i class="bx bx-menu"></i></button>
+<div id="sidebar-overlay"></div>
+
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon"><i class="bx bxs-graduation"></i></div>
+    <div>
+      <div class="logo-text">Academy EJI</div>
+      <div class="logo-sub">Platform Belajar</div>
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <div class="user-avatar"><i class="bx bxs-user"></i></div>
+    <div class="user-info">
+      <div class="user-name" id="sidebar-username">Memuat...</div>
+      <div class="user-role" id="sidebar-role">—</div>
+    </div>
+    <button class="btn-logout" title="Logout" onclick="Auth.logout()"><i class="bx bx-log-out"></i></button>
+  </div>
+  <div class="sidebar-scroll">
+    <div class="sidebar-section">Menu Utama</div>
+    <a class="nav-item" href="../index.html"><i class="bx bx-home-alt nav-icon"></i> Dashboard</a>
+    <a class="nav-item" href="../article-landing.html"><i class="bx bx-news nav-icon"></i> Artikel &amp; Wawasan</a>
+    <a class="nav-item" href="../prompt/index.html"><i class="bx bx-bot nav-icon"></i> Tools &amp; Prompt AI</a>
+    <a class="nav-item" href="../referensi/index.html"><i class="bx bx-book-open nav-icon"></i> Referensi &amp; Ebook</a>
+    <a class="nav-item" href="../ujicoba/index.html"><i class="bx bx-trophy nav-icon"></i> Kelas Uji Coba</a>
+    <a class="nav-item" href="../config.html"><i class="bx bx-info-circle nav-icon"></i> Tentang Kami</a>
+    <div class="sidebar-section">Aktivitas</div>
+    <a class="nav-item" href="../streak/index.html"><i class="bx bx-flame nav-icon"></i> Login Streak</a>
+    <a class="nav-item" href="../points/index.html"><i class="bx bx-coin nav-icon"></i> Poin &amp; Penukaran</a>
+    <div class="sidebar-section">Tools</div>
+    <a class="nav-item active" href="../makalah/index.html"><i class="bx bx-file nav-icon"></i> Generate Makalah</a>
+    <a class="nav-item" href="../premium/index.html" style="color:var(--accent)"><i class="bx bx-crown nav-icon"></i> Upgrade VIP</a>
+  </div>
+</nav>
+
+<main id="main">
+
+  <!-- HERO -->
+  <div class="page-hero">
+    <div class="hero-icon">📄</div>
+    <div class="hero-text">
+      <h1>Generate Makalah Instant</h1>
+      <p>Isi form di bawah, dapatkan prompt lengkap yang siap dipakai di ChatGPT, Claude, atau Gemini.</p>
+      <div class="vip-badge"><i class="bx bx-crown"></i> Fitur Eksklusif VIP</div>
+    </div>
+  </div>
+
+  <div class="main-grid">
+
+    <!-- ── FORM ── -->
+    <div class="form-card">
+
+      <!-- VIP GATE wrapper -->
+      <div id="vip-gate-wrapper">
+
+        <div class="form-section-title">📋 Identitas Makalah</div>
+
+        <div class="form-group">
+          <label>Judul Makalah <span class="req">*</span></label>
+          <input type="text" id="f-judul" placeholder="contoh: Dampak Media Sosial terhadap Perilaku Remaja" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Jenis Makalah <span class="req">*</span></label>
+            <select id="f-jenis">
+              <option value="">-- Pilih Jenis --</option>
+              <option value="Makalah Ilmiah">Makalah Ilmiah</option>
+              <option value="Makalah Penelitian">Makalah Penelitian</option>
+              <option value="Makalah Kajian Pustaka">Makalah Kajian Pustaka</option>
+              <option value="Laporan Praktikum">Laporan Praktikum</option>
+              <option value="Laporan Observasi">Laporan Observasi</option>
+              <option value="Makalah Seminar">Makalah Seminar</option>
+              <option value="Karya Tulis Ilmiah (KTI)">Karya Tulis Ilmiah (KTI)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Bahasa</label>
+            <select id="f-bahasa">
+              <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+              <option value="Bahasa Inggris">Bahasa Inggris (English)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-section-title">🏫 Identitas Institusi</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nama Universitas <span class="req">*</span></label>
+            <input type="text" id="f-univ" placeholder="contoh: Universitas Indonesia" />
+          </div>
+          <div class="form-group">
+            <label>Fakultas / Jurusan</label>
+            <input type="text" id="f-fakultas" placeholder="contoh: Ilmu Komunikasi" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Mata Kuliah</label>
+          <input type="text" id="f-matkul" placeholder="contoh: Komunikasi Massa" />
+        </div>
+
+        <div class="form-group">
+          <label>Nama Dosen Pengampu</label>
+          <input type="text" id="f-dosen" placeholder="contoh: Dr. Budi Santoso, M.Si." />
+        </div>
+
+        <div class="form-section-title">👥 Anggota Kelompok</div>
+
+        <div id="anggota-list">
+          <div class="anggota-row">
+            <input type="text" placeholder="Nama anggota 1" class="anggota-input" />
+          </div>
+        </div>
+        <button class="btn-add-anggota" onclick="addAnggota()">
+          <i class="bx bx-plus"></i> Tambah Anggota
+        </button>
+
+        <div class="form-section-title">⚙️ Pengaturan Makalah</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Jumlah Halaman Target</label>
+            <input type="number" id="f-halaman" value="15" min="5" max="60" />
+            <div class="input-hint">Disarankan 10–25 halaman</div>
+          </div>
+          <div class="form-group">
+            <label>Tahun / Semester</label>
+            <input type="text" id="f-tahun" placeholder="contoh: 2024 / Ganjil" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Struktur / Bab yang Diinginkan</label>
+          <select id="f-struktur">
+            <option value="standar">Standar (Pendahuluan, Isi, Penutup)</option>
+            <option value="penelitian">Penelitian (BAB I–V + Daftar Pustaka)</option>
+            <option value="laporan">Laporan (Tujuan, Metode, Hasil, Pembahasan)</option>
+            <option value="custom">Kustom (tulis di catatan tambahan)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Gaya Penulisan</label>
+          <select id="f-gaya">
+            <option value="formal akademik">Formal Akademik</option>
+            <option value="semi-formal">Semi-Formal</option>
+            <option value="deskriptif">Deskriptif</option>
+            <option value="analitis">Analitis &amp; Kritis</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Catatan Tambahan</label>
+          <textarea id="f-catatan" placeholder="Contoh: sertakan minimal 5 referensi jurnal internasional, gunakan format APA, fokus pada studi kasus Indonesia..."></textarea>
+        </div>
+
+        <button class="btn-generate" id="btn-generate" onclick="generatePrompt()">
+          <i class="bx bx-magic-wand"></i> Generate Prompt Makalah
+        </button>
+
+        <!-- VIP LOCK OVERLAY (ditampilkan jika bukan VIP) -->
+        <div id="vip-lock-overlay" class="vip-lock-overlay" style="display:none;">
+          <div class="lock-icon">🔒</div>
+          <p>Fitur ini khusus untuk member <strong>VIP Premium</strong></p>
+          <a href="../premium/index.html" class="btn-upgrade-vip">
+            <i class="bx bx-crown"></i> Upgrade ke VIP
+          </a>
+          <div style="font-size:11px;color:var(--ink4);margin-top:4px;">atau kumpulkan poin dari streak harian</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── OUTPUT ── -->
+    <div class="output-card">
+      <div class="output-header">
+        <div class="output-title"><i class="bx bx-code-alt"></i> Hasil Prompt</div>
+        <div class="output-actions">
+          <button class="btn-action" id="btn-copy" onclick="copyOutput()" disabled>
+            <i class="bx bx-copy"></i> Copy
+          </button>
+          <button class="btn-action" id="btn-reset" onclick="resetOutput()" disabled>
+            <i class="bx bx-refresh"></i> Reset
+          </button>
+        </div>
+      </div>
+
+      <div id="output-box">
+        <div class="output-empty">
+          <span class="empty-icon">✨</span>
+          <p>Isi form di sebelah kiri lalu klik <strong>Generate</strong> untuk membuat prompt makalahmu.</p>
+        </div>
+      </div>
+
+      <div id="status-bar" class="status-bar hidden"></div>
+
+      <!-- Tips -->
+      <div style="margin-top:16px;background:var(--surface2);border-radius:10px;padding:14px 16px;border:1px solid var(--border);">
+        <div style="font-size:12px;font-weight:700;color:var(--ink3);margin-bottom:8px;">💡 Cara Menggunakan Prompt</div>
+        <div style="font-size:12px;color:var(--ink4);line-height:1.7;">
+          1. Klik <strong>Copy</strong> untuk menyalin prompt<br>
+          2. Buka <strong>ChatGPT / Claude / Gemini</strong><br>
+          3. Paste prompt dan kirim<br>
+          4. AI akan membuat makalah lengkap sesuai spesifikasi
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div id="toast"></div>
+<script src="../auth.js"></script>
+<script>
+// ── Init
+(async () => {
+  if (!Auth.isLoggedIn()) { window.location.href = '../index.html'; return; }
+  const u = Auth.getUser();
+  if (u) {
+    document.getElementById('sidebar-username').textContent = u.username;
+    document.getElementById('sidebar-role').textContent = u.role === 'vip' ? '⭐ VIP' : 'Tamu';
+    if (u.role !== 'vip') applyVipLock();
+  }
+})();
+
+// ── Sidebar mobile
+document.getElementById('sidebar-toggle').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('open');
+});
+document.getElementById('sidebar-overlay').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
+});
+
+// ── VIP Gate
+function applyVipLock() {
+  const wrapper = document.getElementById('vip-gate-wrapper');
+  wrapper.style.position = 'relative';
+  document.getElementById('vip-lock-overlay').style.display = 'flex';
+  document.getElementById('btn-generate').disabled = true;
+}
+
+// ── Anggota dinamis
+function addAnggota() {
+  const list = document.getElementById('anggota-list');
+  const count = list.children.length + 1;
+  const row = document.createElement('div');
+  row.className = 'anggota-row';
+  row.innerHTML = `
+    <input type="text" placeholder="Nama anggota ${count}" class="anggota-input" />
+    <button class="btn-remove-anggota" onclick="this.parentElement.remove()" title="Hapus">
+      <i class="bx bx-x"></i>
+    </button>`;
+  list.appendChild(row);
+}
+
+function getAnggota() {
+  return Array.from(document.querySelectorAll('.anggota-input'))
+    .map(i => i.value.trim()).filter(Boolean);
+}
+
+// ── Generate Prompt (with typing effect)
+let outputText = '';
+
+function generatePrompt() {
+  const judul    = document.getElementById('f-judul').value.trim();
+  const jenis    = document.getElementById('f-jenis').value;
+  const bahasa   = document.getElementById('f-bahasa').value;
+  const univ     = document.getElementById('f-univ').value.trim();
+  const fakultas = document.getElementById('f-fakultas').value.trim();
+  const matkul   = document.getElementById('f-matkul').value.trim();
+  const dosen    = document.getElementById('f-dosen').value.trim();
+  const halaman  = document.getElementById('f-halaman').value || '15';
+  const tahun    = document.getElementById('f-tahun').value.trim();
+  const struktur = document.getElementById('f-struktur').value;
+  const gaya     = document.getElementById('f-gaya').value;
+  const catatan  = document.getElementById('f-catatan').value.trim();
+  const anggota  = getAnggota();
+
+  if (!judul) { showToast('Judul makalah wajib diisi.', 'error'); document.getElementById('f-judul').focus(); return; }
+  if (!jenis) { showToast('Pilih jenis makalah terlebih dahulu.', 'error'); document.getElementById('f-jenis').focus(); return; }
+  if (!univ)  { showToast('Nama universitas wajib diisi.', 'error'); document.getElementById('f-univ').focus(); return; }
+
+  // Build struktur detail
+  const strukturMap = {
+    standar: `Halaman Judul, Kata Pengantar, Daftar Isi, BAB I Pendahuluan (Latar Belakang, Rumusan Masalah, Tujuan Penulisan), BAB II Pembahasan (minimal 3 sub-bab isi yang mendalam), BAB III Penutup (Kesimpulan dan Saran), Daftar Pustaka`,
+    penelitian: `Halaman Judul, Abstrak (Bahasa Indonesia & Inggris), Kata Pengantar, Daftar Isi, BAB I Pendahuluan, BAB II Tinjauan Pustaka, BAB III Metodologi, BAB IV Hasil dan Pembahasan, BAB V Kesimpulan dan Rekomendasi, Daftar Pustaka, Lampiran`,
+    laporan: `Halaman Judul, Kata Pengantar, Daftar Isi, Bab I Tujuan & Dasar Teori, Bab II Metode/Prosedur, Bab III Hasil Pengamatan, Bab IV Pembahasan & Analisis, Bab V Kesimpulan, Daftar Pustaka`,
+    custom: `Sesuai catatan tambahan yang diberikan`
+  };
+
+  const anggotaStr = anggota.length > 0
+    ? anggota.map((n, i) => `${i+1}. ${n}`).join('\n')
+    : '(tidak disebutkan)';
+
+  const prompt = `Kamu adalah asisten akademik profesional yang ahli dalam penulisan karya ilmiah. Tugasmu adalah membuat ${jenis} yang lengkap, berkualitas tinggi, dan memenuhi standar akademik.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📋 IDENTITAS MAKALAH
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Judul       : ${judul}
+Jenis       : ${jenis}
+Bahasa      : ${bahasa}
+Target Hal  : ±${halaman} halaman (tidak termasuk lampiran)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏫 IDENTITAS INSTITUSI
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Universitas : ${univ}${fakultas ? `\nFakultas    : ${fakultas}` : ''}${matkul ? `\nMata Kuliah : ${matkul}` : ''}${dosen ? `\nDosen       : ${dosen}` : ''}${tahun ? `\nTahun/Sem   : ${tahun}` : ''}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+👥 PENULIS / ANGGOTA KELOMPOK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${anggotaStr}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📐 SPESIFIKASI PENULISAN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Struktur    : ${strukturMap[struktur] || strukturMap.standar}
+
+Gaya Tulis  : ${gaya} — gunakan kalimat yang efektif, paragraf yang kohesif, dan argumentasi yang logis.
+
+Format      :
+• Font: Times New Roman 12pt (atau sesuai standar kampus)
+• Spasi: 1,5 (bagian isi) dan 1 (kutipan, catatan kaki)
+• Margin: 4-4-3-3 cm (atas-kiri-bawah-kanan)
+• Penomoran halaman: angka romawi (hal. pendahuluan), angka arab (isi)
+
+Referensi   :
+• Gunakan minimal 8–12 referensi yang relevan dan terpercaya
+• Prioritaskan jurnal ilmiah, buku teks, dan sumber resmi
+• Format sitasi: APA 7th Edition (kecuali diminta lain)
+• Cantumkan daftar pustaka lengkap di akhir
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📝 INSTRUKSI KHUSUS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Halaman judul harus memuat: nama institusi, judul lengkap, nama anggota, nama dosen, dan tahun
+• Setiap BAB dimulai di halaman baru
+• Setiap pernyataan faktual HARUS disertai sitasi
+• Gunakan sub-bab bernomor (1.1, 1.2, dst.) untuk memudahkan navigasi
+• Pembahasan harus mendalam, analitis, dan tidak hanya deskriptif
+• Hindari plagiarisme — parafrase dan analisis mandiri sangat diutamakan
+• Panjang setiap BAB proporsional dengan total target halaman${catatan ? `\n• ${catatan}` : ''}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 MULAI MENULIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Tulis makalah secara LENGKAP dari halaman judul hingga daftar pustaka. Jangan hanya membuat outline — tulis konten penuh setiap bagian dengan kualitas akademik yang tinggi. Jika terlalu panjang, lanjutkan di pesan berikutnya dan aku akan mengatakan "lanjutkan".`;
+
+  // Typing effect
+  outputText = prompt;
+  const box = document.getElementById('output-box');
+  box.innerHTML = '';
+  document.getElementById('btn-copy').disabled = true;
+  document.getElementById('btn-reset').disabled = true;
+  setStatus('generating', '⚙️ Menyusun prompt...');
+
+  let i = 0;
+  const chunkSize = 8; // chars per tick (faster feel)
+  const delay = 10;    // ms between ticks
+
+  function tick() {
+    if (i < prompt.length) {
+      box.textContent = prompt.slice(0, i);
+      // Add blinking cursor
+      const cursor = document.createElement('span');
+      cursor.className = 'typing-cursor';
+      box.appendChild(cursor);
+      box.scrollTop = box.scrollHeight;
+      i += chunkSize;
+      setTimeout(tick, delay);
+    } else {
+      box.textContent = prompt;
+      box.scrollTop = 0;
+      document.getElementById('btn-copy').disabled = false;
+      document.getElementById('btn-reset').disabled = false;
+      setStatus('done', '✅ Prompt siap digunakan! Copy dan tempel ke ChatGPT / Claude / Gemini.');
+    }
+  }
+  tick();
+}
+
+// ── Status
+function setStatus(type, msg) {
+  const bar = document.getElementById('status-bar');
+  bar.className = `status-bar ${type}`;
+  if (type === 'generating') {
+    bar.innerHTML = `<div class="spinner"></div>${msg}`;
+  } else {
+    bar.textContent = msg;
+  }
+}
+
+// ── Copy
+function copyOutput() {
+  if (!outputText) return;
+  navigator.clipboard.writeText(outputText).then(() => {
+    showToast('✅ Prompt berhasil disalin!', 'success');
+    const btn = document.getElementById('btn-copy');
+    btn.innerHTML = '<i class="bx bx-check"></i> Tersalin!';
+    setTimeout(() => { btn.innerHTML = '<i class="bx bx-copy"></i> Copy'; }, 2000);
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = outputText;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('✅ Prompt berhasil disalin!', 'success');
+  });
+}
+
+// ── Reset
+function resetOutput() {
+  outputText = '';
+  const box = document.getElementById('output-box');
+  box.innerHTML = `<div class="output-empty"><span class="empty-icon">✨</span><p>Isi form di sebelah kiri lalu klik <strong>Generate</strong> untuk membuat prompt makalahmu.</p></div>`;
+  document.getElementById('btn-copy').disabled = true;
+  document.getElementById('btn-reset').disabled = true;
+  document.getElementById('status-bar').className = 'status-bar hidden';
+}
+
+// ── Toast
+function showToast(msg, type='info') {
+  const t = document.getElementById('toast');
+  t.className = type; t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
