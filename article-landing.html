@@ -186,160 +186,30 @@ body {
 }
 .content-search input::placeholder { color: var(--ink4); }
 
-/* ── CATEGORY DROPDOWN ── */
-.cat-dropdown-wrap {
-  position: relative;
-  flex-shrink: 0;
-}
-
-.cat-dropdown-trigger {
+/* ── KATEGORI BADGE (statis, hanya "Artikel") ── */
+.cat-static-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  background: var(--surface);
-  border: 1.5px solid var(--border);
+  background: var(--primary-light);
+  border: 1.5px solid var(--primary);
   border-radius: 12px;
   font-family: 'Sora', sans-serif;
   font-size: 14px;
-  font-weight: 500;
-  color: var(--ink2);
-  cursor: pointer;
-  transition: var(--transition);
+  font-weight: 600;
+  color: var(--primary);
   white-space: nowrap;
-  min-width: 180px;
+  flex-shrink: 0;
   box-shadow: var(--shadow-sm);
   user-select: none;
 }
-.cat-dropdown-trigger:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-.cat-dropdown-trigger.open {
-  border-color: var(--primary);
-  color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
-}
-.cat-dropdown-trigger .cat-dot {
+.cat-static-badge .cat-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: var(--primary);
   flex-shrink: 0;
-  transition: background 0.2s;
-}
-.cat-dropdown-trigger .cat-label {
-  flex: 1;
-}
-.cat-dropdown-trigger .chevron {
-  font-size: 18px;
-  transition: transform 0.25s ease;
-  color: var(--ink4);
-  flex-shrink: 0;
-}
-.cat-dropdown-trigger.open .chevron {
-  transform: rotate(180deg);
-  color: var(--primary);
-}
-
-/* Dropdown panel */
-.cat-dropdown-panel {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  min-width: 240px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  box-shadow: var(--dropdown-shadow);
-  z-index: 200;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(-8px) scale(0.97);
-  pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-.cat-dropdown-panel.open {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  pointer-events: all;
-}
-
-.cat-panel-header {
-  padding: 14px 16px 10px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink4);
-  border-bottom: 1px solid var(--border);
-}
-
-.cat-option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
-  cursor: pointer;
-  transition: background 0.15s;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--ink2);
-}
-.cat-option:hover {
-  background: var(--surface2);
-  color: var(--ink);
-}
-.cat-option.active {
-  background: var(--primary-light);
-  color: var(--primary);
-  font-weight: 600;
-}
-.cat-option .opt-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  border: 2px solid currentColor;
-  transition: all 0.15s;
-}
-.cat-option.active .opt-dot {
-  background: var(--primary);
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
-}
-.cat-option .opt-count {
-  margin-left: auto;
-  font-size: 11px;
-  background: var(--surface2);
-  color: var(--ink4);
-  padding: 2px 8px;
-  border-radius: 20px;
-  font-weight: 600;
-  transition: all 0.15s;
-}
-.cat-option.active .opt-count {
-  background: rgba(37,99,235,0.12);
-  color: var(--primary);
-}
-.cat-option:last-child { border-radius: 0 0 16px 16px; }
-
-/* Result info bar */
-.result-info {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.result-count {
-  font-size: 13px;
-  color: var(--ink3);
-}
-.result-count strong {
-  color: var(--primary);
-  font-weight: 700;
 }
 
 .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
@@ -440,8 +310,7 @@ body {
   .modal-header-img { height: 200px; }
   .toolbar { flex-direction: column; align-items: stretch; }
   .content-search { max-width: 100%; }
-  .cat-dropdown-trigger { min-width: 100%; justify-content: space-between; }
-  .cat-dropdown-panel { min-width: 100%; }
+  .cat-static-badge { justify-content: center; }
 }
 @media(max-width: 480px) {
   .stats-row { grid-template-columns: 1fr; }
@@ -531,7 +400,7 @@ body {
       </div>
     </div>
 
-    <!-- ── TOOLBAR: Search + Category Dropdown ── -->
+    <!-- ── TOOLBAR: Search + Badge Kategori (statis, hanya "Artikel") ── -->
     <div class="toolbar">
       <!-- Search Bar Konten -->
       <div class="content-search">
@@ -539,17 +408,10 @@ body {
         <input type="text" id="search-input" placeholder="Cari judul atau isi artikel...">
       </div>
 
-      <!-- Category Dropdown -->
-      <div class="cat-dropdown-wrap" id="cat-dropdown-wrap">
-        <div class="cat-dropdown-trigger" id="cat-trigger" onclick="toggleCatDropdown()">
-          <span class="cat-dot" id="cat-dot" style="background: var(--primary)"></span>
-          <span class="cat-label" id="cat-label-text">Semua Kategori</span>
-          <i class='bx bx-chevron-down chevron'></i>
-        </div>
-        <div class="cat-dropdown-panel" id="cat-panel">
-          <div class="cat-panel-header">Filter Kategori</div>
-          <!-- Options diisi via JS -->
-        </div>
+      <!-- Badge kategori statis: halaman ini hanya menampilkan kategori "Artikel" -->
+      <div class="cat-static-badge">
+        <span class="cat-dot"></span>
+        <span>Kategori: Artikel</span>
       </div>
     </div>
 
@@ -604,15 +466,17 @@ themeToggle.addEventListener('click', () => {
   localStorage.setItem('theme', isDark ? 'light' : 'dark');
 });
 
+// ── KONFIGURASI: nama kategori yang ditampilkan di laman ini ──
+const TARGET_KATEGORI_NAMA = 'Artikel';
+
 // ── DATA ──
 let DB = { kategori: [], artikel: [] };
-let activeKat = 'all';
 let searchQ = '';
 let viewMode = 'grid';
 
 const DUMMY_DATA = {
   kategori: [
-    { id: 'k1', nama: 'Pemrograman', warna: '#2563eb' },
+    { id: 'k1', nama: 'Artikel', warna: '#2563eb' },
     { id: 'k2', nama: 'Desain UI/UX', warna: '#ec4899' },
     { id: 'k3', nama: 'Teknologi', warna: '#10b981' }
   ],
@@ -634,7 +498,7 @@ async function loadData() {
     console.warn("Menggunakan data dummy karena API gagal dimuat.");
     DB = DUMMY_DATA;
   }
-  setTimeout(() => { buildCatDropdown(); render(); }, 500);
+  setTimeout(() => { render(); }, 500);
 }
 
 function showSkeleton() {
@@ -654,93 +518,30 @@ function getKat(id) { return DB.kategori.find(k => k.id === id) || { nama: 'Umum
 function fmtDate(s) { if (!s) return ''; return new Date(s).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); }
 function esc(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-// ── CATEGORY DROPDOWN LOGIC ──
-function buildCatDropdown() {
-  const panel = document.getElementById('cat-panel');
-  // hitung artikel per kategori (filter 'Artikel' jika diperlukan)
-  const countMap = {};
-  DB.artikel.forEach(a => {
-    countMap[a.kategori_id] = (countMap[a.kategori_id] || 0) + 1;
-  });
-  const totalCount = DB.artikel.length;
-
-  let html = `<div class="cat-option active" data-id="all" data-color="var(--primary)" data-name="Semua Kategori" onclick="selectCat('all','Semua Kategori','var(--primary)')">
-    <span class="opt-dot" style="border-color: var(--primary); background: var(--primary);"></span>
-    <span>Semua Kategori</span>
-    <span class="opt-count">${totalCount}</span>
-  </div>`;
-
-  DB.kategori.forEach(k => {
-    const cnt = countMap[k.id] || 0;
-    if (cnt === 0) return;
-    html += `<div class="cat-option" data-id="${esc(k.id)}" onclick="selectCat('${esc(k.id)}','${esc(k.nama)}','${esc(k.warna)}')">
-      <span class="opt-dot" style="border-color:${esc(k.warna)}"></span>
-      <span>${esc(k.nama)}</span>
-      <span class="opt-count">${cnt}</span>
-    </div>`;
-  });
-
-  // Tambahkan setelah header
-  const header = panel.querySelector('.cat-panel-header');
-  header.insertAdjacentHTML('afterend', html.replace(/<div class="cat-panel-header">.*?<\/div>/, ''));
-  // Reset: rebuild full
-  panel.innerHTML = `<div class="cat-panel-header">Filter Kategori</div>` + html;
+// Ambil id kategori yang nama-nya cocok dengan TARGET_KATEGORI_NAMA (case-insensitive)
+function getTargetKategoriIds() {
+  return DB.kategori
+    .filter(k => (k.nama || '').trim().toLowerCase() === TARGET_KATEGORI_NAMA.toLowerCase())
+    .map(k => k.id);
 }
-
-function selectCat(id, name, color) {
-  activeKat = id;
-  // Update trigger label
-  document.getElementById('cat-label-text').textContent = name;
-  document.getElementById('cat-dot').style.background = color.startsWith('var') ? 'var(--primary)' : color;
-  // Update active state options
-  document.querySelectorAll('#cat-panel .cat-option').forEach(el => {
-    const isActive = el.dataset.id === id;
-    el.classList.toggle('active', isActive);
-    const dot = el.querySelector('.opt-dot');
-    if (isActive) {
-      dot.style.background = color.startsWith('var') ? 'var(--primary)' : color;
-      dot.style.borderColor = color.startsWith('var') ? 'var(--primary)' : color;
-    } else {
-      const elColor = el.getAttribute('onclick').match(/'([^']+)'\)$/)?.[1] || '#94a3b8';
-      dot.style.background = 'transparent';
-      dot.style.borderColor = elColor.startsWith('var') ? 'var(--ink4)' : elColor;
-    }
-  });
-  closeCatDropdown();
-  render();
-}
-
-function toggleCatDropdown() {
-  const trigger = document.getElementById('cat-trigger');
-  const panel = document.getElementById('cat-panel');
-  const isOpen = panel.classList.contains('open');
-  if (isOpen) { closeCatDropdown(); } else { trigger.classList.add('open'); panel.classList.add('open'); }
-}
-function closeCatDropdown() {
-  document.getElementById('cat-trigger').classList.remove('open');
-  document.getElementById('cat-panel').classList.remove('open');
-}
-
-// Tutup dropdown jika klik di luar
-document.addEventListener('click', e => {
-  if (!document.getElementById('cat-dropdown-wrap').contains(e.target)) closeCatDropdown();
-});
 
 // ── RENDER ──
 function render() {
-  const dates = DB.artikel.map(a => a.tanggal).filter(Boolean).sort().reverse();
+  const targetIds = getTargetKategoriIds();
+
+  // Hanya ambil artikel dari kategori target ("Artikel")
+  let arts = DB.artikel.filter(a => targetIds.includes(a.kategori_id));
+
+  const dates = arts.map(a => a.tanggal).filter(Boolean).sort().reverse();
   document.getElementById('s-last').textContent = dates[0] ? fmtDate(dates[0]) : '-';
 
-  let arts = DB.artikel.slice();
-  // Filter kategori
-  if (activeKat !== 'all') arts = arts.filter(a => a.kategori_id === activeKat);
   // Filter search
   if (searchQ) arts = arts.filter(a => (a.judul + a.deskripsi).toLowerCase().includes(searchQ));
 
-  // Stats
+  // Stats (dihitung hanya dari kategori "Artikel")
   document.getElementById('s-total').textContent = arts.length;
   document.getElementById('s-feat').textContent = arts.filter(a => a.featured).length;
-  document.getElementById('s-kat').textContent = DB.kategori.length;
+  document.getElementById('s-kat').textContent = targetIds.length ? 1 : 0;
   document.getElementById('section-label').textContent = `Artikel (${arts.length})`;
 
   const grid = document.getElementById('articles-grid');
@@ -748,7 +549,7 @@ function render() {
     grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:60px 40px; color:var(--ink3);">
       <i class='bx bx-folder-open' style="font-size:52px; margin-bottom:12px; opacity:0.4; display:block;"></i>
       <div style="font-weight:600; font-size:15px; margin-bottom:6px; color:var(--ink2);">Tidak ada artikel ditemukan</div>
-      <div style="font-size:13px;">Coba ubah kata kunci atau kategori yang dipilih.</div>
+      <div style="font-size:13px;">Coba ubah kata kunci pencarian, atau pastikan ada artikel dengan kategori "${esc(TARGET_KATEGORI_NAMA)}".</div>
     </div>`;
     return;
   }
