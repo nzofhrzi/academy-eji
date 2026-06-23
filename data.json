@@ -38,6 +38,15 @@
   ],
   "artikel": [
     {
+      "id": "id_6c5dj7q",
+      "judul": "Metopen - Kuantitatif & Kualitatif Fathor Rasyid",
+      "deskripsi": "https://drive.google.com/file/d/1Ji_pNTiJU9h1pjX5PwoSgnwS8j1gvktr/view?usp=drivesdk",
+      "gambar": "https://raw.githubusercontent.com/nzofhrzi/academy-eji/main/images/162438-1782204987596.jpg",
+      "kategori_id": "id_xrpxqok",
+      "tanggal": "2026-06-23",
+      "featured": true
+    },
+    {
       "id": "id_tmi4txe",
       "judul": "Membuat PPT Claude",
       "deskripsi": "buatkan aku PPT untuk di presentasi hasil analisis saya, tidak hanya point point saja namun cukup ada penjelasan singkat namun tidak melenceng dari inti. membahas semua nya karena penting, terutama soal opini pribadi.",
