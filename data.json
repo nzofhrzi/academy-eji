@@ -218,15 +218,6 @@
       "featured": false
     },
     {
-      "id": "id_photo_009",
-      "judul": "Vintage Retro 1970s",
-      "deskripsi": "Apply a vintage 1970s film photography aesthetic to this photo. Color grade: warm, faded, slightly washed-out tones with lifted blacks (no true black). Add: analog film grain (heavy), slight chromatic aberration on edges, faded highlights with yellow-orange cast, crushed but warm shadows with red-brown undertones. Vignette: heavy, soft, dark corners framing the image. Slight horizontal scan lines barely visible. Skin tones: warm, golden, slightly overexposed. Colors should shift toward earthy tones — warm yellows, burnt oranges, olive greens, muted reds. Output should look like it was shot on a Canon AE-1 with Kodak Gold film that has been stored for 40 years. No sharpening — slight softness is authentic.",
-      "gambar": "https://images.unsplash.com/photo-1449452198679-05c7fd30f416?w=400",
-      "kategori_id": "id_0bdwwqs",
-      "tanggal": "2026-06-01",
-      "featured": false
-    },
-    {
       "id": "id_photo_010",
       "judul": "Hapus Objek / Background",
       "deskripsi": "Remove the unwanted object (or person) from this photo and fill the area naturally using content-aware reconstruction. Analyze surrounding textures, patterns, colors, and lighting to generate a seamless replacement fill. The removed area should look as if the object was never there — no ghosting, no smearing, no visible patch edges. Reconstruct background elements such as: pavement tiles continuing the original pattern, wall texture maintaining consistent grain and color, sky continuing gradients naturally, foliage filling in with matching density and lighting. Maintain original perspective, lighting direction, and color balance throughout. Output: clean, photorealistic image with no visible editing artifacts.",
