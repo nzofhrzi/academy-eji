@@ -227,15 +227,6 @@
       "featured": false
     },
     {
-      "id": "id_photo_011",
-      "judul": "Glamour Fashion Editorial",
-      "deskripsi": "Transform this photo into a high-fashion editorial glamour shot. Apply: sophisticated retouching with preserved skin texture, dramatic yet controlled lighting enhancement with strong shadows and luminous highlights, deep rich color grading (analogous to Vogue editorial color palette). Eyes: enhance contrast, brighten whites, deepen iris color. Lips: enhance color saturation and definition. Hair: add shine, define strands, enhance volume appearance. Clothing: enhance fabric texture and color richness. Background: darken and soften dramatically for subject emphasis. Color grade: high contrast, deep blacks, luminous highlights, slightly desaturated mid-tones. Output: luxury fashion magazine cover quality, Helmut Newton / Peter Lindbergh aesthetic.",
-      "gambar": "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400",
-      "kategori_id": "id_0bdwwqs",
-      "tanggal": "2026-06-01",
-      "featured": true
-    },
-    {
       "id": "id_photo_012",
       "judul": "Latar Cherry Blossom Jepang",
       "deskripsi": "Replace the background with a stunning Japanese cherry blossom (sakura) scene. Full bloom sakura trees with dense clusters of soft pink flowers covering the canopy. Petals gently falling through the air like pink snow. Warm spring afternoon lighting — golden and soft, filtering through branches. Ground: stone path or wooden bridge with fallen petals scattered naturally. Background: traditional Japanese wooden shrine gate (torii) barely visible through the trees in deep bokeh. Subject remains completely photorealistic and unchanged. Lighting on subject should harmonize with warm pink ambient reflected light from surrounding blossoms. Output: dreamy, cinematic, Japan travel photography style.",
