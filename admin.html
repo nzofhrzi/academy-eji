@@ -277,6 +277,16 @@ select.form-control { cursor: pointer; }
 .search-box input::placeholder { color: var(--ink4); }
 .search-box i { color: var(--ink4); font-size: 18px; }
 
+/* ── BULK ACTION BAR ── */
+.bulk-action-bar {
+  display: none; align-items: center; gap: 12px; padding: 12px 20px;
+  background: var(--primary-light); border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+}
+.bulk-action-bar.show { display: flex; }
+.bulk-count { font-size: 13px; font-weight: 600; color: var(--primary); flex: 1; }
+.bulk-actions { display: flex; align-items: center; gap: 8px; }
+
 /* ── FILTER BAR ── */
 .filter-bar {
   display: flex; align-items: center; gap: 8px; padding: 12px 20px;
@@ -295,6 +305,13 @@ select.form-control { cursor: pointer; }
 .chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 .chip:hover:not(.active) { background: var(--bg); color: var(--ink); }
 
+/* ── CHECKBOX ── */
+.checkbox-cell { padding: 12px 16px !important; }
+.checkbox-cell input[type="checkbox"] {
+  width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary);
+  border-radius: 4px; border: 1.5px solid var(--border);
+}
+
 /* ── TABLE SCROLL (keeps long lists from stretching the page) ── */
 .table-scroll { max-height: 60vh; overflow-y: auto; overflow-x: auto; }
 .table-scroll::-webkit-scrollbar { width: 6px; }
@@ -307,9 +324,11 @@ thead th {
   background: var(--surface2); border-bottom: 1px solid var(--border);
   position: sticky; top: 0; z-index: 2;
 }
+thead th.checkbox-th { width: 40px; padding: 11px 12px; text-align: center; }
 tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
 tbody tr:last-child { border-bottom: none; }
 tbody tr:hover { background: var(--surface2); }
+tbody tr.selected { background: rgba(37,99,235,0.08); }
 tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-align: middle; }
 .td-title { font-weight: 500; color: var(--ink); font-family: 'Lora', serif; }
 .td-actions { display: flex; align-items: center; gap: 6px; }
@@ -469,11 +488,11 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
     border-top: 1px dashed var(--border);
   }
   .table-scroll table td:last-child .td-actions { width: 100%; justify-content: flex-end; }
-  #art-table tbody td:nth-child(2)::before { content: "Kategori"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
-  #art-table tbody td:nth-child(3)::before { content: "Tanggal"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
-  #art-table tbody td:nth-child(4)::before { content: "Status"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
-  #kat-table tbody td:nth-child(2)::before { content: "Warna"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
-  #kat-table tbody td:nth-child(3)::before { content: "Artikel"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
+  #art-table tbody td:nth-child(3)::before { content: "Kategori"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
+  #art-table tbody td:nth-child(4)::before { content: "Tanggal"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
+  #art-table tbody td:nth-child(5)::before { content: "Status"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
+  #kat-table tbody td:nth-child(3)::before { content: "Warna"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
+  #kat-table tbody td:nth-child(4)::before { content: "Artikel"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
 }
 
 @media(max-width: 992px) {
@@ -639,6 +658,17 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
             <input type="text" id="art-search" placeholder="Cari artikel…">
           </div>
         </div>
+        <div class="bulk-action-bar" id="art-bulk-bar">
+          <span class="bulk-count"><i class='bx bx-check-square'></i> <span id="art-bulk-count">0</span> terpilih</span>
+          <div class="bulk-actions">
+            <button class="topbar-btn btn-ghost" id="art-bulk-clear" style="padding:7px 14px;font-size:12px">
+              <i class='bx bx-x'></i> Batal Pilih
+            </button>
+            <button class="topbar-btn btn-danger" id="art-bulk-delete" style="padding:7px 14px;font-size:12px">
+              <i class='bx bx-trash'></i> Hapus Massal
+            </button>
+          </div>
+        </div>
         <div class="filter-bar">
           <span class="filter-label"><i class='bx bx-filter-alt'></i> Filter</span>
           <select class="form-control" id="art-filter-kat">
@@ -652,6 +682,7 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
           <table id="art-table">
             <thead>
               <tr>
+                <th class="checkbox-th"><input type="checkbox" id="art-select-all" title="Pilih semua"></th>
                 <th>Judul</th>
                 <th>Kategori</th>
                 <th>Tanggal</th>
@@ -808,10 +839,22 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
             Daftar Kategori
           </span>
         </div>
+        <div class="bulk-action-bar" id="kat-bulk-bar">
+          <span class="bulk-count"><i class='bx bx-check-square'></i> <span id="kat-bulk-count">0</span> terpilih</span>
+          <div class="bulk-actions">
+            <button class="topbar-btn btn-ghost" id="kat-bulk-clear" style="padding:7px 14px;font-size:12px">
+              <i class='bx bx-x'></i> Batal Pilih
+            </button>
+            <button class="topbar-btn btn-danger" id="kat-bulk-delete" style="padding:7px 14px;font-size:12px">
+              <i class='bx bx-trash'></i> Hapus Massal
+            </button>
+          </div>
+        </div>
         <div class="table-scroll">
           <table id="kat-table">
             <thead>
               <tr>
+                <th class="checkbox-th"><input type="checkbox" id="kat-select-all" title="Pilih semua"></th>
                 <th>Nama</th>
                 <th>Warna</th>
                 <th>Jumlah Artikel</th>
@@ -835,7 +878,7 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
       <button class="modal-close" onclick="closeDelModal()"><i class='bx bx-x'></i></button>
     </div>
     <div class="modal-body">
-      <p style="color:var(--ink2);line-height:1.7">Apakah kamu yakin ingin menghapus <strong id="del-item-name"></strong>?</p>
+      <p style="color:var(--ink2);line-height:1.7" id="del-message">Apakah kamu yakin ingin menghapus item ini?</p>
       <p style="color:var(--ink4);font-size:12px;margin-top:12px;display:flex;align-items:center;gap:6px;background:var(--surface2);padding:10px 12px;border-radius:8px;border:1px solid var(--border)">
         <i class='bx bx-error-circle' style="color:var(--warn);font-size:18px;flex-shrink:0"></i>
         Data akan langsung dihapus dari GitHub. Tindakan ini tidak dapat dibatalkan.
@@ -1008,6 +1051,65 @@ async function apiTambahKategori(kat){
 }
 
 /* ════════════════════════════════════════════════════
+   SELECTION & BULK DELETE
+   ════════════════════════════════════════════════════ */
+let selectedArt = new Set();
+let selectedKat = new Set();
+
+function updateArtBulkBar(){
+  const bar = document.getElementById('art-bulk-bar');
+  const count = document.getElementById('art-bulk-count');
+  count.textContent = selectedArt.size;
+  bar.classList.toggle('show', selectedArt.size > 0);
+}
+
+function updateKatBulkBar(){
+  const bar = document.getElementById('kat-bulk-bar');
+  const count = document.getElementById('kat-bulk-count');
+  count.textContent = selectedKat.size;
+  bar.classList.toggle('show', selectedKat.size > 0);
+}
+
+function toggleArtSelect(id){
+  if(selectedArt.has(id)) selectedArt.delete(id);
+  else selectedArt.add(id);
+  updateArtBulkBar();
+  updateArtSelectAllCheckbox();
+  renderArtTable();
+}
+
+function toggleKatSelect(id){
+  if(selectedKat.has(id)) selectedKat.delete(id);
+  else selectedKat.add(id);
+  updateKatBulkBar();
+  updateKatSelectAllCheckbox();
+  renderKatTable();
+}
+
+function updateArtSelectAllCheckbox(){
+  const visibleIds = new Set(getFilteredArtikels().map(a=>a.id));
+  const allSelected = visibleIds.size > 0 && Array.from(visibleIds).every(id=>selectedArt.has(id));
+  document.getElementById('art-select-all').checked = allSelected;
+}
+
+function updateKatSelectAllCheckbox(){
+  const allSelected = DB.kategori.length > 0 && DB.kategori.every(k=>selectedKat.has(k.id));
+  document.getElementById('kat-select-all').checked = allSelected;
+}
+
+function clearArtSelection(){
+  selectedArt.clear();
+  updateArtBulkBar();
+  renderArtTable();
+}
+
+function clearKatSelection(){
+  selectedKat.clear();
+  updateKatBulkBar();
+  renderKatTable();
+}
+
+/* ════════════════════════════════════════════════════
    RENDER
    ════════════════════════════════════════════════════ */
 function render(){
@@ -1025,6 +1127,14 @@ let artSearch = '';
 let artKatFilter = '';
 let artFeaturedOnly = false;
 
+function getFilteredArtikels(){
+  let arts = DB.artikel.slice();
+  if(artSearch) arts = arts.filter(a=>(a.judul+a.deskripsi).toLowerCase().includes(artSearch));
+  if(artKatFilter) arts = arts.filter(a=>a.kategori_id===artKatFilter);
+  if(artFeaturedOnly) arts = arts.filter(a=>a.featured);
+  return arts;
+}
+
 function renderArtFilterSelect(){
   const sel = document.getElementById('art-filter-kat');
   const cur = sel.value;
@@ -1036,12 +1146,9 @@ function renderArtFilterSelect(){
 
 function renderArtTable(){
   const tbody = document.getElementById('art-tbody');
-  let arts = DB.artikel.slice();
-  if(artSearch) arts = arts.filter(a=>(a.judul+a.deskripsi).toLowerCase().includes(artSearch));
-  if(artKatFilter) arts = arts.filter(a=>a.kategori_id===artKatFilter);
-  if(artFeaturedOnly) arts = arts.filter(a=>a.featured);
+  const arts = getFilteredArtikels();
   if(!arts.length){
-    tbody.innerHTML = `<tr class="empty-row"><td colspan="5">
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="6">
       <i class='bx bx-folder-open' style="font-size:36px;margin-bottom:10px;display:block;opacity:0.3"></i>
       Tidak ada artikel yang cocok.
     </td></tr>`;
@@ -1049,7 +1156,9 @@ function renderArtTable(){
   }
   tbody.innerHTML = arts.map((a,i)=>{
     const k = getKat(a.kategori_id);
-    return `<tr style="animation:fadeUp 0.3s ease ${i*0.04}s both">
+    const isSelected = selectedArt.has(a.id);
+    return `<tr style="animation:fadeUp 0.3s ease ${i*0.04}s both" class="${isSelected?'selected':''}">
+      <td class="checkbox-cell"><input type="checkbox" ${isSelected?'checked':''} onchange="toggleArtSelect('${esc(a.id)}')"></td>
       <td><span class="td-title">${esc(a.judul)}</span></td>
       <td><span class="badge" style="background:${k.warna}20;color:${k.warna}">${esc(k.nama)}</span></td>
       <td>${fmtDate(a.tanggal)}</td>
@@ -1065,7 +1174,7 @@ function renderArtTable(){
 function renderKatTable(){
   const tbody = document.getElementById('kat-tbody');
   if(!DB.kategori.length){
-    tbody.innerHTML = `<tr class="empty-row"><td colspan="4">
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="5">
       <i class='bx bx-purchase-tag-alt' style="font-size:36px;margin-bottom:10px;display:block;opacity:0.3"></i>
       Belum ada kategori.
     </td></tr>`;
@@ -1073,7 +1182,9 @@ function renderKatTable(){
   }
   tbody.innerHTML = DB.kategori.map((k,i)=>{
     const count = DB.artikel.filter(a=>a.kategori_id===k.id).length;
-    return `<tr style="animation:fadeUp 0.3s ease ${i*0.04}s both">
+    const isSelected = selectedKat.has(k.id);
+    return `<tr style="animation:fadeUp 0.3s ease ${i*0.04}s both" class="${isSelected?'selected':''}">
+      <td class="checkbox-cell"><input type="checkbox" ${isSelected?'checked':''} onchange="toggleKatSelect('${esc(k.id)}')"></td>
       <td><span class="kat-color-dot" style="background:${k.warna}"></span>${esc(k.nama)}</td>
       <td><code style="font-size:12px;color:var(--ink3);background:var(--surface2);padding:2px 8px;border-radius:4px">${esc(k.warna)}</code></td>
       <td><span style="font-weight:600;color:var(--primary)">${count}</span> artikel</td>
@@ -1329,13 +1440,25 @@ document.getElementById('btn-add-kat').addEventListener('click', async()=>{
 /* ════════════════════════════════════════════════════
    DELETE MODAL
    ════════════════════════════════════════════════════ */
-let _delType='', _delId='';
+let _delType='', _delIds=[];
 
 function openDelModal(type, id, name){
-  _delType=type; _delId=id;
-  document.getElementById('del-item-name').textContent = '"'+name+'"';
+  _delType=type;
+  _delIds=[id];
+  let message = `Apakah kamu yakin ingin menghapus <strong>${esc(name)}</strong>?`;
+  document.getElementById('del-message').innerHTML = message;
   document.getElementById('del-confirm-btn').disabled=false;
   document.getElementById('del-confirm-btn').innerHTML="<i class='bx bx-trash'></i> Hapus";
+  document.getElementById('del-modal').classList.add('open');
+}
+
+function openDelBulkModal(type, ids){
+  _delType=type;
+  _delIds=ids;
+  let message = `Apakah kamu yakin ingin menghapus <strong>${ids.length} item</strong>? Tindakan ini tidak dapat dibatalkan.`;
+  document.getElementById('del-message').innerHTML = message;
+  document.getElementById('del-confirm-btn').disabled=false;
+  document.getElementById('del-confirm-btn').innerHTML="<i class='bx bx-trash'></i> Hapus Semua";
   document.getElementById('del-modal').classList.add('open');
 }
 
@@ -1351,13 +1474,22 @@ document.getElementById('del-confirm-btn').addEventListener('click', async()=>{
   btn.innerHTML='<span class="spinner"></span> Menghapus…';
 
   try {
-    await apiDelete(_delType, _delId);
-    if(_delType==='art'){
-      DB.artikel = DB.artikel.filter(a=>a.id!==_delId);
-    } else {
-      DB.kategori = DB.kategori.filter(k=>k.id!==_delId);
+    let deleted = 0;
+    for(const id of _delIds){
+      await apiDelete(_delType, id);
+      deleted++;
     }
-    showToast('✅ Berhasil dihapus dari GitHub!');
+    
+    if(_delType==='art'){
+      DB.artikel = DB.artikel.filter(a=>!_delIds.includes(a.id));
+      clearArtSelection();
+    } else {
+      DB.kategori = DB.kategori.filter(k=>!_delIds.includes(k.id));
+      clearKatSelection();
+    }
+    
+    const msg = _delIds.length > 1 ? `✅ ${_delIds.length} item berhasil dihapus dari GitHub!` : '✅ Berhasil dihapus dari GitHub!';
+    showToast(msg);
     closeDelModal();
     render();
   } catch(e){
@@ -1367,6 +1499,47 @@ document.getElementById('del-confirm-btn').addEventListener('click', async()=>{
     btn.disabled=false;
     cancelBtn.disabled=false;
   }
+});
+
+/* ════════════════════════════════════════════════════
+   BULK DELETE BUTTONS
+   ════════════════════════════════════════════════════ */
+document.getElementById('art-bulk-delete').addEventListener('click', ()=>{
+  if(selectedArt.size === 0) return;
+  openDelBulkModal('art', Array.from(selectedArt));
+});
+
+document.getElementById('art-bulk-clear').addEventListener('click', clearArtSelection);
+
+document.getElementById('kat-bulk-delete').addEventListener('click', ()=>{
+  if(selectedKat.size === 0) return;
+  openDelBulkModal('kat', Array.from(selectedKat));
+});
+
+document.getElementById('kat-bulk-clear').addEventListener('click', clearKatSelection);
+
+/* ════════════════════════════════════════════════════
+   SELECT ALL CHECKBOXES
+   ════════════════════════════════════════════════════ */
+document.getElementById('art-select-all').addEventListener('change', (e)=>{
+  const visibleIds = getFilteredArtikels().map(a=>a.id);
+  if(e.target.checked){
+    visibleIds.forEach(id=>selectedArt.add(id));
+  } else {
+    visibleIds.forEach(id=>selectedArt.delete(id));
+  }
+  updateArtBulkBar();
+  renderArtTable();
+});
+
+document.getElementById('kat-select-all').addEventListener('change', (e)=>{
+  if(e.target.checked){
+    DB.kategori.forEach(k=>selectedKat.add(k.id));
+  } else {
+    selectedKat.clear();
+  }
+  updateKatBulkBar();
+  renderKatTable();
 });
 
 /* ════════════════════════════════════════════════════
@@ -1398,18 +1571,23 @@ function switchTab(tabId){
 
 /* Search */
 document.getElementById('art-search').addEventListener('input', e=>{
-  artSearch = e.target.value.toLowerCase().trim(); renderArtTable();
+  artSearch = e.target.value.toLowerCase().trim();
+  clearArtSelection();
+  renderArtTable();
 });
 
 /* Filter: kategori */
 document.getElementById('art-filter-kat').addEventListener('change', e=>{
-  artKatFilter = e.target.value; renderArtTable();
+  artKatFilter = e.target.value;
+  clearArtSelection();
+  renderArtTable();
 });
 
 /* Filter: unggulan saja (chip toggle) */
 document.getElementById('art-filter-feat').addEventListener('click', ()=>{
   artFeaturedOnly = !artFeaturedOnly;
   document.getElementById('art-filter-feat').classList.toggle('active', artFeaturedOnly);
+  clearArtSelection();
   renderArtTable();
 });
 
