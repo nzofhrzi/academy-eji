@@ -173,15 +173,6 @@
       "featured": true
     },
     {
-      "id": "id_photo_008",
-      "judul": "Efek Double Exposure",
-      "deskripsi": "Create a double exposure artistic effect by blending the subject's silhouette with a nature landscape. Use the subject's outline as a mask, filling it with a forest or mountain landscape image. Inside the subject: trees, mountains, and sky visible with 60% opacity. Outside: clean white or dark background. Preserve the subject's face area with higher detail visibility (40% nature blend, 60% face visible) so identity is still recognizable. Apply gradient transitions for smooth blending. Color grade: muted tones with slight blue or teal shift for artistic feel. High contrast between subject silhouette and background. Output: fine art conceptual photography / digital art hybrid style.",
-      "gambar": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400",
-      "kategori_id": "id_0bdwwqs",
-      "tanggal": "2026-06-01",
-      "featured": false
-    },
-    {
       "id": "id_photo_012",
       "judul": "Latar Cherry Blossom Jepang",
       "deskripsi": "Replace the background with a stunning Japanese cherry blossom (sakura) scene. Full bloom sakura trees with dense clusters of soft pink flowers covering the canopy. Petals gently falling through the air like pink snow. Warm spring afternoon lighting — golden and soft, filtering through branches. Ground: stone path or wooden bridge with fallen petals scattered naturally. Background: traditional Japanese wooden shrine gate (torii) barely visible through the trees in deep bokeh. Subject remains completely photorealistic and unchanged. Lighting on subject should harmonize with warm pink ambient reflected light from surrounding blossoms. Output: dreamy, cinematic, Japan travel photography style.",
