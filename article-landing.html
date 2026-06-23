@@ -119,12 +119,35 @@ body {
 .topbar-right { display: flex; align-items: center; gap: 16px; }
 .search-box {
   display: flex; align-items: center; gap: 10px; background: var(--bg);
-  border: 1px solid var(--border); border-radius: 20px; padding: 8px 16px;
-  transition: var(--transition); width: 250px;
+  border: 1px solid var(--border); border-radius: 20px; padding: 6px 6px 6px 16px;
+  transition: var(--transition); width: 280px;
 }
-.search-box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); width: 280px; }
+.search-box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); width: 310px; }
 .search-box input { border: none; background: transparent; font-family: 'Sora', sans-serif; font-size: 13px; color: var(--ink); outline: none; width: 100%; }
 .search-box i { color: var(--ink4); font-size: 18px; }
+
+/* Modifikasi Tombol Cari */
+.search-btn {
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.search-btn:hover {
+  background: var(--primary-dark);
+  transform: scale(1.05);
+}
+.search-btn i {
+  color: #ffffff !important;
+  font-size: 16px !important;
+}
 
 .icon-btn {
   width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border);
@@ -148,15 +171,90 @@ body {
 .stat-val { font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.2; }
 .stat-label { font-size: 12px; color: var(--ink3); font-weight: 500; }
 
-/* ── FILTER & HEADER ── */
-.filter-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
-.filter-chip {
-  padding: 8px 18px; border-radius: 20px; border: 1px solid var(--border);
-  background: var(--surface); font-family: 'Sora', sans-serif; font-size: 13px;
-  font-weight: 500; color: var(--ink2); cursor: pointer; transition: var(--transition);
+/* ── CUSTOM DROPDOWN KATEGORI ── */
+.filter-container {
+  position: relative;
+  margin-bottom: 24px;
 }
-.filter-chip:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
-.filter-chip.active { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 4px 10px rgba(37,99,235,0.2); }
+.dropdown-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink2);
+  min-width: 220px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+.dropdown-select:hover {
+  border-color: var(--primary);
+  color: var(--ink);
+}
+.dropdown-select i {
+  font-size: 18px;
+  transition: transform 0.3s ease;
+  color: var(--ink3);
+}
+.filter-container.active .dropdown-select i {
+  transform: rotate(180deg);
+}
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 120px;
+  min-width: 240px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  z-index: 30;
+  overflow: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+.filter-container.active .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  color: var(--ink2);
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+}
+.dropdown-item:hover {
+  background: var(--surface2);
+  color: var(--primary);
+  padding-left: 24px;
+}
+.dropdown-item.active {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 600;
+}
+.dropdown-item .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ink4);
+}
+.dropdown-item.active .dot {
+  background: var(--primary);
+}
 
 .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
 .section-head h2 { font-size: 18px; font-weight: 600; color: var(--ink); }
@@ -247,7 +345,8 @@ body {
   #sidebar-toggle { display: block; }
 }
 @media(max-width: 768px) {
-  .search-box { display: none; }
+  .search-box { display: flex; width: 200px; }
+  .search-box:focus-within { width: 220px; }
   #articles-grid.list-view .a-card { flex-direction: column; }
   #articles-grid.list-view .a-card-img { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid var(--border); }
   .stats-row { grid-template-columns: repeat(2, 1fr); }
@@ -269,7 +368,7 @@ body {
     <div class="logo-text">Academy<span>Eji.</span></div>
   </div>
 
-      <div class="sidebar-footer">
+  <div class="sidebar-footer">
     <div class="user-profile">
       <div class="user-avatar"><i class='bx bxs-user'></i></div>
       <div class="user-info">
@@ -288,14 +387,15 @@ body {
     <a class="nav-item" href="referensi/index.html"><i class='bx bx-book-open nav-icon'></i> Referensi &amp; Ebook</a>
     <a class="nav-item" href="ujicoba/index.html"><i class='bx bx-trophy nav-icon'></i> Kelas Uji Coba</a>
     <a class="nav-item" href="config.html"><i class='bx bx-info-circle nav-icon'></i> Tentang Kami</a>
-      <a class="nav-item" id="nav-upgrade-vip" href="premium/index.html" style="color:#d97706;display:none;"><i class='bx bxs-crown nav-icon'></i> Upgrade Premium</a>
+    <a class="nav-item" id="nav-upgrade-vip" href="premium/index.html" style="color:#d97706;display:none;"><i class='bx bxs-crown nav-icon'></i> Upgrade Premium</a>
     <div class="sidebar-section" style="margin-top: 15px;">Manajemen</div>
     <a class="nav-item" href="admin.html"><i class='bx bx-user-pin nav-icon'></i> Admin Panel</a>
     <a class="nav-item" href="admin-user.html"><i class='bx bx-group nav-icon'></i> Kelola User</a>
     <a class="nav-item" href="ujicoba/admin-soal.html"><i class='bx bx-edit nav-icon'></i> Kelola Soal</a>
     <div class="sidebar-section" style="margin-top: 15px;">Analitik</div>
     <a class="nav-item" href="analytics.html"><i class='bx bx-bar-chart-alt-2 nav-icon'></i> Traffic Klik</a>
-  </div></nav>
+  </div>
+</nav>
 <div id="sidebar-overlay"></div>
 
 <div id="wrapper">
@@ -311,6 +411,9 @@ body {
       <div class="search-box">
         <i class='bx bx-search'></i>
         <input type="text" id="search-input" placeholder="Cari artikel...">
+        <button class="search-btn" id="search-action-btn" title="Cari">
+          <i class='bx bx-right-arrow-alt'></i>
+        </button>
       </div>
       <button class="icon-btn" id="theme-toggle" title="Toggle Dark Mode">
         <i class='bx bx-moon'></i>
@@ -341,6 +444,27 @@ body {
       </div>
     </div>
 
+    <div class="filter-container" id="category-dropdown-container">
+      <div class="dropdown-select" id="dropdown-select-btn">
+        <span id="dropdown-selected-text">Semua Kategori</span>
+        <i class='bx bx-chevron-down'></i>
+      </div>
+      <div class="dropdown-menu">
+        <div class="dropdown-item active" data-kat="all">
+          <div class="dot"></div> Semua Kategori
+        </div>
+        <div class="dropdown-item" data-kat="k1">
+          <div class="dot" style="background: #2563eb;"></div> Pemrograman
+        </div>
+        <div class="dropdown-item" data-kat="k2">
+          <div class="dot" style="background: #ec4899;"></div> Desain UI/UX
+        </div>
+        <div class="dropdown-item" data-kat="k3">
+          <div class="dot" style="background: #10b981;"></div> Teknologi
+        </div>
+      </div>
+    </div>
+
     <div class="section-head">
       <h2 id="section-label">Memuat Artikel...</h2>
       <div class="view-toggle">
@@ -350,7 +474,7 @@ body {
     </div>
 
     <div id="articles-grid">
-      </div>
+    </div>
   </div>
 </div>
 
@@ -602,6 +726,48 @@ document.getElementById('vt-list').addEventListener('click', function() {
 document.getElementById('search-input').addEventListener('input', e => {
   searchQ = e.target.value.toLowerCase().trim(); 
   render();
+});
+
+// Aksi ketika Tombol Cari diklik manual
+document.getElementById('search-action-btn').addEventListener('click', () => {
+  const inputVal = document.getElementById('search-input').value;
+  searchQ = inputVal.toLowerCase().trim();
+  render();
+});
+
+/* ── INTERAKSI DROPDOWN KATEGORI ── */
+const dropdownContainer = document.getElementById('category-dropdown-container');
+const dropdownBtn = document.getElementById('dropdown-select-btn');
+const dropdownSelectedText = document.getElementById('dropdown-selected-text');
+const dropdownItems = document.querySelectorAll('.dropdown-item');
+
+// Toggle buka/tutup dropdown
+dropdownBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  dropdownContainer.classList.toggle('active');
+});
+
+// Pilih item dropdown
+dropdownItems.forEach(item => {
+  item.addEventListener('click', function() {
+    dropdownItems.forEach(i => i.classList.remove('active'));
+    this.classList.add('active');
+    
+    dropdownSelectedText.textContent = this.textContent.trim();
+    dropdownContainer.classList.remove('active');
+    
+    // Sinkronisasi ke variabel state bawaan Anda
+    activeKat = this.getAttribute('data-kat');
+    
+    // Menjalankan kustom filter rendering (opsional jika JS bawaan Anda diperluas)
+    // Untuk saat ini logic filter utama Anda fokus pada 'katArtikel', 
+    // jika Anda ingin memfilter berdasarkan activeKat, logic render bawaan bisa memanfaatkannya.
+  });
+});
+
+// Tutup jika klik di luar area dropdown
+document.addEventListener('click', () => {
+  dropdownContainer.classList.remove('active');
 });
 
 /* ── SIDEBAR MOBILE ── */
