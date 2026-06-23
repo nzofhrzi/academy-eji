@@ -182,15 +182,6 @@
       "featured": false
     },
     {
-      "id": "id_photo_010",
-      "judul": "Hapus Objek / Background",
-      "deskripsi": "Remove the unwanted object (or person) from this photo and fill the area naturally using content-aware reconstruction. Analyze surrounding textures, patterns, colors, and lighting to generate a seamless replacement fill. The removed area should look as if the object was never there — no ghosting, no smearing, no visible patch edges. Reconstruct background elements such as: pavement tiles continuing the original pattern, wall texture maintaining consistent grain and color, sky continuing gradients naturally, foliage filling in with matching density and lighting. Maintain original perspective, lighting direction, and color balance throughout. Output: clean, photorealistic image with no visible editing artifacts.",
-      "gambar": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400",
-      "kategori_id": "id_0bdwwqs",
-      "tanggal": "2026-06-01",
-      "featured": false
-    },
-    {
       "id": "id_photo_012",
       "judul": "Latar Cherry Blossom Jepang",
       "deskripsi": "Replace the background with a stunning Japanese cherry blossom (sakura) scene. Full bloom sakura trees with dense clusters of soft pink flowers covering the canopy. Petals gently falling through the air like pink snow. Warm spring afternoon lighting — golden and soft, filtering through branches. Ground: stone path or wooden bridge with fallen petals scattered naturally. Background: traditional Japanese wooden shrine gate (torii) barely visible through the trees in deep bokeh. Subject remains completely photorealistic and unchanged. Lighting on subject should harmonize with warm pink ambient reflected light from surrounding blossoms. Output: dreamy, cinematic, Japan travel photography style.",
