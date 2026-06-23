@@ -25,7 +25,7 @@
   --header-h: 70px;
   --radius: 12px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   /* Light Theme */
   --bg: #f3f4f6;
   --surface: #ffffff;
@@ -38,6 +38,7 @@
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
   --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
   --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+  --dropdown-shadow: 0 16px 40px -4px rgba(0,0,0,0.12), 0 6px 16px -2px rgba(0,0,0,0.06);
 }
 
 [data-theme="dark"] {
@@ -53,6 +54,7 @@
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
   --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4);
   --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.5);
+  --dropdown-shadow: 0 16px 40px -4px rgba(0,0,0,0.5), 0 6px 16px -2px rgba(0,0,0,0.3);
 }
 
 body {
@@ -117,6 +119,14 @@ body {
 .breadcrumb { font-size: 13px; color: var(--ink4); display: flex; align-items: center; gap: 6px; }
 
 .topbar-right { display: flex; align-items: center; gap: 16px; }
+.search-box {
+  display: flex; align-items: center; gap: 10px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 20px; padding: 8px 16px;
+  transition: var(--transition); width: 250px;
+}
+.search-box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); width: 280px; }
+.search-box input { border: none; background: transparent; font-family: 'Sora', sans-serif; font-size: 13px; color: var(--ink); outline: none; width: 100%; }
+.search-box i { color: var(--ink4); font-size: 18px; }
 
 .icon-btn {
   width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border);
@@ -140,154 +150,196 @@ body {
 .stat-val { font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.2; }
 .stat-label { font-size: 12px; color: var(--ink3); font-weight: 500; }
 
-
-/* ── KONTEN AREA PENCARIAN & DROPDOWN KATEGORI ── */
-.search-filter-container {
+/* ── TOOLBAR (Search + Filter Dropdown) ── */
+.toolbar {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 12px;
   margin-bottom: 24px;
-  width: 100%;
+  flex-wrap: wrap;
 }
 
-.search-box {
-  display: flex; 
-  align-items: center; 
-  gap: 10px; 
-  background: var(--surface);
-  border: 1px solid var(--border); 
-  border-radius: 10px; 
-  padding: 6px 6px 6px 16px;
-  transition: var(--transition); 
-  width: 100%;
-  height: 44px;
-  box-shadow: var(--shadow-sm);
-}
-.search-box:focus-within { 
-  border-color: var(--primary); 
-  box-shadow: 0 0 0 3px rgba(37,99,235,0.1); 
-}
-.search-box input { 
-  border: none; 
-  background: transparent; 
-  font-family: 'Sora', sans-serif; 
-  font-size: 13px; 
-  color: var(--ink); 
-  outline: none; 
-  width: 100%; 
-}
-.search-box i { 
-  color: var(--ink4); 
-  font-size: 18px; 
-}
-
-/* Modifikasi Tombol Cari */
-.search-btn {
-  background: var(--primary);
-  color: #ffffff;
-  border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--transition);
-  flex-shrink: 0;
-}
-.search-btn:hover {
-  background: var(--primary-dark);
-  transform: scale(1.05);
-}
-.search-btn i {
-  color: #ffffff !important;
-  font-size: 16px !important;
-}
-
-/* CUSTOM DROPDOWN KATEGORI */
-.filter-container {
-  position: relative;
-  width: 100%;
-}
-.dropdown-select {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--ink2);
-  width: 100%;
-  height: 44px;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
-}
-.dropdown-select:hover {
-  border-color: var(--primary);
-  color: var(--ink);
-}
-.dropdown-select i {
-  font-size: 18px;
-  transition: transform 0.3s ease;
-  color: var(--ink3);
-}
-.filter-container.active .dropdown-select i {
-  transform: rotate(180deg);
-}
-.dropdown-menu {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  width: 100%;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow: var(--shadow-lg);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  z-index: 30;
-  overflow: hidden;
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-}
-.filter-container.active .dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-.dropdown-item {
+/* Search bar utama di konten */
+.content-search {
+  flex: 1;
+  min-width: 220px;
+  max-width: 480px;
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 20px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 16px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+.content-search:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+.content-search i { color: var(--ink4); font-size: 20px; flex-shrink: 0; }
+.content-search input {
+  border: none; background: transparent;
+  font-family: 'Sora', sans-serif; font-size: 14px;
+  color: var(--ink); outline: none; width: 100%;
+}
+.content-search input::placeholder { color: var(--ink4); }
+
+/* ── CATEGORY DROPDOWN ── */
+.cat-dropdown-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.cat-dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  font-family: 'Sora', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
   color: var(--ink2);
   cursor: pointer;
-  font-weight: 500;
   transition: var(--transition);
+  white-space: nowrap;
+  min-width: 180px;
+  box-shadow: var(--shadow-sm);
+  user-select: none;
 }
-.dropdown-item:hover {
-  background: var(--surface2);
+.cat-dropdown-trigger:hover {
+  border-color: var(--primary);
   color: var(--primary);
-  padding-left: 24px;
 }
-.dropdown-item.active {
+.cat-dropdown-trigger.open {
+  border-color: var(--primary);
+  color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+.cat-dropdown-trigger .cat-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.cat-dropdown-trigger .cat-label {
+  flex: 1;
+}
+.cat-dropdown-trigger .chevron {
+  font-size: 18px;
+  transition: transform 0.25s ease;
+  color: var(--ink4);
+  flex-shrink: 0;
+}
+.cat-dropdown-trigger.open .chevron {
+  transform: rotate(180deg);
+  color: var(--primary);
+}
+
+/* Dropdown panel */
+.cat-dropdown-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 240px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--dropdown-shadow);
+  z-index: 200;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-8px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.cat-dropdown-panel.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+.cat-panel-header {
+  padding: 14px 16px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink4);
+  border-bottom: 1px solid var(--border);
+}
+
+.cat-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink2);
+}
+.cat-option:hover {
+  background: var(--surface2);
+  color: var(--ink);
+}
+.cat-option.active {
   background: var(--primary-light);
   color: var(--primary);
   font-weight: 600;
 }
-.dropdown-item .dot {
-  width: 8px;
-  height: 8px;
+.cat-option .opt-dot {
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: var(--ink4);
+  flex-shrink: 0;
+  border: 2px solid currentColor;
+  transition: all 0.15s;
 }
-.dropdown-item.active .dot {
+.cat-option.active .opt-dot {
   background: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+}
+.cat-option .opt-count {
+  margin-left: auto;
+  font-size: 11px;
+  background: var(--surface2);
+  color: var(--ink4);
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+  transition: all 0.15s;
+}
+.cat-option.active .opt-count {
+  background: rgba(37,99,235,0.12);
+  color: var(--primary);
+}
+.cat-option:last-child { border-radius: 0 0 16px 16px; }
+
+/* Result info bar */
+.result-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.result-count {
+  font-size: 13px;
+  color: var(--ink3);
+}
+.result-count strong {
+  color: var(--primary);
+  font-weight: 700;
 }
 
 .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
@@ -326,6 +378,7 @@ body {
 /* Skeleton Loader */
 .skeleton { background: linear-gradient(90deg, var(--surface2) 25%, var(--border) 50%, var(--surface2) 75%); background-size: 200% 100%; animation: loading 1.5s infinite; border-radius: 4px; }
 @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
 /* ── MODAL ── */
 #modal-overlay {
@@ -367,15 +420,9 @@ body {
 .btn-primary { background: var(--primary); color: #fff; }
 .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
 
-/* ===================================================
-   MEDIA QUERIES (DESKTOP & ANDROID MOBILE)
-   =================================================== */
-@media(min-width: 768px) {
-  /* Pembatasan lebar di desktop agar tidak melebar penuh */
-  .search-filter-container {
-    max-width: 460px;
-  }
-}
+/* ── RESPONSIVE ── */
+#sidebar-toggle { display: none; background: transparent; border: none; font-size: 28px; cursor: pointer; color: var(--ink); }
+#sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 49; backdrop-filter: blur(2px); }
 
 @media(max-width: 992px) {
   #sidebar { transform: translateX(-100%); }
@@ -384,23 +431,18 @@ body {
   #wrapper { margin-left: 0; }
   #sidebar-toggle { display: block; }
 }
-
 @media(max-width: 768px) {
-  /* Optimasi Android Touch Target & Ukuran Font */
-  .search-box, .dropdown-select {
-    height: 48px;
-  }
-  .search-box input, .dropdown-select {
-    font-size: 16px; /* Menghindari auto-zoom browser Android */
-  }
-  
+  .search-box { display: none; }
   #articles-grid.list-view .a-card { flex-direction: column; }
   #articles-grid.list-view .a-card-img { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid var(--border); }
   .stats-row { grid-template-columns: repeat(2, 1fr); }
   #modal-title { font-size: 22px; }
   .modal-header-img { height: 200px; }
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .content-search { max-width: 100%; }
+  .cat-dropdown-trigger { min-width: 100%; justify-content: space-between; }
+  .cat-dropdown-panel { min-width: 100%; }
 }
-
 @media(max-width: 480px) {
   .stats-row { grid-template-columns: 1fr; }
   #topbar { padding: 0 20px; }
@@ -456,6 +498,10 @@ body {
       </div>
     </div>
     <div class="topbar-right">
+      <div class="search-box">
+        <i class='bx bx-search'></i>
+        <input type="text" id="search-input-topbar" placeholder="Cari artikel...">
+      </div>
       <button class="icon-btn" id="theme-toggle" title="Toggle Dark Mode">
         <i class='bx bx-moon'></i>
       </button>
@@ -485,39 +531,29 @@ body {
       </div>
     </div>
 
-    <div class="search-filter-container">
-      
-      <div class="search-box">
+    <!-- ── TOOLBAR: Search + Category Dropdown ── -->
+    <div class="toolbar">
+      <!-- Search Bar Konten -->
+      <div class="content-search">
         <i class='bx bx-search'></i>
-        <input type="text" id="search-input" placeholder="Cari artikel...">
-        <button class="search-btn" id="search-action-btn" title="Cari">
-          <i class='bx bx-right-arrow-alt'></i>
-        </button>
+        <input type="text" id="search-input" placeholder="Cari judul atau isi artikel...">
       </div>
 
-      <div class="filter-container" id="category-dropdown-container">
-        <div class="dropdown-select" id="dropdown-select-btn">
-          <span id="dropdown-selected-text">Semua Kategori</span>
-          <i class='bx bx-chevron-down'></i>
+      <!-- Category Dropdown -->
+      <div class="cat-dropdown-wrap" id="cat-dropdown-wrap">
+        <div class="cat-dropdown-trigger" id="cat-trigger" onclick="toggleCatDropdown()">
+          <span class="cat-dot" id="cat-dot" style="background: var(--primary)"></span>
+          <span class="cat-label" id="cat-label-text">Semua Kategori</span>
+          <i class='bx bx-chevron-down chevron'></i>
         </div>
-        <div class="dropdown-menu">
-          <div class="dropdown-item active" data-kat="all">
-            <div class="dot"></div> Semua Kategori
-          </div>
-          <div class="dropdown-item" data-kat="k1">
-            <div class="dot" style="background: #2563eb;"></div> Pemrograman
-          </div>
-          <div class="dropdown-item" data-kat="k2">
-            <div class="dot" style="background: #ec4899;"></div> Desain UI/UX
-          </div>
-          <div class="dropdown-item" data-kat="k3">
-            <div class="dot" style="background: #10b981;"></div> Teknologi
-          </div>
+        <div class="cat-dropdown-panel" id="cat-panel">
+          <div class="cat-panel-header">Filter Kategori</div>
+          <!-- Options diisi via JS -->
         </div>
       </div>
-
     </div>
 
+    <!-- Section Header + View Toggle -->
     <div class="section-head">
       <h2 id="section-label">Memuat Artikel...</h2>
       <div class="view-toggle">
@@ -526,11 +562,11 @@ body {
       </div>
     </div>
 
-    <div id="articles-grid">
-    </div>
+    <div id="articles-grid"></div>
   </div>
 </div>
 
+<!-- MODAL -->
 <div id="modal-overlay">
   <div id="modal">
     <div class="modal-header-img">
@@ -554,29 +590,22 @@ body {
 </div>
 
 <script>
-// --- TEMA (DARK/LIGHT MODE) ---
+// ── TEMA ──
 const themeToggle = document.getElementById('theme-toggle');
 const htmlEl = document.documentElement;
-
 if (localStorage.getItem('theme') === 'dark') {
   htmlEl.setAttribute('data-theme', 'dark');
   themeToggle.innerHTML = "<i class='bx bx-sun'></i>";
 }
-
 themeToggle.addEventListener('click', () => {
-  if (htmlEl.getAttribute('data-theme') === 'dark') {
-    htmlEl.setAttribute('data-theme', 'light');
-    themeToggle.innerHTML = "<i class='bx bx-moon'></i>";
-    localStorage.setItem('theme', 'light');
-  } else {
-    htmlEl.setAttribute('data-theme', 'dark');
-    themeToggle.innerHTML = "<i class='bx bx-sun'></i>";
-    localStorage.setItem('theme', 'dark');
-  }
+  const isDark = htmlEl.getAttribute('data-theme') === 'dark';
+  htmlEl.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  themeToggle.innerHTML = isDark ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
 });
 
-// --- DATA & LOGIC ---
-let DB = { kategori:[], artikel:[] };
+// ── DATA ──
+let DB = { kategori: [], artikel: [] };
 let activeKat = 'all';
 let searchQ = '';
 let viewMode = 'grid';
@@ -599,69 +628,140 @@ async function loadData() {
   showSkeleton();
   try {
     const res = await fetch('/api/get-data');
-    if(!res.ok) throw new Error('API tidak ditemukan');
-    const data = await res.json();
-    DB = data;
-  } catch(e) {
+    if (!res.ok) throw new Error('API tidak ditemukan');
+    DB = await res.json();
+  } catch (e) {
     console.warn("Menggunakan data dummy karena API gagal dimuat.");
     DB = DUMMY_DATA;
   }
-  setTimeout(render, 500);
+  setTimeout(() => { buildCatDropdown(); render(); }, 500);
 }
 
 function showSkeleton() {
-  const grid = document.getElementById('articles-grid');
-  grid.innerHTML = Array(4).fill(0).map(() => `
-    <div class="a-card" style="height: 350px;">
-      <div class="skeleton" style="height:180px; width:100%"></div>
+  document.getElementById('articles-grid').innerHTML = Array(4).fill(0).map(() => `
+    <div class="a-card" style="height:350px;">
+      <div class="skeleton" style="height:180px;width:100%"></div>
       <div class="a-card-body">
-        <div class="skeleton" style="height:14px; width:40%; margin-bottom:12px;"></div>
-        <div class="skeleton" style="height:20px; width:90%; margin-bottom:8px;"></div>
-        <div class="skeleton" style="height:20px; width:70%; margin-bottom:16px;"></div>
-        <div class="skeleton" style="height:40px; width:100%; margin-top:auto;"></div>
+        <div class="skeleton" style="height:14px;width:40%;margin-bottom:12px;"></div>
+        <div class="skeleton" style="height:20px;width:90%;margin-bottom:8px;"></div>
+        <div class="skeleton" style="height:20px;width:70%;margin-bottom:16px;"></div>
+        <div class="skeleton" style="height:40px;width:100%;margin-top:auto;"></div>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-function getKat(id) { return DB.kategori.find(k=>k.id===id) || {nama:'Umum', warna:'#64748b'}; }
-function fmtDate(s) {
-  if(!s) return '';
-  return new Date(s).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'});
-}
-function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function getKat(id) { return DB.kategori.find(k => k.id === id) || { nama: 'Umum', warna: '#64748b' }; }
+function fmtDate(s) { if (!s) return ''; return new Date(s).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); }
+function esc(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
+// ── CATEGORY DROPDOWN LOGIC ──
+function buildCatDropdown() {
+  const panel = document.getElementById('cat-panel');
+  // hitung artikel per kategori (filter 'Artikel' jika diperlukan)
+  const countMap = {};
+  DB.artikel.forEach(a => {
+    countMap[a.kategori_id] = (countMap[a.kategori_id] || 0) + 1;
+  });
+  const totalCount = DB.artikel.length;
+
+  let html = `<div class="cat-option active" data-id="all" data-color="var(--primary)" data-name="Semua Kategori" onclick="selectCat('all','Semua Kategori','var(--primary)')">
+    <span class="opt-dot" style="border-color: var(--primary); background: var(--primary);"></span>
+    <span>Semua Kategori</span>
+    <span class="opt-count">${totalCount}</span>
+  </div>`;
+
+  DB.kategori.forEach(k => {
+    const cnt = countMap[k.id] || 0;
+    if (cnt === 0) return;
+    html += `<div class="cat-option" data-id="${esc(k.id)}" onclick="selectCat('${esc(k.id)}','${esc(k.nama)}','${esc(k.warna)}')">
+      <span class="opt-dot" style="border-color:${esc(k.warna)}"></span>
+      <span>${esc(k.nama)}</span>
+      <span class="opt-count">${cnt}</span>
+    </div>`;
+  });
+
+  // Tambahkan setelah header
+  const header = panel.querySelector('.cat-panel-header');
+  header.insertAdjacentHTML('afterend', html.replace(/<div class="cat-panel-header">.*?<\/div>/, ''));
+  // Reset: rebuild full
+  panel.innerHTML = `<div class="cat-panel-header">Filter Kategori</div>` + html;
+}
+
+function selectCat(id, name, color) {
+  activeKat = id;
+  // Update trigger label
+  document.getElementById('cat-label-text').textContent = name;
+  document.getElementById('cat-dot').style.background = color.startsWith('var') ? 'var(--primary)' : color;
+  // Update active state options
+  document.querySelectorAll('#cat-panel .cat-option').forEach(el => {
+    const isActive = el.dataset.id === id;
+    el.classList.toggle('active', isActive);
+    const dot = el.querySelector('.opt-dot');
+    if (isActive) {
+      dot.style.background = color.startsWith('var') ? 'var(--primary)' : color;
+      dot.style.borderColor = color.startsWith('var') ? 'var(--primary)' : color;
+    } else {
+      const elColor = el.getAttribute('onclick').match(/'([^']+)'\)$/)?.[1] || '#94a3b8';
+      dot.style.background = 'transparent';
+      dot.style.borderColor = elColor.startsWith('var') ? 'var(--ink4)' : elColor;
+    }
+  });
+  closeCatDropdown();
+  render();
+}
+
+function toggleCatDropdown() {
+  const trigger = document.getElementById('cat-trigger');
+  const panel = document.getElementById('cat-panel');
+  const isOpen = panel.classList.contains('open');
+  if (isOpen) { closeCatDropdown(); } else { trigger.classList.add('open'); panel.classList.add('open'); }
+}
+function closeCatDropdown() {
+  document.getElementById('cat-trigger').classList.remove('open');
+  document.getElementById('cat-panel').classList.remove('open');
+}
+
+// Tutup dropdown jika klik di luar
+document.addEventListener('click', e => {
+  if (!document.getElementById('cat-dropdown-wrap').contains(e.target)) closeCatDropdown();
+});
+
+// ── RENDER ──
 function render() {
-  const dates = DB.artikel.map(a=>a.tanggal).filter(Boolean).sort().reverse();
+  const dates = DB.artikel.map(a => a.tanggal).filter(Boolean).sort().reverse();
   document.getElementById('s-last').textContent = dates[0] ? fmtDate(dates[0]) : '-';
 
-  const katArtikel = DB.kategori.find(k => k.nama === 'Artikel');
-
   let arts = DB.artikel.slice();
-  if(katArtikel) arts = arts.filter(a => a.kategori_id === katArtikel.id);
-  if(searchQ) arts = arts.filter(a => (a.judul+a.deskripsi).toLowerCase().includes(searchQ));
+  // Filter kategori
+  if (activeKat !== 'all') arts = arts.filter(a => a.kategori_id === activeKat);
+  // Filter search
+  if (searchQ) arts = arts.filter(a => (a.judul + a.deskripsi).toLowerCase().includes(searchQ));
 
+  // Stats
   document.getElementById('s-total').textContent = arts.length;
-  document.getElementById('s-feat').textContent = arts.filter(a=>a.featured).length;
-
+  document.getElementById('s-feat').textContent = arts.filter(a => a.featured).length;
+  document.getElementById('s-kat').textContent = DB.kategori.length;
   document.getElementById('section-label').textContent = `Artikel (${arts.length})`;
 
   const grid = document.getElementById('articles-grid');
-  if(!arts.length) { 
-    grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--ink3);">
-      <i class='bx bx-folder-open' style="font-size:48px; margin-bottom:10px; opacity:0.5;"></i><br>Belum ada artikel ditemukan.</div>`; 
-    return; 
+  if (!arts.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:60px 40px; color:var(--ink3);">
+      <i class='bx bx-folder-open' style="font-size:52px; margin-bottom:12px; opacity:0.4; display:block;"></i>
+      <div style="font-weight:600; font-size:15px; margin-bottom:6px; color:var(--ink2);">Tidak ada artikel ditemukan</div>
+      <div style="font-size:13px;">Coba ubah kata kunci atau kategori yang dipilih.</div>
+    </div>`;
+    return;
   }
 
-  grid.innerHTML = arts.map((a,i) => {
+  grid.innerHTML = arts.map((a, i) => {
     const k = getKat(a.kategori_id);
     return `
-    <div class="a-card" style="animation: fadeUp 0.4s ease forwards; opacity:0; transform:translateY(20px); animation-delay:${i*0.1}s" data-featured="${a.featured ? 'true' : 'false'}" onclick="openModal('${esc(a.id)}')">
+    <div class="a-card" style="animation:fadeUp 0.4s ease forwards;opacity:0;transform:translateY(20px);animation-delay:${i * 0.07}s" onclick="openModal('${esc(a.id)}')">
       ${a.featured ? `<div class="featured-ribbon"><i class='bx bxs-star'></i> Unggulan</div>` : ''}
       <img class="a-card-img" src="${esc(a.gambar)}" alt="${esc(a.judul)}" loading="lazy">
       <div class="a-card-body">
         <div class="a-card-meta">
-          <span class="kat-badge" style="background:${k.warna}15; color:${k.warna}">${esc(k.nama)}</span>
+          <span class="kat-badge" style="background:${k.warna}18;color:${k.warna}">${esc(k.nama)}</span>
           <span class="a-date"><i class='bx bx-time-five'></i> ${fmtDate(a.tanggal)}</span>
         </div>
         <h3 class="a-card-title">${esc(a.judul)}</h3>
@@ -675,133 +775,76 @@ function render() {
   }).join('');
 }
 
-document.head.insertAdjacentHTML('beforeend', `<style>@keyframes fadeUp{to{opacity:1; transform:translateY(0);}}</style>`);
-
-/* ── MODAL LOGIC ── */
+// ── MODAL ──
 function openModal(id) {
-  const a = DB.artikel.find(x=>x.id===id);
-  if(!a) return;
-
+  const a = DB.artikel.find(x => x.id === id);
+  if (!a) return;
   const user = (typeof Auth !== 'undefined') ? Auth.getUser() : null;
   if (a.featured && user && user.role !== 'vip') {
     if (typeof AuthGate !== 'undefined') AuthGate.showVipPopup();
     return;
   }
-
   const k = getKat(a.kategori_id);
-
-  fetch('/api/track-click', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      artikel_id: a.id,
-      artikel_judul: a.judul,
-      kategori_id: a.kategori_id
-    })
-  }).catch(() => {});
-
+  fetch('/api/track-click', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ artikel_id: a.id, artikel_judul: a.judul, kategori_id: a.kategori_id }) }).catch(() => {});
   document.getElementById('modal-img').src = a.gambar;
-  
   const katEl = document.getElementById('modal-kat');
   katEl.textContent = k.nama;
   katEl.style.background = k.warna + '20';
   katEl.style.color = k.warna;
-
   document.getElementById('m-date-text').textContent = fmtDate(a.tanggal);
   document.getElementById('modal-featured').style.display = a.featured ? 'inline-flex' : 'none';
   document.getElementById('modal-title').textContent = a.judul;
   document.getElementById('modal-desc').innerHTML = esc(a.deskripsi).replace(/\n/g, '<br>');
-
   const btn = document.getElementById('modal-copy-btn');
   btn.innerHTML = "<i class='bx bx-copy'></i> Salin Konten";
-  btn.classList.remove('btn-success');
-
+  btn.style.background = '';
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-
 function closeModal() {
   document.getElementById('modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-
 function copyDesc() {
   const user = (typeof Auth !== 'undefined') ? Auth.getUser() : null;
-  const isFeatured = document.getElementById('modal-featured') && document.getElementById('modal-featured').style.display !== 'none';
-  if (isFeatured && user && user.role !== 'vip') {
-    if (typeof AuthGate !== 'undefined') AuthGate.showVipPopup();
-    return;
-  }
-  const desc = document.getElementById('modal-desc').innerText;
-  navigator.clipboard.writeText(desc).then(() => {
+  const isFeatured = document.getElementById('modal-featured').style.display !== 'none';
+  if (isFeatured && user && user.role !== 'vip') { if (typeof AuthGate !== 'undefined') AuthGate.showVipPopup(); return; }
+  navigator.clipboard.writeText(document.getElementById('modal-desc').innerText).then(() => {
     const btn = document.getElementById('modal-copy-btn');
     btn.innerHTML = "<i class='bx bx-check'></i> Tersalin!";
-    btn.style.background = "var(--success)";
-    setTimeout(() => { 
-      btn.innerHTML="<i class='bx bx-copy'></i> Salin Konten"; 
-      btn.style.background = ""; 
-    }, 2000);
+    btn.style.background = 'var(--success)';
+    setTimeout(() => { btn.innerHTML = "<i class='bx bx-copy'></i> Salin Konten"; btn.style.background = ''; }, 2000);
   });
 }
+document.getElementById('modal-overlay').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-document.getElementById('modal-overlay').addEventListener('click', function(e) {
-  if(e.target === this) closeModal();
-});
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
-
-/* ── VIEW & SEARCH TOGGLE ── */
+// ── VIEW TOGGLE ──
 document.getElementById('vt-grid').addEventListener('click', function() {
-  viewMode='grid';
   document.getElementById('articles-grid').classList.remove('list-view');
   this.classList.add('active');
   document.getElementById('vt-list').classList.remove('active');
 });
 document.getElementById('vt-list').addEventListener('click', function() {
-  viewMode='list';
   document.getElementById('articles-grid').classList.add('list-view');
   this.classList.add('active');
   document.getElementById('vt-grid').classList.remove('active');
 });
 
+// ── SEARCH ──
 document.getElementById('search-input').addEventListener('input', e => {
-  searchQ = e.target.value.toLowerCase().trim(); 
+  searchQ = e.target.value.toLowerCase().trim();
+  render();
+});
+// Sync topbar search juga (opsional)
+const topbarSearch = document.getElementById('search-input-topbar');
+if (topbarSearch) topbarSearch.addEventListener('input', e => {
+  searchQ = e.target.value.toLowerCase().trim();
+  document.getElementById('search-input').value = e.target.value;
   render();
 });
 
-document.getElementById('search-action-btn').addEventListener('click', () => {
-  const inputVal = document.getElementById('search-input').value;
-  searchQ = inputVal.toLowerCase().trim();
-  render();
-});
-
-/* ── INTERAKSI DROPDOWN KATEGORI ── */
-const dropdownContainer = document.getElementById('category-dropdown-container');
-const dropdownBtn = document.getElementById('dropdown-select-btn');
-const dropdownSelectedText = document.getElementById('dropdown-selected-text');
-const dropdownItems = document.querySelectorAll('.dropdown-item');
-
-dropdownBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  dropdownContainer.classList.toggle('active');
-});
-
-dropdownItems.forEach(item => {
-  item.addEventListener('click', function() {
-    dropdownItems.forEach(i => i.classList.remove('active'));
-    this.classList.add('active');
-    
-    dropdownSelectedText.textContent = this.textContent.trim();
-    dropdownContainer.classList.remove('active');
-    
-    activeKat = this.getAttribute('data-kat');
-  });
-});
-
-document.addEventListener('click', () => {
-  dropdownContainer.classList.remove('active');
-});
-
-/* ── SIDEBAR MOBILE ── */
+// ── SIDEBAR MOBILE ──
 document.getElementById('sidebar-toggle').addEventListener('click', () => {
   document.getElementById('sidebar').classList.toggle('open');
   document.getElementById('sidebar-overlay').classList.toggle('open');
