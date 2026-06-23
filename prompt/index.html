@@ -180,6 +180,67 @@ body { font-family: 'Sora', sans-serif; background: var(--bg); color: var(--ink)
 @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
+/* VIP Card Blur */
+.a-card.vip-locked {
+  position: relative;
+}
+.a-card.vip-locked .a-card-desc,
+.a-card.vip-locked .a-card-footer {
+  filter: blur(4px);
+  pointer-events: none;
+  user-select: none;
+}
+/* Ensure title and meta are not blurred */
+.a-card.vip-locked .a-card-title,
+.a-card.vip-locked .a-card-meta {
+  filter: none;
+  pointer-events: auto;
+  user-select: auto;
+}
+.a-card.vip-locked .a-card-overlay {
+  position: absolute;
+  top: 180px;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  background: rgba(255,255,255,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  z-index: 3;
+  backdrop-filter: blur(2px);
+}
+.a-card.vip-locked .a-card-overlay .overlay-msg {
+  text-align: center;
+}
+.a-card.vip-locked .a-card-overlay i {
+  font-size: 32px;
+  margin-bottom: 8px;
+  display: block;
+  color: var(--accent);
+}
+.a-card.vip-locked .a-card-overlay p {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.a-card.vip-locked .a-card-overlay span {
+  font-size: 11px;
+  color: var(--ink3);
+  display: block;
+}
+
+/* List view VIP adjustment */
+#articles-grid.list-view .a-card.vip-locked .a-card-overlay {
+  top: auto;
+  bottom: 12px;
+  left: 280px;
+  right: 20px;
+  height: 140px;
+}
+
 /* ── MODAL ── */
 #modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: all 0.3s ease; backdrop-filter: blur(6px); }
 #modal-overlay.open { opacity: 1; pointer-events: all; }
@@ -204,9 +265,8 @@ body { font-family: 'Sora', sans-serif; background: var(--bg); color: var(--ink)
 
 /* VIP Blur Effect */
 #modal-content.vip-blur { position: relative; }
-#modal-content.vip-blur #modal-desc, 
-#modal-content.vip-blur #modal-title { filter: blur(5px); pointer-events: none; user-select: none; }
-#modal-vip-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; border-radius: 8px; z-index: 10; backdrop-filter: blur(2px); }
+#modal-content.vip-blur #modal-desc { filter: blur(5px); pointer-events: none; user-select: none; }
+#modal-vip-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center; border-radius: 8px; z-index: 10; backdrop-filter: blur(2px); }
 #modal-vip-overlay .vip-msg { text-align: center; }
 #modal-vip-overlay .vip-msg i { font-size: 40px; margin-bottom: 12px; display: block; color: var(--accent); }
 #modal-vip-overlay .vip-msg p { font-weight: 600; font-size: 15px; margin-bottom: 8px; color: var(--ink); }
@@ -547,8 +607,12 @@ function render() {
 
   grid.innerHTML = arts.map((a, i) => {
     const k = getKat(a.kategori_id);
+    const user = (typeof Auth !== 'undefined') ? Auth.getUser() : null;
+    const isGuest = !user || user.role === 'guest' || user.role === 'tamu';
+    const isVipContent = a.featured && isGuest;
+    
     return `
-    <div class="a-card" style="animation:fadeUp 0.4s ease forwards;opacity:0;transform:translateY(20px);animation-delay:${i*0.07}s" onclick="openModal('${esc(a.id)}')">
+    <div class="a-card ${isVipContent ? 'vip-locked' : ''}" style="animation:fadeUp 0.4s ease forwards;opacity:0;transform:translateY(20px);animation-delay:${i*0.07}s" onclick="openModal('${esc(a.id)}')">
       ${a.featured ? `<div class="featured-ribbon"><i class='bx bxs-star'></i> Unggulan</div>` : ''}
       <img class="a-card-img" src="${esc(a.gambar)}" alt="${esc(a.judul)}" loading="lazy">
       <div class="a-card-body">
@@ -562,6 +626,15 @@ function render() {
           <span>Lihat &amp; Salin Prompt</span>
           <i class='bx bx-copy' style="font-size:17px;"></i>
         </div>
+        ${isVipContent ? `
+          <div class="a-card-overlay">
+            <div class="overlay-msg">
+              <i class='bx bxs-crown'></i>
+              <p>Konten Premium</p>
+              <span>Upgrade VIP</span>
+            </div>
+          </div>
+        ` : ''}
       </div>
     </div>`;
   }).join('');
@@ -605,6 +678,11 @@ function openModal(id) {
       </div>
     `;
     overlay.style.display = 'flex';
+    overlay.style.position = 'absolute';
+    overlay.style.top = '120px';
+    overlay.style.left = '0';
+    overlay.style.right = '0';
+    overlay.style.bottom = '0';
     copyBtn.disabled = true;
   } else {
     // Hide VIP overlay
