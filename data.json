@@ -416,15 +416,6 @@
       "featured": false
     },
     {
-      "id": "id_materi_001",
-      "judul": "Materi Matematika — Kalkulus",
-      "deskripsi": "Buatkan materi pembelajaran Kalkulus yang lengkap, sistematis, dan mudah dipahami untuk tingkat \"[SMA/D3/S1 — sebutkan]\". Topik spesifik: \"[TOPIK: Limit/Turunan/Integral/dll]\". Struktur materi: (1) Pendahuluan — motivasi mengapa topik ini penting dan aplikasinya dalam kehidupan nyata. (2) Konsep dasar dan definisi formal — penjelasan intuitif terlebih dahulu sebelum definisi matematis. (3) Teorema-teorema kunci beserta bukti (opsional: sederhanakan bukti untuk level SMA). (4) Rumus-rumus penting dalam tabel yang terorganisir. (5) Contoh soal bertingkat: 5 soal mudah (dengan penyelesaian lengkap step-by-step), 3 soal sedang (dengan penyelesaian), 2 soal sulit (dengan penyelesaian dan alternatif penyelesaian). (6) Kesalahan umum yang sering dilakukan siswa dan cara menghindarinya. (7) Hubungan dengan topik kalkulus lainnya. (8) Soal latihan mandiri 10 soal (tanpa jawaban) bertingkat kesulitan. (9) Aplikasi dalam fisika, ekonomi, atau teknik sesuai konteks. Format: rapih dengan persamaan matematika yang jelas.",
-      "gambar": "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=400",
-      "kategori_id": "id_j31kp6e",
-      "tanggal": "2026-06-01",
-      "featured": false
-    },
-    {
       "id": "id_materi_002",
       "judul": "Materi Sejarah Indonesia",
       "deskripsi": "Buatkan materi pembelajaran Sejarah Indonesia yang komprehensif, faktual, dan menarik untuk topik \"[TOPIK: Proklamasi Kemerdekaan/Orde Baru/Reformasi/Kerajaan Majapahit/dll]\". Materi harus mencakup: (1) Timeline dan kronologi peristiwa dalam bentuk tabel atau peta waktu yang mudah dibaca. (2) Tokoh-tokoh kunci beserta peran dan kontribusi spesifik mereka — disertai biografi singkat masing-masing. (3) Latar belakang historis — konteks domestik dan internasional yang melatarbelakangi peristiwa. (4) Analisis mendalam tentang sebab-akibat (cause & effect) peristiwa. (5) Dampak jangka pendek dan jangka panjang bagi Indonesia. (6) Perspektif berbeda dari berbagai kelompok yang terlibat. (7) Sumber sejarah primer yang tersedia (dokumen, foto, kesaksian) dan cara menganalisisnya. (8) Koneksi dengan peristiwa sejarah global yang terjadi bersamaan. (9) Relevansi dengan Indonesia masa kini. (10) Soal latihan: pilihan ganda, isian, dan esai analitis. Gaya: naratif dan menarik, tidak sekadar hafalan tanggal.",
