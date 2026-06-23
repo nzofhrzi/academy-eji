@@ -335,15 +335,6 @@
       "featured": false
     },
     {
-      "id": "id_makalah_005",
-      "judul": "Essay Argumentatif Akademik",
-      "deskripsi": "Buatkan esai argumentatif akademik yang kuat dan meyakinkan dengan topik \"[TOPIK ESAI]\" dengan posisi argumentasi \"[PRO/KONTRA/ANALITIS]\". Struktur esai yang harus diikuti: (1) Pendahuluan — hook yang kuat (statistik mengejutkan, pertanyaan retoris, atau pernyataan kontroversial), konteks isu, thesis statement yang jelas dan spesifik. (2) Tubuh esai — minimal 4 paragraf argumen utama, setiap paragraf memiliki: kalimat topik, bukti/data/kutipan dari sumber kredibel, analisis bukti, kalimat transisi ke paragraf berikutnya. (3) Counter-argument & Refutation — akui argumen sisi lain secara jujur, lalu bantah dengan logika dan bukti yang lebih kuat. (4) Kesimpulan — sintesis argumen, restatement thesis dengan kata-kata berbeda, implikasi lebih luas, dan call to action jika relevan. Gunakan minimal 8 sumber akademik (jurnal, buku, laporan resmi). Sitasi: APA 7 dalam teks dan daftar pustaka. Total panjang: 1500-2000 kata. Gaya: formal, argumentatif, analytical, tidak emosional.",
-      "gambar": "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400",
-      "kategori_id": "id_vlr2ug9",
-      "tanggal": "2026-06-01",
-      "featured": false
-    },
-    {
       "id": "id_artikel_003",
       "judul": "Artikel Review Produk",
       "deskripsi": "Buatkan artikel review produk yang jujur, komprehensif, dan membantu pembaca dalam keputusan pembelian untuk produk \"[NAMA PRODUK]\" kategori \"[KATEGORI PRODUK]\". Struktur review yang lengkap: (1) Ringkasan eksekutif — verdict singkat di awal (rating, cocok untuk siapa, tidak cocok untuk siapa). (2) Spesifikasi dan detail produk — teknis tapi mudah dipahami. (3) Unboxing dan kesan pertama — deskriptif dan vivid. (4) Pengujian mendalam — hasil nyata dari penggunaan selama [X hari/minggu]. (5) Kelebihan — spesifik, bukan marketing speak. (6) Kekurangan — jujur, tidak ditutup-tutupi. (7) Perbandingan dengan kompetitor — tabel perbandingan sederhana. (8) Value for money — apakah harganya sepadan? Untuk siapa ini layak dibeli? (9) Verdict akhir dengan rating (1-10) per kategori: performa, desain, kemudahan penggunaan, nilai harga, after-sales. (10) FAQ singkat. Gaya: jujur seperti rekomendasi teman yang ahli, bukan seperti iklan.",
