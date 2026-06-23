@@ -164,15 +164,6 @@
       "featured": false
     },
     {
-      "id": "id_photo_012",
-      "judul": "Latar Cherry Blossom Jepang",
-      "deskripsi": "Replace the background with a stunning Japanese cherry blossom (sakura) scene. Full bloom sakura trees with dense clusters of soft pink flowers covering the canopy. Petals gently falling through the air like pink snow. Warm spring afternoon lighting — golden and soft, filtering through branches. Ground: stone path or wooden bridge with fallen petals scattered naturally. Background: traditional Japanese wooden shrine gate (torii) barely visible through the trees in deep bokeh. Subject remains completely photorealistic and unchanged. Lighting on subject should harmonize with warm pink ambient reflected light from surrounding blossoms. Output: dreamy, cinematic, Japan travel photography style.",
-      "gambar": "https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400",
-      "kategori_id": "id_0bdwwqs",
-      "tanggal": "2026-06-01",
-      "featured": false
-    },
-    {
       "id": "id_design_001",
       "judul": "Logo Minimalis Modern",
       "deskripsi": "Design a minimalist modern logo for a brand. Style: clean geometric shapes, maximum 2-3 colors, strong negative space usage. The logo must be versatile — readable at 16px favicon size and scalable to billboard size. Font: geometric sans-serif (similar to Futura or Gotham weight). Icon: abstract geometric symbol that conveys the brand essence through shape alone. Color palette: provide primary color version, white version, and black version. Composition: icon + wordmark horizontal layout, stacked layout, and icon-only mark. All versions on transparent background. Output: vector-quality SVG-level precision, professional brand identity quality. No gradients unless specified, no shadows, no textures — pure flat design.",
