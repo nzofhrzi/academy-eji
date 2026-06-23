@@ -450,15 +450,6 @@
       "kategori_id": "id_j31kp6e",
       "tanggal": "2026-06-01",
       "featured": false
-    },
-    {
-      "id": "id_materi_008",
-      "judul": "Materi Coding — Python Pemula",
-      "deskripsi": "Buatkan materi belajar Python untuk pemula yang komprehensif, praktis, dan fun. Pendekatan: belajar dengan langsung membuat proyek nyata, bukan sekadar hafalan sintaks. Struktur materi: (1) Kenapa Python? — alasan memilih Python, ekosistem Python (web, data science, AI, automation). (2) Setup environment — instalasi Python, VS Code, dan virtual environment. (3) Dasar-dasar Python: variabel dan tipe data, operasi aritmatika dan string, input/output, kondisional (if/elif/else), perulangan (for/while), fungsi. (4) Struktur data: list, tuple, dictionary, set — kapan menggunakan masing-masing. (5) File handling — membaca dan menulis file. (6) Error handling — try/except dan debugging sederhana. (7) Library populer untuk pemula: os, math, random, datetime. (8) Mini proyek praktis di setiap bab: kalkulator, todo list, number guessing game, konverter satuan, dll. (9) Kode contoh yang berjalan (runnable) dengan penjelasan per baris. (10) Challenge soal dan solusinya. (11) Langkah selanjutnya setelah menguasai dasar.",
-      "gambar": "https://images.unsplash.com/photo-1526379879527-8559ecfcaec0?w=400",
-      "kategori_id": "id_j31kp6e",
-      "tanggal": "2026-06-01",
-      "featured": true
     }
   ]
 }
