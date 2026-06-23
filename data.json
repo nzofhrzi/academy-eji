@@ -308,15 +308,6 @@
       "featured": false
     },
     {
-      "id": "id_nqwwqtc_karya_ilmiah",
-      "judul": "BAB 1 Karya Ilmiah",
-      "deskripsi": "Buatkan BAB I karya ilmiah atau makalah akademik secara lengkap, detail, sistematis, formal, dan menggunakan bahasa ilmiah sesuai kaidah akademik Indonesia berdasarkan topik \"[JUDUL MATERI/TOPIK]\" dengan fokus pembahasan \"[FOKUS PEMBAHASAN/PENELITIAN]\". Jenis karya ilmiah yang dibuat adalah \"[JENIS KARYA ILMIAH]\" dengan target pembaca \"[TARGET PEMBACA]\". Susun BAB I dengan struktur lengkap yang terdiri dari Pendahuluan, Latar Belakang, Rumusan Masalah, Tujuan Penelitian/Penulisan, Manfaat Penelitian, Metode Penelitian, dan Sistematika Penulisan.",
-      "gambar": "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=400",
-      "kategori_id": "id_vlr2ug9",
-      "tanggal": "2026-05-23",
-      "featured": false
-    },
-    {
       "id": "id_makalah_001",
       "judul": "BAB 2 Tinjauan Pustaka",
       "deskripsi": "Buatkan BAB II (Tinjauan Pustaka / Kajian Teori) untuk makalah atau karya ilmiah dengan topik \"[JUDUL TOPIK]\" secara lengkap, akademik, dan sistematis. Struktur BAB II: (1) Kajian Teori — uraikan teori-teori utama yang relevan dengan topik secara mendalam, sertakan definisi dari berbagai ahli, perkembangan teori dari waktu ke waktu, dan perdebatan akademik yang ada. (2) Penelitian Terdahulu (State of the Art) — uraikan minimal 5-7 penelitian terdahulu yang relevan, jelaskan metodologi, temuan, dan relevansinya dengan penelitian saat ini. Buat tabel perbandingan penelitian terdahulu. (3) Kerangka Berpikir — buat kerangka berpikir logis yang menghubungkan teori dengan permasalahan penelitian, lengkap dengan bagan/diagram kerangka berpikir. (4) Hipotesis Penelitian (jika kuantitatif) — rumuskan hipotesis null dan hipotesis alternatif. Setiap teori dan pernyataan wajib disertai sitasi APA 7. Gunakan minimal 15 referensi dari jurnal internasional dan nasional terindeks Scopus/Sinta dengan tahun minimal 5 tahun terakhir. Sertakan DOI setiap referensi.",
