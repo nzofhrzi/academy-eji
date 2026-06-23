@@ -137,15 +137,6 @@
       "featured": false
     },
     {
-      "id": "id_2e17q5s",
-      "judul": "Stiker dari foto",
-      "deskripsi": "Transform this photo into a set of 12 chibi stickers (4x4 grid) including expressions laughing loudly, angry, crying, sulking, thinking, sleepy, winking, surprise, and other expressions",
-      "gambar": "https://raw.githubusercontent.com/enzo19271/private/main/images/129304-1779519706046.jpg",
-      "kategori_id": "id_tnr4rxv",
-      "tanggal": "2026-05-23",
-      "featured": false
-    },
-    {
       "id": "id_13o6378",
       "judul": "Ganti Baju 1 Orang",
       "deskripsi": "Change the clothes on the main photo\nwith the outfit from the reference picture. Make sure fabric texture, pleats and shadows follow the light direction of the original photo. The skin color of the face and hands should remain exactly the same as the original photo without changing the tone.\n\nThe background of the wall should be naturally colored (not flat, still original gradation). Adjust the shadows on the body and clothes to be consistent with the room lighting. Don't change your pose, body size or perspective of the camera.\n\nThe result should be as seamless and realistic as the original photo, not illustrated.",
@@ -215,15 +206,6 @@
       "gambar": "https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400",
       "kategori_id": "id_0bdwwqs",
       "tanggal": "2026-06-01",
-      "featured": false
-    },
-    {
-      "id": "id_2e17q5s",
-      "judul": "Stiker dari Foto",
-      "deskripsi": "Transform this photo into a set of 12 chibi stickers (4x4 grid) including expressions laughing loudly, angry, crying, sulking, thinking, sleepy, winking, surprise, and other expressions",
-      "gambar": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=400",
-      "kategori_id": "id_tnr4rxv",
-      "tanggal": "2026-05-23",
       "featured": false
     },
     {
