@@ -22,7 +22,7 @@
   --warn: #f59e0b;
   --danger: #ef4444;
   --sidebar-w: 260px;
-  --header-h: 70px;
+  --header-h: 64px;
   --radius: 12px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -98,7 +98,7 @@ body {
 .nav-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
 .nav-item .nav-icon { font-size: 20px; flex-shrink: 0; }
 
-.sidebar-footer { padding: 20px; border-bottom: 1px solid var(--border); }
+.sidebar-footer { padding: 18px 20px; border-bottom: 1px solid var(--border); }
 .user-profile { display: flex; align-items: center; gap: 12px; }
 .user-avatar {
   width: 40px; height: 40px; border-radius: 50%;
@@ -121,19 +121,18 @@ body {
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 30px; position: sticky; top: 0; z-index: 40; transition: background 0.3s;
+  padding: 0 24px; position: sticky; top: 0; z-index: 40; transition: background 0.3s;
 }
 [data-theme="dark"] #topbar { background: rgba(30,41,59,0.85); }
-.topbar-left { display: flex; align-items: center; gap: 16px; }
-.page-title { font-size: 18px; font-weight: 600; color: var(--ink); }
-.breadcrumb { font-size: 13px; color: var(--ink4); display: flex; align-items: center; gap: 6px; }
+.topbar-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.page-title { font-size: 17px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-.topbar-right { display: flex; align-items: center; gap: 12px; }
+.topbar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 
 .icon-btn {
-  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border);
+  width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border);
   background: var(--surface); color: var(--ink2); display: flex; align-items: center; justify-content: center;
-  font-size: 20px; cursor: pointer; transition: var(--transition);
+  font-size: 19px; cursor: pointer; transition: var(--transition); flex-shrink: 0;
 }
 .icon-btn:hover { background: var(--bg); color: var(--primary); transform: translateY(-2px); }
 
@@ -141,7 +140,7 @@ body {
 .topbar-btn {
   display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 8px;
   font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;
-  border: none; transition: var(--transition); text-decoration: none;
+  border: none; transition: var(--transition); text-decoration: none; white-space: nowrap;
 }
 .btn-ghost { background: transparent; color: var(--ink2); border: 1px solid var(--border); }
 .btn-ghost:hover { background: var(--surface2); color: var(--ink); }
@@ -153,33 +152,35 @@ body {
 .btn-success:hover { background: #059669; }
 
 /* ── MAIN ── */
-#main { padding: 30px; flex: 1; max-width: 1400px; margin: 0 auto; width: 100%; }
+#main { padding: 26px; flex: 1; max-width: 1400px; margin: 0 auto; width: 100%; }
 
 /* ── STATS ROW ── */
-.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
 .stat-card {
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 20px; display: flex; align-items: center; gap: 16px; box-shadow: var(--shadow-sm);
+  padding: 18px; display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow-sm);
   transition: var(--transition);
   opacity: 0; transform: translateY(16px);
   animation: fadeUp 0.5s ease forwards;
 }
 .stat-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
-.stat-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
-.stat-val { font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+.stat-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.stat-val { font-size: 22px; font-weight: 700; color: var(--ink); line-height: 1.2; }
 .stat-label { font-size: 12px; color: var(--ink3); font-weight: 500; }
 
 /* ── TABS ── */
 .tabs {
-  display: flex; gap: 4px; margin-bottom: 24px; background: var(--surface);
+  display: flex; gap: 4px; margin-bottom: 20px; background: var(--surface);
   border: 1px solid var(--border); border-radius: var(--radius); padding: 4px; width: fit-content;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-sm); max-width: 100%; overflow-x: auto;
   opacity: 0; animation: fadeUp 0.5s ease 0.2s forwards;
 }
+.tabs::-webkit-scrollbar { display: none; }
 .tab-btn {
   padding: 9px 20px; border-radius: 9px; border: none; background: transparent;
   font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer;
   color: var(--ink3); transition: var(--transition); display: flex; align-items: center; gap: 6px;
+  white-space: nowrap; flex-shrink: 0;
 }
 .tab-btn.active { background: var(--primary); color: #fff; box-shadow: 0 2px 8px rgba(37,99,235,0.25); }
 .tab-btn:hover:not(.active) { background: var(--surface2); color: var(--ink); }
@@ -225,12 +226,12 @@ select.form-control { cursor: pointer; }
 .form-hint { font-size: 11px; color: var(--ink4); margin-top: 2px; }
 .form-actions {
   display: flex; align-items: center; gap: 10px; padding: 16px 24px;
-  border-top: 1px solid var(--border); background: var(--surface2);
+  border-top: 1px solid var(--border); background: var(--surface2); flex-wrap: wrap;
 }
 
 /* ── TOGGLE SWITCH ── */
 .toggle-wrap { display: flex; align-items: center; gap: 10px; }
-.toggle { position: relative; display: inline-block; width: 44px; height: 24px; }
+.toggle { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
 .toggle input { opacity: 0; width: 0; height: 0; }
 .toggle-slider {
   position: absolute; inset: 0; background: var(--border); border-radius: 99px;
@@ -275,11 +276,36 @@ select.form-control { cursor: pointer; }
 .search-box input { border: none; background: transparent; font-family: 'Sora', sans-serif; font-size: 13px; color: var(--ink); outline: none; width: 180px; }
 .search-box input::placeholder { color: var(--ink4); }
 .search-box i { color: var(--ink4); font-size: 18px; }
+
+/* ── FILTER BAR ── */
+.filter-bar {
+  display: flex; align-items: center; gap: 8px; padding: 12px 20px;
+  border-bottom: 1px solid var(--border); background: var(--surface2);
+  flex-wrap: wrap;
+}
+.filter-bar .form-control { padding: 7px 12px; font-size: 12px; width: auto; min-width: 150px; }
+.filter-label { font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 20px;
+  border: 1.5px solid var(--border); background: var(--surface); font-family: 'Sora', sans-serif;
+  font-size: 12px; font-weight: 600; color: var(--ink3); cursor: pointer; transition: var(--transition);
+  white-space: nowrap;
+}
+.chip i { font-size: 15px; }
+.chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.chip:hover:not(.active) { background: var(--bg); color: var(--ink); }
+
+/* ── TABLE SCROLL (keeps long lists from stretching the page) ── */
+.table-scroll { max-height: 60vh; overflow-y: auto; overflow-x: auto; }
+.table-scroll::-webkit-scrollbar { width: 6px; }
+.table-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
 table { width: 100%; border-collapse: collapse; }
 thead th {
   padding: 11px 16px; text-align: left; font-size: 11px; font-weight: 600;
   color: var(--ink3); text-transform: uppercase; letter-spacing: 0.07em;
   background: var(--surface2); border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 2;
 }
 tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
 tbody tr:last-child { border-bottom: none; }
@@ -314,18 +340,6 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
   border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-
-/* ── UNSAVED BADGE ── */
-.unsaved-dot {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 20px; height: 20px; border-radius: 50%; background: var(--danger);
-  color: #fff; font-size: 10px; font-weight: 700; margin-left: 6px;
-  animation: pulse 1.5s ease infinite;
-}
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
-  50%       { box-shadow: 0 0 0 6px rgba(239,68,68,0); }
-}
 
 /* ── MODAL ── */
 .modal-overlay {
@@ -389,19 +403,19 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
 
 /* ── TOAST ── */
 #toast {
-  position: fixed; bottom: 24px; right: 24px;
+  position: fixed; bottom: 20px; right: 16px; left: 16px;
   background: var(--ink); color: #fff;
   padding: 14px 20px; border-radius: 12px; font-size: 13px; z-index: 999;
   display: none; box-shadow: var(--shadow-lg);
-  border-left: 4px solid var(--success); max-width: 340px; font-weight: 500;
-  transform: translateX(20px); opacity: 0;
+  border-left: 4px solid var(--success); max-width: 340px; margin: 0 auto; font-weight: 500;
+  transform: translateY(20px); opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
-#toast.show { display: block; transform: translateX(0); opacity: 1; }
+#toast.show { display: block; transform: translateY(0); opacity: 1; }
 #toast.err { border-left-color: var(--danger); }
 
 /* ── EMPTY ── */
-.empty-row td { text-align: center; padding: 48px; color: var(--ink4); font-size: 14px; }
+.empty-row td { text-align: center; padding: 48px 16px; color: var(--ink4); font-size: 14px; }
 
 /* ── SECTION DIVIDER ── */
 .section-divider {
@@ -411,7 +425,7 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
 .section-divider::after { content:''; flex:1; height:1px; background:var(--border); }
 
 /* ── MOBILE / RESPONSIVE ── */
-#sidebar-toggle { display: none; background: transparent; border: none; font-size: 28px; cursor: pointer; color: var(--ink); }
+#sidebar-toggle { display: none; background: transparent; border: none; font-size: 26px; cursor: pointer; color: var(--ink); flex-shrink: 0; }
 #sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 49; backdrop-filter: blur(2px); }
 
 /* AUTH GATE */
@@ -436,6 +450,32 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
 .auth-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
 .auth-error { font-size: 12px; color: var(--danger); margin-bottom: 12px; display: none; text-align: left; padding: 8px 12px; background: #fef2f2; border-radius: 8px; }
 
+/* ── responsive table → card list (phones) ── */
+@media (max-width: 640px) {
+  .table-scroll table thead { display: none; }
+  .table-scroll table, .table-scroll table tbody, .table-scroll table tr, .table-scroll table td { display: block; width: 100%; }
+  .table-scroll table tr { padding: 12px 16px; }
+  .table-scroll table tr:hover { background: none; }
+  .table-scroll table td {
+    padding: 4px 0; border: none;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .table-scroll table td:first-child {
+    display: block; font-size: 14px; font-weight: 600; color: var(--ink);
+    padding-top: 2px; padding-bottom: 8px; font-family: 'Lora', serif;
+  }
+  .table-scroll table td:last-child {
+    justify-content: flex-end; margin-top: 8px; padding-top: 10px;
+    border-top: 1px dashed var(--border);
+  }
+  .table-scroll table td:last-child .td-actions { width: 100%; justify-content: flex-end; }
+  #art-table tbody td:nth-child(2)::before { content: "Kategori"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
+  #art-table tbody td:nth-child(3)::before { content: "Tanggal"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
+  #art-table tbody td:nth-child(4)::before { content: "Status"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
+  #kat-table tbody td:nth-child(2)::before { content: "Warna"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
+  #kat-table tbody td:nth-child(3)::before { content: "Artikel"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
+}
+
 @media(max-width: 992px) {
   #sidebar { transform: translateX(-100%); }
   #sidebar.open { transform: translateX(0); }
@@ -446,34 +486,30 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
 @media(max-width: 768px) {
   #main { padding: 14px; }
   #topbar { padding: 0 14px; }
-  .stats-row { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
-  .stat-card { padding: 14px 12px; gap: 10px; }
-  .stat-val { font-size: 20px; }
-  .stat-icon { width: 40px; height: 40px; font-size: 18px; }
+  .stats-row { grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+  .stat-card { padding: 12px 10px; gap: 0; flex-direction: column; text-align: center; }
+  .stat-icon { width: 36px; height: 36px; font-size: 16px; margin-bottom: 4px; }
+  .stat-val { font-size: 17px; }
+  .stat-label { font-size: 10px; }
   .form-row { grid-template-columns: 1fr; }
-  .tabs { width: 100%; overflow-x: auto; padding-bottom: 2px; }
-  .tab-btn { padding: 8px 14px; font-size: 12px; white-space: nowrap; }
   .search-box { display: none; }
-  .table-wrap { overflow-x: auto; }
-  .topbar-right .btn-ghost { display: none; }
+  .filter-bar { padding: 10px 14px; }
   .form-card-body { padding: 14px; }
   .form-card-header { padding: 12px 14px; }
   .form-actions { padding: 10px 14px; }
   .page-title { font-size: 15px; }
-  .art-title { max-width: 160px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 }
 @media(max-width: 480px) {
-  .stats-row { grid-template-columns: 1fr 1fr; gap: 8px; }
-  .stat-card { padding: 12px 10px; gap: 10px; }
-  .stat-val { font-size: 18px; }
-  .stat-label { font-size: 11px; }
-  .stat-icon { width: 36px; height: 36px; font-size: 16px; }
+  .stats-row { gap: 6px; }
+  .stat-card { padding: 10px 6px; }
+  .stat-val { font-size: 15px; }
+  .stat-label { font-size: 9px; }
   #main { padding: 10px; }
   .tabs { gap: 2px; padding: 3px; }
   .tab-btn { padding: 7px 10px; font-size: 11px; }
   .modal { margin: 0 8px; }
   .auth-card { padding: 28px 20px; }
-  .topbar-btn span, .topbar-btn .btn-label { display: none; }
+  .topbar-btn .btn-label { display: none; }
   .topbar-btn i { margin: 0; }
 }
 </style>
@@ -501,7 +537,7 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
     <div class="logo-text">Academy<span>Eji.</span></div>
   </div>
 
-      <div class="sidebar-footer">
+  <div class="sidebar-footer">
     <div class="user-profile">
       <div class="user-avatar"><i class='bx bxs-user'></i></div>
       <div class="user-info">
@@ -513,12 +549,8 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
 
   <div class="sidebar-scroll">
     <div class="sidebar-section">Menu Utama</div>
-     <a class="nav-item" href="index.html">
-        <i class='bx bx-home-alt nav-icon'></i> Dashboard
-      </a>
-      <a class="nav-item" href="article-landing.html">
-        <i class='bx bx-news nav-icon'></i> Artikel &amp; Wawasan
-      </a>
+    <a class="nav-item" href="index.html"><i class='bx bx-home-alt nav-icon'></i> Dashboard</a>
+    <a class="nav-item" href="article-landing.html"><i class='bx bx-news nav-icon'></i> Artikel &amp; Wawasan</a>
     <a class="nav-item" href="prompt/index.html"><i class='bx bx-bot nav-icon'></i> Tools & Prompt AI</a>
     <a class="nav-item" href="ujicoba/index.html"><i class='bx bx-trophy nav-icon'></i> Kelas Uji Coba</a>
     <a class="nav-item" href="config.html"><i class='bx bx-info-circle nav-icon'></i> Tentang Kami</a>
@@ -527,10 +559,9 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
     <a class="nav-item" href="admin-user.html"><i class='bx bx-group nav-icon'></i> Kelola User</a>
     <a class="nav-item" href="ujicoba/admin-soal.html"><i class='bx bx-edit nav-icon'></i> Kelola Soal</a>
     <div class="sidebar-section" style="margin-top:10px;">Analitik</div>
-    <a class="nav-item" href="analytics.html">
-      <i class='bx bx-bar-chart-alt-2 nav-icon'></i> Traffic Klik
-    </a>
-  </div></nav>
+    <a class="nav-item" href="analytics.html"><i class='bx bx-bar-chart-alt-2 nav-icon'></i> Traffic Klik</a>
+  </div>
+</nav>
 <div id="sidebar-overlay"></div>
 
 <!-- WRAPPER -->
@@ -539,20 +570,14 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
   <div id="topbar">
     <div class="topbar-left">
       <button id="sidebar-toggle"><i class='bx bx-menu'></i></button>
-      <div>
-        <div class="page-title">Admin Panel</div>
-        <div class="breadcrumb">Beranda <i class='bx bx-chevron-right'></i> Admin Panel</div>
-      </div>
+      <div class="page-title">Admin Panel</div>
     </div>
     <div class="topbar-right">
-      <a href="index.html" class="topbar-btn btn-ghost">
-        <i class='bx bx-grid-alt'></i> Dashboard
-      </a>
       <button class="icon-btn" id="theme-toggle" title="Toggle Dark Mode">
         <i class='bx bx-moon'></i>
       </button>
       <button class="topbar-btn btn-primary" id="btn-save-gh">
-        <i class='bx bx-cloud-upload'></i> Simpan ke GitHub
+        <i class='bx bx-cloud-upload'></i><span class="btn-label"> Simpan ke GitHub</span>
       </button>
     </div>
   </div>
@@ -589,15 +614,6 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
           <div class="stat-label">Kategori</div>
         </div>
       </div>
-      <div class="stat-card" style="animation-delay:0.3s">
-        <div class="stat-icon" style="background:rgba(239,68,68,0.1);color:var(--danger)">
-          <i class='bx bx-time-five'></i>
-        </div>
-        <div>
-          <div class="stat-val" id="s-draft">0</div>
-          <div class="stat-label">Belum Disimpan</div>
-        </div>
-      </div>
     </div>
 
     <!-- TABS -->
@@ -626,7 +642,16 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
             <input type="text" id="art-search" placeholder="Cari artikel…">
           </div>
         </div>
-        <div style="overflow-x:auto">
+        <div class="filter-bar">
+          <span class="filter-label"><i class='bx bx-filter-alt'></i> Filter</span>
+          <select class="form-control" id="art-filter-kat">
+            <option value="">Semua Kategori</option>
+          </select>
+          <button class="chip" id="art-filter-feat" type="button">
+            <i class='bx bx-star'></i> Unggulan saja
+          </button>
+        </div>
+        <div class="table-scroll">
           <table id="art-table">
             <thead>
               <tr>
@@ -786,17 +811,19 @@ tbody td { padding: 12px 16px; font-size: 13px; color: var(--ink2); vertical-ali
             Daftar Kategori
           </span>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Nama</th>
-              <th>Warna</th>
-              <th>Jumlah Artikel</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody id="kat-tbody"></tbody>
-        </table>
+        <div class="table-scroll">
+          <table id="kat-table">
+            <thead>
+              <tr>
+                <th>Nama</th>
+                <th>Warna</th>
+                <th>Jumlah Artikel</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="kat-tbody"></tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -874,7 +901,6 @@ document.getElementById('auth-gate-input').addEventListener('keydown', e => {
 const themeToggle = document.getElementById('theme-toggle');
 const htmlEl = document.documentElement;
 
-// Sync dengan preferensi yang sudah ada
 if (localStorage.getItem('theme') === 'dark') {
   htmlEl.setAttribute('data-theme', 'dark');
   themeToggle.innerHTML = "<i class='bx bx-sun'></i>";
@@ -891,15 +917,12 @@ themeToggle.addEventListener('click', () => {
    DATA LAYER
    ════════════════════════════════════════════════════ */
 let DB = { kategori:[], artikel:[], _sha:null };
-let pendingChanges = 0;
 
 /* ── Helpers ── */
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
 function uid(){ return 'id_'+Math.random().toString(36).slice(2,9) }
 function getKat(id){ return DB.kategori.find(k=>k.id===id)||{nama:'—',warna:'#9ca3af'} }
 function fmtDate(s){ if(!s) return ''; return new Date(s).toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}) }
-function markDirty(n=1){ pendingChanges+=n; document.getElementById('s-draft').textContent = pendingChanges; }
-function clearDirty(){ pendingChanges=0; document.getElementById('s-draft').textContent=0; }
 
 /* ── API: Load ── */
 async function loadData(){
@@ -994,21 +1017,36 @@ function render(){
   document.getElementById('s-total').textContent = DB.artikel.length;
   document.getElementById('s-feat').textContent  = DB.artikel.filter(a=>a.featured).length;
   document.getElementById('s-kat').textContent   = DB.kategori.length;
-  document.getElementById('s-draft').textContent = pendingChanges;
   renderArtTable();
   renderKatTable();
   renderKatSelect();
+  renderArtFilterSelect();
 }
 
+/* ── Filter & search state (Artikel) ── */
 let artSearch = '';
+let artKatFilter = '';
+let artFeaturedOnly = false;
+
+function renderArtFilterSelect(){
+  const sel = document.getElementById('art-filter-kat');
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">Semua Kategori</option>';
+  DB.kategori.forEach(k=>{
+    sel.innerHTML += `<option value="${esc(k.id)}" ${cur===k.id?'selected':''}>${esc(k.nama)}</option>`;
+  });
+}
+
 function renderArtTable(){
   const tbody = document.getElementById('art-tbody');
   let arts = DB.artikel.slice();
   if(artSearch) arts = arts.filter(a=>(a.judul+a.deskripsi).toLowerCase().includes(artSearch));
+  if(artKatFilter) arts = arts.filter(a=>a.kategori_id===artKatFilter);
+  if(artFeaturedOnly) arts = arts.filter(a=>a.featured);
   if(!arts.length){
     tbody.innerHTML = `<tr class="empty-row"><td colspan="5">
       <i class='bx bx-folder-open' style="font-size:36px;margin-bottom:10px;display:block;opacity:0.3"></i>
-      Belum ada artikel.
+      Tidak ada artikel yang cocok.
     </td></tr>`;
     return;
   }
@@ -1251,7 +1289,6 @@ document.getElementById('btn-submit-art').addEventListener('click', async()=>{
       await apiTambahArtikel(newArt);
       showToast('✅ Artikel berhasil ditambahkan dan disimpan ke GitHub!');
     }
-    clearDirty();
     resetForm();
     render();
     switchTab('tab-artikel');
@@ -1282,7 +1319,6 @@ document.getElementById('btn-add-kat').addEventListener('click', async()=>{
     const newKat = { id: uid(), nama, warna };
     await apiTambahKategori(newKat);
     document.getElementById('kat-nama').value='';
-    clearDirty();
     render();
     showToast('✅ Kategori berhasil ditambahkan dan disimpan ke GitHub!');
   } catch(e){
@@ -1325,7 +1361,6 @@ document.getElementById('del-confirm-btn').addEventListener('click', async()=>{
       DB.kategori = DB.kategori.filter(k=>k.id!==_delId);
     }
     showToast('✅ Berhasil dihapus dari GitHub!');
-    clearDirty();
     closeDelModal();
     render();
   } catch(e){
@@ -1342,16 +1377,15 @@ document.getElementById('del-confirm-btn').addEventListener('click', async()=>{
    ════════════════════════════════════════════════════ */
 document.getElementById('btn-save-gh').addEventListener('click', async()=>{
   const btn = document.getElementById('btn-save-gh');
-  btn.innerHTML='<span class="spinner"></span> Menyimpan…'; btn.disabled=true;
+  btn.innerHTML='<span class="spinner"></span><span class="btn-label"> Menyimpan…</span>'; btn.disabled=true;
   try{
     const sha = await saveToServer();
     if(sha) DB._sha = sha;
-    clearDirty();
     showToast('✅ Data berhasil disimpan ke GitHub!');
   } catch(e){
     showToast('Gagal simpan: '+e.message, true);
   } finally {
-    btn.innerHTML="<i class='bx bx-cloud-upload'></i> Simpan ke GitHub"; btn.disabled=false;
+    btn.innerHTML="<i class='bx bx-cloud-upload'></i><span class=\"btn-label\"> Simpan ke GitHub</span>"; btn.disabled=false;
   }
 });
 
@@ -1368,6 +1402,18 @@ function switchTab(tabId){
 /* Search */
 document.getElementById('art-search').addEventListener('input', e=>{
   artSearch = e.target.value.toLowerCase().trim(); renderArtTable();
+});
+
+/* Filter: kategori */
+document.getElementById('art-filter-kat').addEventListener('change', e=>{
+  artKatFilter = e.target.value; renderArtTable();
+});
+
+/* Filter: unggulan saja (chip toggle) */
+document.getElementById('art-filter-feat').addEventListener('click', ()=>{
+  artFeaturedOnly = !artFeaturedOnly;
+  document.getElementById('art-filter-feat').classList.toggle('active', artFeaturedOnly);
+  renderArtTable();
 });
 
 /* Tabs */
