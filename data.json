@@ -191,15 +191,6 @@
       "featured": true
     },
     {
-      "id": "id_photo_004",
-      "judul": "Latar Salju",
-      "deskripsi": "Replace the background with a breathtaking snowy winter landscape. Snow-covered mountain peaks in the distance under a clear pale blue sky. Foreground: glistening white snow field with soft surface texture, subtle wind-blown patterns. Pine trees dusted with fresh snow on the mid-ground sides. Natural winter overcast lighting — soft, diffused, no harsh shadows. Subject must stay 100% unchanged: same skin tone, outfit, pose, expression, and edge detail. Breath mist may be very subtly added in front of mouth for winter realism. Snow particles lightly falling in background only. Photorealistic, cinematic winter photography, wide-angle vista feel.",
-      "gambar": "https://images.unsplash.com/photo-1478827536114-da961b7f86d2?w=400",
-      "kategori_id": "id_0bdwwqs",
-      "tanggal": "2026-06-01",
-      "featured": false
-    },
-    {
       "id": "id_photo_008",
       "judul": "Efek Double Exposure",
       "deskripsi": "Create a double exposure artistic effect by blending the subject's silhouette with a nature landscape. Use the subject's outline as a mask, filling it with a forest or mountain landscape image. Inside the subject: trees, mountains, and sky visible with 60% opacity. Outside: clean white or dark background. Preserve the subject's face area with higher detail visibility (40% nature blend, 60% face visible) so identity is still recognizable. Apply gradient transitions for smooth blending. Color grade: muted tones with slight blue or teal shift for artistic feel. High contrast between subject silhouette and background. Output: fine art conceptual photography / digital art hybrid style.",
