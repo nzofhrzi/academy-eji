@@ -344,15 +344,6 @@
       "featured": false
     },
     {
-      "id": "id_artikel_001",
-      "judul": "Artikel SEO Blog",
-      "deskripsi": "Buatkan artikel blog yang dioptimasi untuk mesin pencari (SEO) dengan topik \"[TOPIK ARTIKEL]\" yang menargetkan kata kunci utama \"[KATA KUNCI UTAMA]\" dan kata kunci sekunder \"[KATA KUNCI SEKUNDER 1]\", \"[KATA KUNCI SEKUNDER 2]\". Spesifikasi artikel: panjang 1500-2000 kata, bahasa Indonesia yang natural dan mengalir (bukan bahasa robot), struktur heading yang benar (H1 untuk judul, H2 untuk section utama, H3 untuk sub-section). Komponen yang harus ada: (1) Judul SEO yang menarik klik (mengandung kata kunci utama, maksimal 60 karakter). (2) Meta description menarik 150-160 karakter. (3) Paragraf pembuka dengan hook yang kuat dan menyertakan kata kunci utama secara natural. (4) Setidaknya 5 section H2 yang komprehensif membahas topik dari berbagai sisi. (5) Internal link placeholder (catatan: tambahkan internal link ke artikel X). (6) Kesimpulan dengan call-to-action yang jelas. (7) FAQ section dengan 3-5 pertanyaan umum seputar topik. Keyword density: 1-2%, tidak terasa dipaksakan. Gaya penulisan: informatif, helpful, terasa seperti ditulis oleh pakar bidang tersebut.",
-      "gambar": "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?w=400",
-      "kategori_id": "id_yv3a2aw",
-      "tanggal": "2026-06-01",
-      "featured": false
-    },
-    {
       "id": "id_artikel_002",
       "judul": "Artikel Opini & Analisis",
       "deskripsi": "Buatkan artikel opini yang tajam, analitis, dan berpengaruh tentang isu \"[ISU/TOPIK]\" untuk dipublikasikan di media online atau majalah. Artikel ini harus: memiliki perspektif yang jelas dan berani (bukan pagar), didukung fakta dan data yang kredibel, dan mendorong pembaca untuk berpikir kritis. Struktur artikel opini: (1) Judul yang provokatif dan membuat penasaran. (2) Lead paragraph — langsung ke inti permasalahan, mengejutkan atau menantang asumsi umum. (3) Konteks dan latar belakang isu — jelaskan secara singkat tapi cukup. (4) Argumen utama penulis — 3-4 poin kuat dengan bukti pendukung. (5) Tantangan terhadap pandangan dominan atau mainstream — di sinilah artikel ini harus berani. (6) Implikasi dan solusi yang ditawarkan. (7) Penutup yang memorable — kalimat terakhir yang menghantam dan diingat pembaca. Gaya: percaya diri, langsung, tidak bertele-tele, menggunakan analogi dan contoh nyata. Panjang: 800-1200 kata.",
