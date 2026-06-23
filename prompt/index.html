@@ -12,7 +12,6 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-/* ── COLOR PALETTE & VARIABLES ── */
 :root {
   --primary: #2563eb;
   --primary-light: #eff6ff;
@@ -27,8 +26,6 @@
   --header-h: 70px;
   --radius: 12px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* Light Theme */
   --bg: #f3f4f6;
   --surface: #ffffff;
   --surface2: #f8fafc;
@@ -40,66 +37,34 @@
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
   --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
   --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+  --dropdown-shadow: 0 16px 40px -4px rgba(0,0,0,0.12), 0 6px 16px -2px rgba(0,0,0,0.06);
 }
-
 [data-theme="dark"] {
-  --bg: #0f172a;
-  --surface: #1e293b;
-  --surface2: #334155;
-  --border: #334155;
-  --ink: #f8fafc;
-  --ink2: #cbd5e1;
-  --ink3: #94a3b8;
-  --ink4: #64748b;
-  --primary-light: #1e3a8a;
-  --prompt-light: #2d1b69;
+  --bg: #0f172a; --surface: #1e293b; --surface2: #334155; --border: #334155;
+  --ink: #f8fafc; --ink2: #cbd5e1; --ink3: #94a3b8; --ink4: #64748b;
+  --primary-light: #1e3a8a; --prompt-light: #2d1b69;
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
   --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4);
   --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.5);
+  --dropdown-shadow: 0 16px 40px -4px rgba(0,0,0,0.5), 0 6px 16px -2px rgba(0,0,0,0.3);
 }
 
-body {
-  font-family: 'Sora', sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-  min-height: 100vh;
-  display: flex;
-  font-size: 14px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+body { font-family: 'Sora', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; display: flex; font-size: 14px; transition: background-color 0.3s ease, color 0.3s ease; }
 
 /* ── SIDEBAR ── */
-#sidebar {
-  width: var(--sidebar-w); min-height: 100vh; background: var(--surface);
-  border-right: 1px solid var(--border); display: flex; flex-direction: column;
-  position: fixed; top: 0; left: 0; z-index: 50; transition: transform 0.3s ease, background 0.3s;
-}
-.sidebar-logo {
-  height: var(--header-h); display: flex; align-items: center; gap: 12px;
-  padding: 0 24px; border-bottom: 1px solid var(--border);
-}
-.logo-icon {
-  width: 36px; height: 36px; background: linear-gradient(135deg, var(--primary), #60a5fa);
-  border-radius: 10px; display: flex; align-items: center; justify-content: center;
-  color: #fff; font-size: 20px; flex-shrink: 0; box-shadow: 0 4px 10px rgba(37,99,235,0.3);
-}
+#sidebar { width: var(--sidebar-w); min-height: 100vh; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; z-index: 50; transition: transform 0.3s ease, background 0.3s; }
+.sidebar-logo { height: var(--header-h); display: flex; align-items: center; gap: 12px; padding: 0 24px; border-bottom: 1px solid var(--border); }
+.logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, var(--primary), #60a5fa); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; flex-shrink: 0; box-shadow: 0 4px 10px rgba(37,99,235,0.3); }
 .logo-text { font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -0.5px; }
 .logo-text span { color: var(--primary); }
-
 .sidebar-scroll { flex: 1; overflow-y: auto; padding-top: 10px; }
 .sidebar-scroll::-webkit-scrollbar { width: 6px; }
 .sidebar-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
-
 .sidebar-section { padding: 16px 24px 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink4); }
-.nav-item {
-  display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 10px;
-  cursor: pointer; color: var(--ink2); font-size: 14px; font-weight: 500;
-  transition: var(--transition); margin: 4px 12px; text-decoration: none;
-}
+.nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 10px; cursor: pointer; color: var(--ink2); font-size: 14px; font-weight: 500; transition: var(--transition); margin: 4px 12px; text-decoration: none; }
 .nav-item:hover { background: var(--surface2); color: var(--ink); transform: translateX(4px); }
 .nav-item.active { background: var(--prompt-light); color: var(--prompt-color); font-weight: 600; }
 .nav-item .nav-icon { font-size: 20px; flex-shrink: 0; }
-
 .sidebar-footer { padding: 20px; border-bottom: 1px solid var(--border); }
 .user-profile { display: flex; align-items: center; gap: 12px; }
 .user-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--primary); }
@@ -109,96 +74,81 @@ body {
 
 /* ── WRAPPER & TOPBAR ── */
 #wrapper { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; display: flex; flex-direction: column; transition: margin 0.3s ease; }
-
-#topbar {
-  height: var(--header-h); background: rgba(var(--surface), 0.8); backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;
-  padding: 0 30px; position: sticky; top: 0; z-index: 40; transition: background 0.3s;
-}
+#topbar { height: var(--header-h); background: rgba(var(--surface), 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; position: sticky; top: 0; z-index: 40; transition: background 0.3s; }
 .topbar-left { display: flex; align-items: center; gap: 16px; }
 .page-title { font-size: 18px; font-weight: 600; color: var(--ink); }
 .breadcrumb { font-size: 13px; color: var(--ink4); display: flex; align-items: center; gap: 6px; }
-
 .topbar-right { display: flex; align-items: center; gap: 16px; }
-.search-box {
-  display: flex; align-items: center; gap: 10px; background: var(--bg);
-  border: 1px solid var(--border); border-radius: 20px; padding: 8px 16px;
-  transition: var(--transition); width: 250px;
-}
+.search-box { display: flex; align-items: center; gap: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 8px 16px; transition: var(--transition); width: 250px; }
 .search-box:focus-within { border-color: var(--prompt-color); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); width: 280px; }
 .search-box input { border: none; background: transparent; font-family: 'Sora', sans-serif; font-size: 13px; color: var(--ink); outline: none; width: 100%; }
 .search-box i { color: var(--ink4); font-size: 18px; }
-
-.icon-btn {
-  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border);
-  background: var(--surface); color: var(--ink2); display: flex; align-items: center; justify-content: center;
-  font-size: 20px; cursor: pointer; transition: var(--transition);
-}
+.icon-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: var(--surface); color: var(--ink2); display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; transition: var(--transition); }
 .icon-btn:hover { background: var(--bg); color: var(--prompt-color); transform: translateY(-2px); }
 
 /* ── HERO BANNER ── */
-.prompt-hero {
-  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 50%, #2563eb 100%);
-  border-radius: var(--radius);
-  padding: 30px 32px;
-  margin-bottom: 28px;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  box-shadow: 0 10px 30px rgba(124,58,237,0.3);
-  position: relative;
-  overflow: hidden;
-}
-.prompt-hero::before {
-  content: '';
-  position: absolute;
-  top: -30px; right: -30px;
-  width: 180px; height: 180px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-}
-.prompt-hero::after {
-  content: '';
-  position: absolute;
-  bottom: -50px; right: 120px;
-  width: 120px; height: 120px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.05);
-}
+.prompt-hero { background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 50%, #2563eb 100%); border-radius: var(--radius); padding: 30px 32px; margin-bottom: 28px; color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 20px; box-shadow: 0 10px 30px rgba(124,58,237,0.3); position: relative; overflow: hidden; }
+.prompt-hero::before { content: ''; position: absolute; top: -30px; right: -30px; width: 180px; height: 180px; border-radius: 50%; background: rgba(255,255,255,0.08); }
+.prompt-hero::after { content: ''; position: absolute; bottom: -50px; right: 120px; width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,0.05); }
 .hero-text h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
 .hero-text p { font-size: 14px; opacity: 0.85; line-height: 1.5; }
 .hero-icon { font-size: 60px; opacity: 0.3; position: relative; z-index: 1; flex-shrink: 0; }
 
-/* ── CATEGORY TABS ── */
-.cat-tabs {
-  display: flex; align-items: center; gap: 10px;
-  margin-bottom: 24px; flex-wrap: wrap;
-}
-.cat-tab {
-  display: flex; align-items: center; gap: 8px;
-  padding: 8px 18px; border-radius: 20px; border: 1.5px solid var(--border);
-  background: var(--surface); font-family: 'Sora', sans-serif; font-size: 13px;
-  font-weight: 500; color: var(--ink2); cursor: pointer; transition: var(--transition);
-  text-decoration: none;
-}
-.cat-tab:hover { border-color: var(--prompt-color); color: var(--prompt-color); transform: translateY(-2px); }
-.cat-tab.active { color: #fff; box-shadow: 0 4px 12px rgba(124,58,237,0.25); }
-.cat-tab .cat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.cat-count { background: rgba(255,255,255,0.2); padding: 2px 7px; border-radius: 10px; font-size: 11px; font-weight: 600; }
-
 /* ── STATS ── */
 .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px; }
-.stat-card {
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 18px 20px; display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow-sm);
-  transition: var(--transition);
-}
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow-sm); transition: var(--transition); }
 .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
 .stat-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
 .stat-val { font-size: 22px; font-weight: 700; color: var(--ink); line-height: 1.2; }
 .stat-label { font-size: 12px; color: var(--ink3); font-weight: 500; }
+
+/* ── TOOLBAR ── */
+.toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+
+/* Search bar konten */
+.content-search { flex: 1; min-width: 220px; display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1.5px solid var(--border); border-radius: 12px; padding: 10px 16px; transition: var(--transition); box-shadow: var(--shadow-sm); }
+.content-search:focus-within { border-color: var(--prompt-color); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
+.content-search i { color: var(--ink4); font-size: 20px; flex-shrink: 0; }
+.content-search input { border: none; background: transparent; font-family: 'Sora', sans-serif; font-size: 14px; color: var(--ink); outline: none; width: 100%; }
+.content-search input::placeholder { color: var(--ink4); }
+
+/* ── CATEGORY DROPDOWN ── */
+.cat-dropdown-wrap { position: relative; flex-shrink: 0; }
+
+.cat-dropdown-trigger {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 16px; background: var(--surface);
+  border: 1.5px solid var(--border); border-radius: 12px;
+  font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 500;
+  color: var(--ink2); cursor: pointer; transition: var(--transition);
+  white-space: nowrap; min-width: 200px; box-shadow: var(--shadow-sm); user-select: none;
+}
+.cat-dropdown-trigger:hover { border-color: var(--prompt-color); color: var(--prompt-color); }
+.cat-dropdown-trigger.open { border-color: var(--prompt-color); color: var(--prompt-color); box-shadow: 0 0 0 3px rgba(124,58,237,0.12); }
+.cat-dropdown-trigger .cat-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--prompt-color); flex-shrink: 0; transition: background 0.2s; }
+.cat-dropdown-trigger .cat-label { flex: 1; }
+.cat-dropdown-trigger .chevron { font-size: 18px; transition: transform 0.25s ease; color: var(--ink4); flex-shrink: 0; }
+.cat-dropdown-trigger.open .chevron { transform: rotate(180deg); color: var(--prompt-color); }
+
+.cat-dropdown-panel {
+  position: absolute; top: calc(100% + 8px); left: 0; min-width: 260px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+  box-shadow: var(--dropdown-shadow); z-index: 200; overflow: hidden;
+  opacity: 0; transform: translateY(-8px) scale(0.97); pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.cat-dropdown-panel.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
+
+.cat-panel-header { padding: 14px 16px 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink4); border-bottom: 1px solid var(--border); }
+
+.cat-option { display: flex; align-items: center; gap: 10px; padding: 10px 16px; cursor: pointer; transition: background 0.15s; font-size: 13px; font-weight: 500; color: var(--ink2); }
+.cat-option:hover { background: var(--surface2); color: var(--ink); }
+.cat-option.active { background: var(--prompt-light); color: var(--prompt-color); font-weight: 600; }
+.cat-option .opt-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; border: 2px solid currentColor; transition: all 0.15s; }
+.cat-option.active .opt-dot { border-color: var(--prompt-color); box-shadow: 0 0 0 3px rgba(124,58,237,0.15); }
+.cat-option .opt-count { margin-left: auto; font-size: 11px; background: var(--surface2); color: var(--ink4); padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+.cat-option.active .opt-count { background: rgba(124,58,237,0.12); color: var(--prompt-color); }
+.cat-option:last-child { border-radius: 0 0 16px 16px; }
 
 /* ── SECTION HEAD ── */
 .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
@@ -210,12 +160,7 @@ body {
 /* ── GRID & CARDS ── */
 #articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
 #articles-grid.list-view { grid-template-columns: 1fr; }
-
-.a-card {
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition);
-  position: relative; cursor: pointer; display: flex; flex-direction: column;
-}
+.a-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition); position: relative; cursor: pointer; display: flex; flex-direction: column; }
 .a-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: rgba(124,58,237,0.3); }
 .a-card-img { width: 100%; height: 180px; object-fit: cover; display: block; border-bottom: 1px solid var(--border); }
 .a-card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
@@ -226,60 +171,40 @@ body {
 .a-card:hover .a-card-title { color: var(--prompt-color); }
 .a-card-desc { font-size: 13px; color: var(--ink3); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 16px; }
 .a-card-footer { margin-top: auto; border-top: 1px solid var(--border); padding-top: 12px; display: flex; justify-content: space-between; align-items: center; color: var(--prompt-color); font-size: 13px; font-weight: 500; }
-
 .featured-ribbon { position: absolute; top: 12px; left: 12px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 8px rgba(249,115,22,0.4); z-index: 2; }
-
-/* List View overrides */
 #articles-grid.list-view .a-card { flex-direction: row; align-items: center; }
 #articles-grid.list-view .a-card-img { width: 280px; height: 200px; border-bottom: none; border-right: 1px solid var(--border); flex-shrink: 0; }
 
 /* Skeleton */
 .skeleton { background: linear-gradient(90deg, var(--surface2) 25%, var(--border) 50%, var(--surface2) 75%); background-size: 200% 100%; animation: loading 1.5s infinite; border-radius: 4px; }
 @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
 /* ── MODAL ── */
-#modal-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 100; display: flex; align-items: center; justify-content: center;
-  padding: 20px; opacity: 0; pointer-events: none; transition: all 0.3s ease; backdrop-filter: blur(6px);
-}
+#modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: all 0.3s ease; backdrop-filter: blur(6px); }
 #modal-overlay.open { opacity: 1; pointer-events: all; }
-#modal {
-  background: var(--surface); border-radius: 20px; box-shadow: var(--shadow-lg);
-  width: 100%; max-width: 720px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column;
-  transform: translateY(30px) scale(0.95); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+#modal { background: var(--surface); border-radius: 20px; box-shadow: var(--shadow-lg); width: 100%; max-width: 720px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; transform: translateY(30px) scale(0.95); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 #modal-overlay.open #modal { transform: translateY(0) scale(1); }
 .modal-header-img { position: relative; width: 100%; height: 260px; }
 #modal-img { width: 100%; height: 100%; object-fit: cover; }
-#modal-x {
-  position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%;
-  background: rgba(0,0,0,0.5); color: #fff; border: none; font-size: 20px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); transition: background 0.2s;
-}
+#modal-x { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.5); color: #fff; border: none; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); transition: background 0.2s; }
 #modal-x:hover { background: var(--danger); }
 #modal-content { padding: 30px; overflow-y: auto; flex: 1; }
 #modal-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
 #modal-title { font-family: 'Lora', serif; font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.3; margin-bottom: 16px; }
 #modal-desc { font-size: 15px; color: var(--ink2); line-height: 1.8; white-space: pre-wrap; }
-#modal-footer {
-  padding: 20px 30px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: flex-end; gap: 12px; background: var(--surface2);
-}
-.btn {
-  display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 8px;
-  font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: var(--transition);
-}
+#modal-footer { padding: 20px 30px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: flex-end; gap: 12px; background: var(--surface2); }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 8px; font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: var(--transition); }
 .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--ink2); }
 .btn-outline:hover { background: var(--border); color: var(--ink); }
 .btn-primary { background: var(--prompt-color); color: #fff; }
 .btn-primary:hover { background: #6d28d9; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(124,58,237,0.3); }
 
-/* ── MAIN ── */
 #main { padding: 30px; flex: 1; max-width: 1400px; margin: 0 auto; width: 100%; }
 
 /* ── RESPONSIVE ── */
 #sidebar-toggle { display: none; background: transparent; border: none; font-size: 28px; cursor: pointer; color: var(--ink); }
 #sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 49; backdrop-filter: blur(2px); }
-
 @media(max-width: 992px) {
   #sidebar { transform: translateX(-100%); }
   #sidebar.open { transform: translateX(0); }
@@ -294,6 +219,9 @@ body {
   .stats-row { grid-template-columns: repeat(2, 1fr); }
   .prompt-hero { flex-direction: column; align-items: flex-start; }
   .hero-icon { display: none; }
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .cat-dropdown-trigger { min-width: 100%; justify-content: space-between; }
+  .cat-dropdown-panel { min-width: 100%; }
   #modal-title { font-size: 20px; }
   .modal-header-img { height: 200px; }
 }
@@ -311,8 +239,7 @@ body {
     <div class="logo-icon"><i class='bx bxs-graduation'></i></div>
     <div class="logo-text">Academy<span>Eji.</span></div>
   </div>
-
-      <div class="sidebar-footer">
+  <div class="sidebar-footer">
     <div class="user-profile">
       <div class="user-avatar"><i class='bx bxs-user'></i></div>
       <div class="user-info">
@@ -322,7 +249,6 @@ body {
       <button id="logout-btn" title="Keluar" style="display:none;background:none;border:none;cursor:pointer;color:var(--ink3);font-size:18px;padding:4px;margin-left:auto;" onclick="Auth.logout()"><i class='bx bx-log-out'></i></button>
     </div>
   </div>
-
   <div class="sidebar-scroll">
     <div class="sidebar-section">Menu Utama</div>
     <a class="nav-item" href="../index.html"><i class='bx bx-home-alt nav-icon'></i> Dashboard</a>
@@ -331,13 +257,14 @@ body {
     <a class="nav-item" href="../referensi/index.html"><i class='bx bx-book-open nav-icon'></i> Referensi &amp; Ebook</a>
     <a class="nav-item" href="../ujicoba/index.html"><i class='bx bx-trophy nav-icon'></i> Kelas Uji Coba</a>
     <a class="nav-item" href="../config.html"><i class='bx bx-info-circle nav-icon'></i> Tentang Kami</a>
-      <a class="nav-item" id="nav-upgrade-vip" href="../premium/index.html" style="color:#d97706;display:none;"><i class='bx bxs-crown nav-icon'></i> Upgrade Premium</a>
+    <a class="nav-item" id="nav-upgrade-vip" href="../premium/index.html" style="color:#d97706;display:none;"><i class='bx bxs-crown nav-icon'></i> Upgrade Premium</a>
     <div class="sidebar-section" style="margin-top: 15px;">Manajemen</div>
     <a class="nav-item" href="../admin.html"><i class='bx bx-user-pin nav-icon'></i> Admin Panel</a>
     <a class="nav-item" href="../ujicoba/admin-soal.html"><i class='bx bx-edit nav-icon'></i> Kelola Soal</a>
     <div class="sidebar-section" style="margin-top: 15px;">Analitik</div>
     <a class="nav-item" href="../analytics.html"><i class='bx bx-bar-chart-alt-2 nav-icon'></i> Traffic Klik</a>
-  </div></nav>
+  </div>
+</nav>
 <div id="sidebar-overlay"></div>
 
 <div id="wrapper">
@@ -352,20 +279,16 @@ body {
     <div class="topbar-right">
       <div class="search-box">
         <i class='bx bx-search'></i>
-        <input type="text" id="search-input" placeholder="Cari prompt...">
+        <input type="text" id="search-input-topbar" placeholder="Cari prompt...">
       </div>
-      <button class="icon-btn" id="theme-toggle" title="Toggle Dark Mode">
-        <i class='bx bx-moon'></i>
-      </button>
-      <button class="icon-btn" title="Notifikasi">
-        <i class='bx bx-bell'></i>
-      </button>
+      <button class="icon-btn" id="theme-toggle" title="Toggle Dark Mode"><i class='bx bx-moon'></i></button>
+      <button class="icon-btn" title="Notifikasi"><i class='bx bx-bell'></i></button>
     </div>
   </div>
 
   <div id="main">
 
-    <!-- Hero Banner -->
+    <!-- Hero -->
     <div class="prompt-hero">
       <div class="hero-text">
         <h1><i class='bx bx-bot' style="margin-right:8px;"></i>Tools &amp; Prompt AI</h1>
@@ -374,7 +297,7 @@ body {
       <i class='bx bx-code-alt hero-icon'></i>
     </div>
 
-    <!-- Stats Row -->
+    <!-- Stats -->
     <div class="stats-row">
       <div class="stat-card">
         <div class="stat-icon" style="background: rgba(124,58,237,0.1); color: var(--prompt-color)"><i class='bx bx-command'></i></div>
@@ -394,8 +317,24 @@ body {
       </div>
     </div>
 
-    <!-- Category Tabs -->
-    <div class="cat-tabs" id="cat-tabs"></div>
+    <!-- Toolbar: Search + Category Dropdown -->
+    <div class="toolbar">
+      <div class="content-search">
+        <i class='bx bx-search'></i>
+        <input type="text" id="search-input" placeholder="Cari judul atau isi prompt...">
+      </div>
+
+      <div class="cat-dropdown-wrap" id="cat-dropdown-wrap">
+        <div class="cat-dropdown-trigger" id="cat-trigger" onclick="toggleCatDropdown()">
+          <span class="cat-dot" id="cat-dot"></span>
+          <span class="cat-label" id="cat-label-text">Semua Kategori</span>
+          <i class='bx bx-chevron-down chevron'></i>
+        </div>
+        <div class="cat-dropdown-panel" id="cat-panel">
+          <div class="cat-panel-header">Filter Kategori Prompt</div>
+        </div>
+      </div>
+    </div>
 
     <!-- Section Head -->
     <div class="section-head">
@@ -434,7 +373,7 @@ body {
 </div>
 
 <script>
-// --- TEMA ---
+// ── TEMA ──
 const themeToggle = document.getElementById('theme-toggle');
 const htmlEl = document.documentElement;
 if (localStorage.getItem('theme') === 'dark') {
@@ -442,32 +381,25 @@ if (localStorage.getItem('theme') === 'dark') {
   themeToggle.innerHTML = "<i class='bx bx-sun'></i>";
 }
 themeToggle.addEventListener('click', () => {
-  if (htmlEl.getAttribute('data-theme') === 'dark') {
-    htmlEl.setAttribute('data-theme', 'light');
-    themeToggle.innerHTML = "<i class='bx bx-moon'></i>";
-    localStorage.setItem('theme', 'light');
-  } else {
-    htmlEl.setAttribute('data-theme', 'dark');
-    themeToggle.innerHTML = "<i class='bx bx-sun'></i>";
-    localStorage.setItem('theme', 'dark');
-  }
+  const isDark = htmlEl.getAttribute('data-theme') === 'dark';
+  htmlEl.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  themeToggle.innerHTML = isDark ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
 });
 
-// --- DATA ---
-let DB = { kategori:[], artikel:[] };
+// ── DATA ──
+let DB = { kategori: [], artikel: [] };
 let activeKat = 'all';
 let searchQ = '';
-let viewMode = 'grid';
-
-// Kategori & artikel yang mengandung kata "Prompt"
-const PROMPT_KEYWORDS = ['prompt'];
+let promptKats = [];
+let promptKatIds = [];
 
 const DUMMY_DATA = {
   kategori: [
-    { id: 'k_foto', nama: 'Prompt Foto', warna: '#3b82f6' },
-    { id: 'k_desain', nama: 'Prompt Desain Grafis', warna: '#ec4899' },
-    { id: 'k_makalah', nama: 'Prompt Makalah', warna: '#10b981' },
-    { id: 'k_buku', nama: 'Prompt Buku / EBook', warna: '#d199ff' }
+    { id: 'k_foto',    nama: 'Prompt Foto',           warna: '#3b82f6' },
+    { id: 'k_desain',  nama: 'Prompt Desain Grafis',  warna: '#ec4899' },
+    { id: 'k_makalah', nama: 'Prompt Makalah',        warna: '#10b981' },
+    { id: 'k_buku',    nama: 'Prompt Buku / EBook',   warna: '#d199ff' }
   ],
   artikel: [
     { id: 'p1', judul: 'Prompt Latar Pantai', deskripsi: 'Gunakan prompt ini untuk menghasilkan gambar latar pantai yang indah dengan AI image generator.', kategori_id: 'k_foto', tanggal: '2024-05-20', featured: true, gambar: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80' },
@@ -477,109 +409,142 @@ const DUMMY_DATA = {
   ]
 };
 
-function isPromptKategori(nama) {
-  return PROMPT_KEYWORDS.some(k => nama.toLowerCase().includes(k));
-}
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function fmtDate(s) { if(!s) return ''; return new Date(s).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'}); }
+function getKat(id) { return DB.kategori.find(k => k.id === id) || { nama: 'Prompt', warna: '#7c3aed' }; }
 
 async function loadData() {
   showSkeleton();
   try {
     const res = await fetch('../api/get-data');
-    if(!res.ok) throw new Error('API gagal');
-    const data = await res.json();
-    DB = data;
+    if (!res.ok) throw new Error('API gagal');
+    DB = await res.json();
   } catch(e) {
     console.warn("Menggunakan data dummy.");
     DB = DUMMY_DATA;
   }
-  setTimeout(render, 500);
+  // Filter hanya kategori yang mengandung kata "prompt"
+  promptKats = DB.kategori.filter(k => k.nama.toLowerCase().includes('prompt'));
+  promptKatIds = promptKats.map(k => k.id);
+  setTimeout(() => { buildCatDropdown(); render(); }, 500);
 }
 
 function showSkeleton() {
-  const grid = document.getElementById('articles-grid');
-  grid.innerHTML = Array(4).fill(0).map(() => `
-    <div class="a-card" style="height: 350px;">
-      <div class="skeleton" style="height:180px; width:100%"></div>
+  document.getElementById('articles-grid').innerHTML = Array(4).fill(0).map(() => `
+    <div class="a-card" style="height:350px;">
+      <div class="skeleton" style="height:180px;width:100%"></div>
       <div class="a-card-body">
-        <div class="skeleton" style="height:14px; width:40%; margin-bottom:12px;"></div>
-        <div class="skeleton" style="height:20px; width:90%; margin-bottom:8px;"></div>
-        <div class="skeleton" style="height:20px; width:70%; margin-bottom:16px;"></div>
-        <div class="skeleton" style="height:40px; width:100%; margin-top:auto;"></div>
+        <div class="skeleton" style="height:14px;width:40%;margin-bottom:12px;"></div>
+        <div class="skeleton" style="height:20px;width:90%;margin-bottom:8px;"></div>
+        <div class="skeleton" style="height:20px;width:70%;margin-bottom:16px;"></div>
+        <div class="skeleton" style="height:40px;width:100%;margin-top:auto;"></div>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-function getKat(id) { return DB.kategori.find(k=>k.id===id) || {nama:'Prompt', warna:'#7c3aed'}; }
-function fmtDate(s) {
-  if(!s) return '';
-  return new Date(s).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'});
-}
-function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+// ── CATEGORY DROPDOWN ──
+function buildCatDropdown() {
+  const panel = document.getElementById('cat-panel');
+  const countMap = {};
+  DB.artikel.filter(a => promptKatIds.includes(a.kategori_id)).forEach(a => {
+    countMap[a.kategori_id] = (countMap[a.kategori_id] || 0) + 1;
+  });
+  const totalCount = promptKatIds.reduce((s, id) => s + (countMap[id] || 0), 0);
 
-function render() {
-  // Filter: hanya kategori yang mengandung kata "Prompt"
-  const promptKats = DB.kategori.filter(k => isPromptKategori(k.nama));
-  const promptKatIds = promptKats.map(k => k.id);
-
-  // Stats
-  let allPrompts = DB.artikel.filter(a => promptKatIds.includes(a.kategori_id));
-  document.getElementById('s-total').textContent = allPrompts.length;
-  document.getElementById('s-feat').textContent = allPrompts.filter(a=>a.featured).length;
-  document.getElementById('s-kat').textContent = promptKats.length;
-  const dates = allPrompts.map(a=>a.tanggal).filter(Boolean).sort().reverse();
-  document.getElementById('s-last').textContent = dates[0] ? fmtDate(dates[0]) : '-';
-
-  // Category Tabs
-  const tabs = document.getElementById('cat-tabs');
-  tabs.innerHTML = `<button class="cat-tab ${activeKat==='all'?'active':''}" data-kat="all" 
-    style="${activeKat==='all' ? 'background: var(--prompt-color); border-color: var(--prompt-color);' : ''}">
-    <span class="cat-dot" style="background: var(--prompt-color)"></span>
-    Semua Prompt
-    <span class="cat-count" style="${activeKat==='all' ? '' : 'background:var(--border); color:var(--ink3)'}">${allPrompts.length}</span>
-  </button>`;
+  let opts = `<div class="cat-option active" data-id="all" onclick="selectCat('all','Semua Kategori','var(--prompt-color)')">
+    <span class="opt-dot" style="border-color:var(--prompt-color);background:var(--prompt-color);box-shadow:0 0 0 3px rgba(124,58,237,0.15)"></span>
+    <span>Semua Prompt</span>
+    <span class="opt-count">${totalCount}</span>
+  </div>`;
 
   promptKats.forEach(k => {
-    const isActive = activeKat === k.id;
-    const cnt = DB.artikel.filter(a=>a.kategori_id===k.id).length;
-    tabs.innerHTML += `<button class="cat-tab ${isActive ? 'active' : ''}" data-kat="${esc(k.id)}"
-      style="${isActive ? `background:${k.warna}; border-color:${k.warna};` : ''}">
-      <span class="cat-dot" style="background:${k.warna}"></span>
-      ${esc(k.nama)}
-      <span class="cat-count" style="${isActive ? '' : 'background:var(--border); color:var(--ink3)'}">${cnt}</span>
-    </button>`;
+    const cnt = countMap[k.id] || 0;
+    opts += `<div class="cat-option" data-id="${esc(k.id)}" onclick="selectCat('${esc(k.id)}','${esc(k.nama)}','${esc(k.warna)}')">
+      <span class="opt-dot" style="border-color:${esc(k.warna)}"></span>
+      <span>${esc(k.nama)}</span>
+      <span class="opt-count">${cnt}</span>
+    </div>`;
   });
 
-  tabs.querySelectorAll('.cat-tab').forEach(btn => {
-    btn.addEventListener('click', () => { activeKat = btn.dataset.kat; render(); });
-  });
+  panel.innerHTML = `<div class="cat-panel-header">Filter Kategori Prompt</div>` + opts;
+}
 
-  // Filter articles
+function selectCat(id, name, color) {
+  activeKat = id;
+  const resolvedColor = color.startsWith('var') ? '#7c3aed' : color;
+  document.getElementById('cat-label-text').textContent = name;
+  document.getElementById('cat-dot').style.background = resolvedColor;
+  document.querySelectorAll('#cat-panel .cat-option').forEach(el => {
+    const isActive = el.dataset.id === id;
+    el.classList.toggle('active', isActive);
+    const dot = el.querySelector('.opt-dot');
+    if (isActive) {
+      dot.style.background = resolvedColor;
+      dot.style.borderColor = resolvedColor;
+      dot.style.boxShadow = `0 0 0 3px ${resolvedColor}26`;
+    } else {
+      const match = el.getAttribute('onclick').match(/'([^']+)'\)$/);
+      const c = match ? match[1] : '#94a3b8';
+      dot.style.background = 'transparent';
+      dot.style.borderColor = c.startsWith('var') ? '#94a3b8' : c;
+      dot.style.boxShadow = 'none';
+    }
+  });
+  closeCatDropdown();
+  render();
+}
+
+function toggleCatDropdown() {
+  const panel = document.getElementById('cat-panel');
+  const isOpen = panel.classList.contains('open');
+  if (isOpen) { closeCatDropdown(); }
+  else { document.getElementById('cat-trigger').classList.add('open'); panel.classList.add('open'); }
+}
+function closeCatDropdown() {
+  document.getElementById('cat-trigger').classList.remove('open');
+  document.getElementById('cat-panel').classList.remove('open');
+}
+document.addEventListener('click', e => {
+  if (!document.getElementById('cat-dropdown-wrap').contains(e.target)) closeCatDropdown();
+});
+
+// ── RENDER ──
+function render() {
   let arts = DB.artikel.filter(a => promptKatIds.includes(a.kategori_id));
-  if(activeKat !== 'all') arts = arts.filter(a => a.kategori_id === activeKat);
-  if(searchQ) arts = arts.filter(a => (a.judul+a.deskripsi).toLowerCase().includes(searchQ));
 
-  // Section label
+  // Stats
+  document.getElementById('s-total').textContent = arts.length;
+  document.getElementById('s-feat').textContent = arts.filter(a => a.featured).length;
+  document.getElementById('s-kat').textContent = promptKats.length;
+  const dates = arts.map(a => a.tanggal).filter(Boolean).sort().reverse();
+  document.getElementById('s-last').textContent = dates[0] ? fmtDate(dates[0]) : '-';
+
+  // Apply filters
+  if (activeKat !== 'all') arts = arts.filter(a => a.kategori_id === activeKat);
+  if (searchQ) arts = arts.filter(a => (a.judul + a.deskripsi).toLowerCase().includes(searchQ));
+
   const katName = activeKat === 'all' ? 'Semua Prompt' : getKat(activeKat).nama;
   document.getElementById('section-label').textContent = `${katName} (${arts.length})`;
 
-  // Render Grid
   const grid = document.getElementById('articles-grid');
-  if(!arts.length) {
-    grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:50px; color:var(--ink3);">
-      <i class='bx bx-bot' style="font-size:52px; margin-bottom:12px; opacity:0.4;"></i><br>Belum ada prompt ditemukan.</div>`;
+  if (!arts.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:60px 40px; color:var(--ink3);">
+      <i class='bx bx-bot' style="font-size:52px; margin-bottom:12px; opacity:0.4; display:block;"></i>
+      <div style="font-weight:600; font-size:15px; margin-bottom:6px; color:var(--ink2);">Tidak ada prompt ditemukan</div>
+      <div style="font-size:13px;">Coba ubah kata kunci atau kategori yang dipilih.</div>
+    </div>`;
     return;
   }
 
-  grid.innerHTML = arts.map((a,i) => {
+  grid.innerHTML = arts.map((a, i) => {
     const k = getKat(a.kategori_id);
     return `
-    <div class="a-card" style="animation: fadeUp 0.4s ease forwards; opacity:0; transform:translateY(20px); animation-delay:${i*0.08}s" data-featured="${a.featured ? 'true' : 'false'}" onclick="openModal('${esc(a.id)}')">
+    <div class="a-card" style="animation:fadeUp 0.4s ease forwards;opacity:0;transform:translateY(20px);animation-delay:${i*0.07}s" onclick="openModal('${esc(a.id)}')">
       ${a.featured ? `<div class="featured-ribbon"><i class='bx bxs-star'></i> Unggulan</div>` : ''}
       <img class="a-card-img" src="${esc(a.gambar)}" alt="${esc(a.judul)}" loading="lazy">
       <div class="a-card-body">
         <div class="a-card-meta">
-          <span class="kat-badge" style="background:${k.warna}18; color:${k.warna}">${esc(k.nama)}</span>
+          <span class="kat-badge" style="background:${k.warna}18;color:${k.warna}">${esc(k.nama)}</span>
           <span class="a-date"><i class='bx bx-time-five'></i> ${fmtDate(a.tanggal)}</span>
         </div>
         <h3 class="a-card-title">${esc(a.judul)}</h3>
@@ -593,96 +558,74 @@ function render() {
   }).join('');
 }
 
-document.head.insertAdjacentHTML('beforeend', `<style>@keyframes fadeUp{to{opacity:1; transform:translateY(0);}}</style>`);
-
-/* ── MODAL ── */
+// ── MODAL ──
 function openModal(id) {
-  const a = DB.artikel.find(x=>x.id===id);
-  if(!a) return;
-
-  // ── GATE: tamu tidak bisa buka prompt Unggulan ──
+  const a = DB.artikel.find(x => x.id === id);
+  if (!a) return;
   const user = (typeof Auth !== 'undefined') ? Auth.getUser() : null;
   if (a.featured && user && user.role !== 'vip') {
     if (typeof AuthGate !== 'undefined') AuthGate.showVipPopup();
     return;
   }
-
   const k = getKat(a.kategori_id);
-
-  fetch('../api/track-click', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ artikel_id: a.id, artikel_judul: a.judul, kategori_id: a.kategori_id })
-  }).catch(()=>{});
-
+  fetch('../api/track-click', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ artikel_id: a.id, artikel_judul: a.judul, kategori_id: a.kategori_id }) }).catch(() => {});
   document.getElementById('modal-img').src = a.gambar;
   const katEl = document.getElementById('modal-kat');
   katEl.textContent = k.nama;
   katEl.style.background = k.warna + '20';
   katEl.style.color = k.warna;
-
   document.getElementById('m-date-text').textContent = fmtDate(a.tanggal);
   document.getElementById('modal-featured').style.display = a.featured ? 'inline-flex' : 'none';
   document.getElementById('modal-title').textContent = a.judul;
   document.getElementById('modal-desc').innerHTML = esc(a.deskripsi).replace(/\n/g, '<br>');
-
   const btn = document.getElementById('modal-copy-btn');
   btn.innerHTML = "<i class='bx bx-copy'></i> Salin Prompt";
   btn.style.background = '';
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-
 function closeModal() {
   document.getElementById('modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-
 function copyDesc() {
-  // Cek apakah ini konten premium untuk tamu
   const user = (typeof Auth !== 'undefined') ? Auth.getUser() : null;
-  const isFeatured = document.getElementById('modal-featured') && document.getElementById('modal-featured').style.display !== 'none';
-  if (isFeatured && user && user.role !== 'vip') {
-    if (typeof AuthGate !== 'undefined') AuthGate.showVipPopup();
-    return;
-  }
-  const desc = document.getElementById('modal-desc').innerText;
-  navigator.clipboard.writeText(desc).then(() => {
+  const isFeatured = document.getElementById('modal-featured').style.display !== 'none';
+  if (isFeatured && user && user.role !== 'vip') { if (typeof AuthGate !== 'undefined') AuthGate.showVipPopup(); return; }
+  navigator.clipboard.writeText(document.getElementById('modal-desc').innerText).then(() => {
     const btn = document.getElementById('modal-copy-btn');
     btn.innerHTML = "<i class='bx bx-check'></i> Tersalin!";
-    btn.style.background = "var(--success)";
-    setTimeout(() => {
-      btn.innerHTML = "<i class='bx bx-copy'></i> Salin Prompt";
-      btn.style.background = '';
-    }, 2000);
+    btn.style.background = 'var(--success)';
+    setTimeout(() => { btn.innerHTML = "<i class='bx bx-copy'></i> Salin Prompt"; btn.style.background = ''; }, 2000);
   });
 }
+document.getElementById('modal-overlay').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-document.getElementById('modal-overlay').addEventListener('click', function(e) {
-  if(e.target === this) closeModal();
-});
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
-
-/* ── VIEW TOGGLE ── */
+// ── VIEW TOGGLE ──
 document.getElementById('vt-grid').addEventListener('click', function() {
-  viewMode='grid';
   document.getElementById('articles-grid').classList.remove('list-view');
   this.classList.add('active');
   document.getElementById('vt-list').classList.remove('active');
 });
 document.getElementById('vt-list').addEventListener('click', function() {
-  viewMode='list';
   document.getElementById('articles-grid').classList.add('list-view');
   this.classList.add('active');
   document.getElementById('vt-grid').classList.remove('active');
 });
 
+// ── SEARCH ──
 document.getElementById('search-input').addEventListener('input', e => {
+  searchQ = e.target.value.toLowerCase().trim(); render();
+});
+const topbarSearch = document.getElementById('search-input-topbar');
+if (topbarSearch) topbarSearch.addEventListener('input', e => {
   searchQ = e.target.value.toLowerCase().trim();
+  document.getElementById('search-input').value = e.target.value;
   render();
 });
 
-/* ── SIDEBAR MOBILE ── */
+// ── SIDEBAR MOBILE ──
 document.getElementById('sidebar-toggle').addEventListener('click', () => {
   document.getElementById('sidebar').classList.toggle('open');
   document.getElementById('sidebar-overlay').classList.toggle('open');
