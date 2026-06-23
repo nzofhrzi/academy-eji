@@ -344,15 +344,6 @@
       "featured": false
     },
     {
-      "id": "id_artikel_002",
-      "judul": "Artikel Opini & Analisis",
-      "deskripsi": "Buatkan artikel opini yang tajam, analitis, dan berpengaruh tentang isu \"[ISU/TOPIK]\" untuk dipublikasikan di media online atau majalah. Artikel ini harus: memiliki perspektif yang jelas dan berani (bukan pagar), didukung fakta dan data yang kredibel, dan mendorong pembaca untuk berpikir kritis. Struktur artikel opini: (1) Judul yang provokatif dan membuat penasaran. (2) Lead paragraph — langsung ke inti permasalahan, mengejutkan atau menantang asumsi umum. (3) Konteks dan latar belakang isu — jelaskan secara singkat tapi cukup. (4) Argumen utama penulis — 3-4 poin kuat dengan bukti pendukung. (5) Tantangan terhadap pandangan dominan atau mainstream — di sinilah artikel ini harus berani. (6) Implikasi dan solusi yang ditawarkan. (7) Penutup yang memorable — kalimat terakhir yang menghantam dan diingat pembaca. Gaya: percaya diri, langsung, tidak bertele-tele, menggunakan analogi dan contoh nyata. Panjang: 800-1200 kata.",
-      "gambar": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400",
-      "kategori_id": "id_yv3a2aw",
-      "tanggal": "2026-06-01",
-      "featured": true
-    },
-    {
       "id": "id_artikel_003",
       "judul": "Artikel Review Produk",
       "deskripsi": "Buatkan artikel review produk yang jujur, komprehensif, dan membantu pembaca dalam keputusan pembelian untuk produk \"[NAMA PRODUK]\" kategori \"[KATEGORI PRODUK]\". Struktur review yang lengkap: (1) Ringkasan eksekutif — verdict singkat di awal (rating, cocok untuk siapa, tidak cocok untuk siapa). (2) Spesifikasi dan detail produk — teknis tapi mudah dipahami. (3) Unboxing dan kesan pertama — deskriptif dan vivid. (4) Pengujian mendalam — hasil nyata dari penggunaan selama [X hari/minggu]. (5) Kelebihan — spesifik, bukan marketing speak. (6) Kekurangan — jujur, tidak ditutup-tutupi. (7) Perbandingan dengan kompetitor — tabel perbandingan sederhana. (8) Value for money — apakah harganya sepadan? Untuk siapa ini layak dibeli? (9) Verdict akhir dengan rating (1-10) per kategori: performa, desain, kemudahan penggunaan, nilai harga, after-sales. (10) FAQ singkat. Gaya: jujur seperti rekomendasi teman yang ahli, bukan seperti iklan.",
