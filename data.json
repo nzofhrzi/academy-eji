@@ -326,15 +326,6 @@
       "featured": true
     },
     {
-      "id": "id_makalah_004",
-      "judul": "Proposal Penelitian Lengkap",
-      "deskripsi": "Buatkan proposal penelitian yang lengkap dan memenuhi standar akademik perguruan tinggi untuk topik \"[JUDUL PENELITIAN]\". Proposal ini akan diajukan kepada \"[LEMBAGA/JURUSAN]\" untuk mendapatkan persetujuan penelitian/skripsi/tesis. Struktur proposal yang harus dibuat: (1) Halaman Judul, (2) Abstrak singkat penelitian yang direncanakan, (3) BAB I Pendahuluan (Latar Belakang, Rumusan Masalah, Tujuan, Manfaat, Ruang Lingkup), (4) BAB II Tinjauan Pustaka (teori-teori relevan dengan sitasi, penelitian terdahulu dalam bentuk tabel, kerangka berpikir dengan bagan), (5) BAB III Metodologi (jenis penelitian, populasi dan sampel, variabel penelitian, instrumen, teknik analisis), (6) Jadwal Penelitian dalam bentuk Gantt Chart, (7) Rancangan Anggaran Biaya penelitian yang realistis, (8) Daftar Pustaka minimal 20 referensi format APA 7 dengan DOI. Pastikan proposal terlihat komprehensif, logis, dan layak untuk dilaksanakan. Gunakan bahasa akademik formal yang konsisten dari awal hingga akhir.",
-      "gambar": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400",
-      "kategori_id": "id_vlr2ug9",
-      "tanggal": "2026-06-01",
-      "featured": false
-    },
-    {
       "id": "id_artikel_003",
       "judul": "Artikel Review Produk",
       "deskripsi": "Buatkan artikel review produk yang jujur, komprehensif, dan membantu pembaca dalam keputusan pembelian untuk produk \"[NAMA PRODUK]\" kategori \"[KATEGORI PRODUK]\". Struktur review yang lengkap: (1) Ringkasan eksekutif — verdict singkat di awal (rating, cocok untuk siapa, tidak cocok untuk siapa). (2) Spesifikasi dan detail produk — teknis tapi mudah dipahami. (3) Unboxing dan kesan pertama — deskriptif dan vivid. (4) Pengujian mendalam — hasil nyata dari penggunaan selama [X hari/minggu]. (5) Kelebihan — spesifik, bukan marketing speak. (6) Kekurangan — jujur, tidak ditutup-tutupi. (7) Perbandingan dengan kompetitor — tabel perbandingan sederhana. (8) Value for money — apakah harganya sepadan? Untuk siapa ini layak dibeli? (9) Verdict akhir dengan rating (1-10) per kategori: performa, desain, kemudahan penggunaan, nilai harga, after-sales. (10) FAQ singkat. Gaya: jujur seperti rekomendasi teman yang ahli, bukan seperti iklan.",
