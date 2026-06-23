@@ -117,37 +117,6 @@ body {
 .breadcrumb { font-size: 13px; color: var(--ink4); display: flex; align-items: center; gap: 6px; }
 
 .topbar-right { display: flex; align-items: center; gap: 16px; }
-.search-box {
-  display: flex; align-items: center; gap: 10px; background: var(--bg);
-  border: 1px solid var(--border); border-radius: 20px; padding: 6px 6px 6px 16px;
-  transition: var(--transition); width: 280px;
-}
-.search-box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); width: 310px; }
-.search-box input { border: none; background: transparent; font-family: 'Sora', sans-serif; font-size: 13px; color: var(--ink); outline: none; width: 100%; }
-.search-box i { color: var(--ink4); font-size: 18px; }
-
-/* Modifikasi Tombol Cari */
-.search-btn {
-  background: var(--primary);
-  color: #ffffff;
-  border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--transition);
-}
-.search-btn:hover {
-  background: var(--primary-dark);
-  transform: scale(1.05);
-}
-.search-btn i {
-  color: #ffffff !important;
-  font-size: 16px !important;
-}
 
 .icon-btn {
   width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border);
@@ -171,10 +140,75 @@ body {
 .stat-val { font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.2; }
 .stat-label { font-size: 12px; color: var(--ink3); font-weight: 500; }
 
-/* ── CUSTOM DROPDOWN KATEGORI ── */
+
+/* ── KONTEN AREA PENCARIAN & DROPDOWN KATEGORI ── */
+.search-filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.search-box {
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  background: var(--surface);
+  border: 1px solid var(--border); 
+  border-radius: 10px; 
+  padding: 6px 6px 6px 16px;
+  transition: var(--transition); 
+  width: 100%;
+  height: 44px;
+  box-shadow: var(--shadow-sm);
+}
+.search-box:focus-within { 
+  border-color: var(--primary); 
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1); 
+}
+.search-box input { 
+  border: none; 
+  background: transparent; 
+  font-family: 'Sora', sans-serif; 
+  font-size: 13px; 
+  color: var(--ink); 
+  outline: none; 
+  width: 100%; 
+}
+.search-box i { 
+  color: var(--ink4); 
+  font-size: 18px; 
+}
+
+/* Modifikasi Tombol Cari */
+.search-btn {
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.search-btn:hover {
+  background: var(--primary-dark);
+  transform: scale(1.05);
+}
+.search-btn i {
+  color: #ffffff !important;
+  font-size: 16px !important;
+}
+
+/* CUSTOM DROPDOWN KATEGORI */
 .filter-container {
   position: relative;
-  margin-bottom: 24px;
+  width: 100%;
 }
 .dropdown-select {
   display: flex;
@@ -188,7 +222,8 @@ body {
   font-size: 14px;
   font-weight: 500;
   color: var(--ink2);
-  min-width: 220px;
+  width: 100%;
+  height: 44px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
 }
@@ -208,8 +243,7 @@ body {
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
-  width: 120px;
-  min-width: 240px;
+  width: 100%;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -333,9 +367,15 @@ body {
 .btn-primary { background: var(--primary); color: #fff; }
 .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
 
-/* ── RESPONSIVE ── */
-#sidebar-toggle { display: none; background: transparent; border: none; font-size: 28px; cursor: pointer; color: var(--ink); }
-#sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 49; backdrop-filter: blur(2px); }
+/* ===================================================
+   MEDIA QUERIES (DESKTOP & ANDROID MOBILE)
+   =================================================== */
+@media(min-width: 768px) {
+  /* Pembatasan lebar di desktop agar tidak melebar penuh */
+  .search-filter-container {
+    max-width: 460px;
+  }
+}
 
 @media(max-width: 992px) {
   #sidebar { transform: translateX(-100%); }
@@ -344,15 +384,23 @@ body {
   #wrapper { margin-left: 0; }
   #sidebar-toggle { display: block; }
 }
+
 @media(max-width: 768px) {
-  .search-box { display: flex; width: 200px; }
-  .search-box:focus-within { width: 220px; }
+  /* Optimasi Android Touch Target & Ukuran Font */
+  .search-box, .dropdown-select {
+    height: 48px;
+  }
+  .search-box input, .dropdown-select {
+    font-size: 16px; /* Menghindari auto-zoom browser Android */
+  }
+  
   #articles-grid.list-view .a-card { flex-direction: column; }
   #articles-grid.list-view .a-card-img { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid var(--border); }
   .stats-row { grid-template-columns: repeat(2, 1fr); }
   #modal-title { font-size: 22px; }
   .modal-header-img { height: 200px; }
 }
+
 @media(max-width: 480px) {
   .stats-row { grid-template-columns: 1fr; }
   #topbar { padding: 0 20px; }
@@ -408,13 +456,6 @@ body {
       </div>
     </div>
     <div class="topbar-right">
-      <div class="search-box">
-        <i class='bx bx-search'></i>
-        <input type="text" id="search-input" placeholder="Cari artikel...">
-        <button class="search-btn" id="search-action-btn" title="Cari">
-          <i class='bx bx-right-arrow-alt'></i>
-        </button>
-      </div>
       <button class="icon-btn" id="theme-toggle" title="Toggle Dark Mode">
         <i class='bx bx-moon'></i>
       </button>
@@ -444,25 +485,37 @@ body {
       </div>
     </div>
 
-    <div class="filter-container" id="category-dropdown-container">
-      <div class="dropdown-select" id="dropdown-select-btn">
-        <span id="dropdown-selected-text">Semua Kategori</span>
-        <i class='bx bx-chevron-down'></i>
+    <div class="search-filter-container">
+      
+      <div class="search-box">
+        <i class='bx bx-search'></i>
+        <input type="text" id="search-input" placeholder="Cari artikel...">
+        <button class="search-btn" id="search-action-btn" title="Cari">
+          <i class='bx bx-right-arrow-alt'></i>
+        </button>
       </div>
-      <div class="dropdown-menu">
-        <div class="dropdown-item active" data-kat="all">
-          <div class="dot"></div> Semua Kategori
+
+      <div class="filter-container" id="category-dropdown-container">
+        <div class="dropdown-select" id="dropdown-select-btn">
+          <span id="dropdown-selected-text">Semua Kategori</span>
+          <i class='bx bx-chevron-down'></i>
         </div>
-        <div class="dropdown-item" data-kat="k1">
-          <div class="dot" style="background: #2563eb;"></div> Pemrograman
-        </div>
-        <div class="dropdown-item" data-kat="k2">
-          <div class="dot" style="background: #ec4899;"></div> Desain UI/UX
-        </div>
-        <div class="dropdown-item" data-kat="k3">
-          <div class="dot" style="background: #10b981;"></div> Teknologi
+        <div class="dropdown-menu">
+          <div class="dropdown-item active" data-kat="all">
+            <div class="dot"></div> Semua Kategori
+          </div>
+          <div class="dropdown-item" data-kat="k1">
+            <div class="dot" style="background: #2563eb;"></div> Pemrograman
+          </div>
+          <div class="dropdown-item" data-kat="k2">
+            <div class="dot" style="background: #ec4899;"></div> Desain UI/UX
+          </div>
+          <div class="dropdown-item" data-kat="k3">
+            <div class="dot" style="background: #10b981;"></div> Teknologi
+          </div>
         </div>
       </div>
+
     </div>
 
     <div class="section-head">
@@ -505,7 +558,6 @@ body {
 const themeToggle = document.getElementById('theme-toggle');
 const htmlEl = document.documentElement;
 
-// Cek preferensi user di localStorage
 if (localStorage.getItem('theme') === 'dark') {
   htmlEl.setAttribute('data-theme', 'dark');
   themeToggle.innerHTML = "<i class='bx bx-sun'></i>";
@@ -529,7 +581,6 @@ let activeKat = 'all';
 let searchQ = '';
 let viewMode = 'grid';
 
-// Data Dummy Fallback (Jika API gagal dimuat)
 const DUMMY_DATA = {
   kategori: [
     { id: 'k1', nama: 'Pemrograman', warna: '#2563eb' },
@@ -553,9 +604,9 @@ async function loadData() {
     DB = data;
   } catch(e) {
     console.warn("Menggunakan data dummy karena API gagal dimuat.");
-    DB = DUMMY_DATA; // Fallback ke data dummy
+    DB = DUMMY_DATA;
   }
-  setTimeout(render, 500); // Simulasi waktu loading
+  setTimeout(render, 500);
 }
 
 function showSkeleton() {
@@ -581,26 +632,20 @@ function fmtDate(s) {
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 function render() {
-  // Stats
   const dates = DB.artikel.map(a=>a.tanggal).filter(Boolean).sort().reverse();
   document.getElementById('s-last').textContent = dates[0] ? fmtDate(dates[0]) : '-';
 
-  // Hanya tampilkan kategori "Artikel"
   const katArtikel = DB.kategori.find(k => k.nama === 'Artikel');
 
-  // Filter Data: hanya artikel berkategori "Artikel"
   let arts = DB.artikel.slice();
   if(katArtikel) arts = arts.filter(a => a.kategori_id === katArtikel.id);
   if(searchQ) arts = arts.filter(a => (a.judul+a.deskripsi).toLowerCase().includes(searchQ));
 
-  // Update Stats khusus artikel
   document.getElementById('s-total').textContent = arts.length;
   document.getElementById('s-feat').textContent = arts.filter(a=>a.featured).length;
 
-  // Update Title
   document.getElementById('section-label').textContent = `Artikel (${arts.length})`;
 
-  // Render Grid
   const grid = document.getElementById('articles-grid');
   if(!arts.length) { 
     grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--ink3);">
@@ -630,7 +675,6 @@ function render() {
   }).join('');
 }
 
-// Tambahan keyframes fadeUp
 document.head.insertAdjacentHTML('beforeend', `<style>@keyframes fadeUp{to{opacity:1; transform:translateY(0);}}</style>`);
 
 /* ── MODAL LOGIC ── */
@@ -638,7 +682,6 @@ function openModal(id) {
   const a = DB.artikel.find(x=>x.id===id);
   if(!a) return;
 
-  // ── GATE: tamu tidak bisa buka artikel Unggulan ──
   const user = (typeof Auth !== 'undefined') ? Auth.getUser() : null;
   if (a.featured && user && user.role !== 'vip') {
     if (typeof AuthGate !== 'undefined') AuthGate.showVipPopup();
@@ -647,7 +690,6 @@ function openModal(id) {
 
   const k = getKat(a.kategori_id);
 
-  // ── TRACK CLICK: kirim ke /api/track-click ──
   fetch('/api/track-click', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -656,7 +698,7 @@ function openModal(id) {
       artikel_judul: a.judul,
       kategori_id: a.kategori_id
     })
-  }).catch(() => {}); // silent fail — tidak mengganggu UX
+  }).catch(() => {});
 
   document.getElementById('modal-img').src = a.gambar;
   
@@ -684,7 +726,6 @@ function closeModal() {
 }
 
 function copyDesc() {
-  // Cek apakah ini konten premium untuk tamu
   const user = (typeof Auth !== 'undefined') ? Auth.getUser() : null;
   const isFeatured = document.getElementById('modal-featured') && document.getElementById('modal-featured').style.display !== 'none';
   if (isFeatured && user && user.role !== 'vip') {
@@ -703,7 +744,6 @@ function copyDesc() {
   });
 }
 
-// Tutup modal jika area luar diklik
 document.getElementById('modal-overlay').addEventListener('click', function(e) {
   if(e.target === this) closeModal();
 });
@@ -728,7 +768,6 @@ document.getElementById('search-input').addEventListener('input', e => {
   render();
 });
 
-// Aksi ketika Tombol Cari diklik manual
 document.getElementById('search-action-btn').addEventListener('click', () => {
   const inputVal = document.getElementById('search-input').value;
   searchQ = inputVal.toLowerCase().trim();
@@ -741,13 +780,11 @@ const dropdownBtn = document.getElementById('dropdown-select-btn');
 const dropdownSelectedText = document.getElementById('dropdown-selected-text');
 const dropdownItems = document.querySelectorAll('.dropdown-item');
 
-// Toggle buka/tutup dropdown
 dropdownBtn.addEventListener('click', (e) => {
   e.stopPropagation();
   dropdownContainer.classList.toggle('active');
 });
 
-// Pilih item dropdown
 dropdownItems.forEach(item => {
   item.addEventListener('click', function() {
     dropdownItems.forEach(i => i.classList.remove('active'));
@@ -756,16 +793,10 @@ dropdownItems.forEach(item => {
     dropdownSelectedText.textContent = this.textContent.trim();
     dropdownContainer.classList.remove('active');
     
-    // Sinkronisasi ke variabel state bawaan Anda
     activeKat = this.getAttribute('data-kat');
-    
-    // Menjalankan kustom filter rendering (opsional jika JS bawaan Anda diperluas)
-    // Untuk saat ini logic filter utama Anda fokus pada 'katArtikel', 
-    // jika Anda ingin memfilter berdasarkan activeKat, logic render bawaan bisa memanfaatkannya.
   });
 });
 
-// Tutup jika klik di luar area dropdown
 document.addEventListener('click', () => {
   dropdownContainer.classList.remove('active');
 });
@@ -780,7 +811,6 @@ document.getElementById('sidebar-overlay').addEventListener('click', () => {
   document.getElementById('sidebar-overlay').classList.remove('open');
 });
 
-// Jalankan App
 loadData();
 </script>
 <script src="auth.js"></script>
