@@ -183,13 +183,13 @@ body { font-family: 'Sora', sans-serif; background: var(--bg); color: var(--ink)
 /* ── MODAL ── */
 #modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: all 0.3s ease; backdrop-filter: blur(6px); }
 #modal-overlay.open { opacity: 1; pointer-events: all; }
-#modal { background: var(--surface); border-radius: 20px; box-shadow: var(--shadow-lg); width: 100%; max-width: 720px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; transform: translateY(30px) scale(0.95); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+#modal { background: var(--surface); border-radius: 20px; box-shadow: var(--shadow-lg); width: 100%; max-width: 720px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; transform: translateY(30px) scale(0.95); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
 #modal-overlay.open #modal { transform: translateY(0) scale(1); }
 .modal-header-img { position: relative; width: 100%; height: 260px; }
 #modal-img { width: 100%; height: 100%; object-fit: cover; }
-#modal-x { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.5); color: #fff; border: none; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); transition: background 0.2s; }
+#modal-x { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.5); color: #fff; border: none; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); transition: background 0.2s; z-index: 5; }
 #modal-x:hover { background: var(--danger); }
-#modal-content { padding: 30px; overflow-y: auto; flex: 1; }
+#modal-content { padding: 30px; overflow-y: auto; flex: 1; position: relative; }
 #modal-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
 #modal-title { font-family: 'Lora', serif; font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.3; margin-bottom: 16px; }
 #modal-desc { font-size: 15px; color: var(--ink2); line-height: 1.8; white-space: pre-wrap; }
@@ -199,6 +199,18 @@ body { font-family: 'Sora', sans-serif; background: var(--bg); color: var(--ink)
 .btn-outline:hover { background: var(--border); color: var(--ink); }
 .btn-primary { background: var(--prompt-color); color: #fff; }
 .btn-primary:hover { background: #6d28d9; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(124,58,237,0.3); }
+.btn-primary:disabled { background: #cbd5e1; cursor: not-allowed; box-shadow: none; transform: none; }
+.btn-primary:disabled:hover { background: #cbd5e1; }
+
+/* VIP Blur Effect */
+#modal-content.vip-blur { position: relative; }
+#modal-content.vip-blur #modal-desc, 
+#modal-content.vip-blur #modal-title { filter: blur(5px); pointer-events: none; user-select: none; }
+#modal-vip-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; border-radius: 8px; z-index: 10; backdrop-filter: blur(2px); }
+#modal-vip-overlay .vip-msg { text-align: center; }
+#modal-vip-overlay .vip-msg i { font-size: 40px; margin-bottom: 12px; display: block; color: var(--accent); }
+#modal-vip-overlay .vip-msg p { font-weight: 600; font-size: 15px; margin-bottom: 8px; color: var(--ink); }
+#modal-vip-overlay .vip-msg span { font-size: 13px; color: var(--ink3); display: block; }
 
 #main { padding: 30px; flex: 1; max-width: 1400px; margin: 0 auto; width: 100%; }
 
@@ -359,6 +371,7 @@ body { font-family: 'Sora', sans-serif; background: var(--bg); color: var(--ink)
       </div>
       <div id="modal-title"></div>
       <div id="modal-desc"></div>
+      <div id="modal-vip-overlay"></div>
     </div>
     <div id="modal-footer">
       <button class="btn btn-outline" onclick="closeModal()">Tutup</button>
@@ -388,6 +401,7 @@ let activeKat = 'all';
 let searchQ = '';
 let promptKats = [];
 let promptKatIds = [];
+let currentModalIsVip = false;
 
 const DUMMY_DATA = {
   kategori: [
@@ -558,12 +572,14 @@ function openModal(id) {
   const a = DB.artikel.find(x => x.id === id);
   if (!a) return;
   const user = (typeof Auth !== 'undefined') ? Auth.getUser() : null;
-  if (a.featured && user && user.role !== 'vip') {
-    if (typeof AuthGate !== 'undefined') AuthGate.showVipPopup();
-    return;
-  }
+  const isVip = user && user.role === 'vip';
+  const isGuest = !user || user.role === 'guest' || user.role === 'tamu';
+  
+  currentModalIsVip = a.featured && isGuest;
+
   const k = getKat(a.kategori_id);
   fetch('../api/track-click', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ artikel_id: a.id, artikel_judul: a.judul, kategori_id: a.kategori_id }) }).catch(() => {});
+  
   document.getElementById('modal-img').src = a.gambar;
   const katEl = document.getElementById('modal-kat');
   katEl.textContent = k.nama;
@@ -573,29 +589,70 @@ function openModal(id) {
   document.getElementById('modal-featured').style.display = a.featured ? 'inline-flex' : 'none';
   document.getElementById('modal-title').textContent = a.judul;
   document.getElementById('modal-desc').innerHTML = esc(a.deskripsi).replace(/\n/g, '<br>');
-  const btn = document.getElementById('modal-copy-btn');
+  
+  const modalContent = document.getElementById('modal-content');
+  const copyBtn = document.getElementById('modal-copy-btn');
+  
+  if (currentModalIsVip) {
+    // Show VIP overlay
+    modalContent.classList.add('vip-blur');
+    const overlay = document.getElementById('modal-vip-overlay');
+    overlay.innerHTML = `
+      <div class="vip-msg">
+        <i class='bx bxs-crown'></i>
+        <p>Konten Premium</p>
+        <span>Upgrade ke VIP untuk akses penuh</span>
+      </div>
+    `;
+    overlay.style.display = 'flex';
+    copyBtn.disabled = true;
+  } else {
+    // Hide VIP overlay
+    modalContent.classList.remove('vip-blur');
+    document.getElementById('modal-vip-overlay').style.display = 'none';
+    copyBtn.disabled = false;
+  }
+  
+  const btn = copyBtn;
   btn.innerHTML = "<i class='bx bx-copy'></i> Salin Prompt";
   btn.style.background = '';
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
+
 function closeModal() {
   document.getElementById('modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
+
 function copyDesc() {
-  const user = (typeof Auth !== 'undefined') ? Auth.getUser() : null;
-  const isFeatured = document.getElementById('modal-featured').style.display !== 'none';
-  if (isFeatured && user && user.role !== 'vip') { if (typeof AuthGate !== 'undefined') AuthGate.showVipPopup(); return; }
+  if (currentModalIsVip) {
+    // Show VIP popup
+    if (typeof AuthGate !== 'undefined') {
+      AuthGate.showVipPopup();
+    } else {
+      alert('Silakan upgrade ke VIP untuk mengakses fitur ini');
+    }
+    return;
+  }
+
   navigator.clipboard.writeText(document.getElementById('modal-desc').innerText).then(() => {
     const btn = document.getElementById('modal-copy-btn');
     btn.innerHTML = "<i class='bx bx-check'></i> Tersalin!";
     btn.style.background = 'var(--success)';
-    setTimeout(() => { btn.innerHTML = "<i class='bx bx-copy'></i> Salin Prompt"; btn.style.background = ''; }, 2000);
+    setTimeout(() => { 
+      btn.innerHTML = "<i class='bx bx-copy'></i> Salin Prompt"; 
+      btn.style.background = ''; 
+    }, 2000);
   });
 }
-document.getElementById('modal-overlay').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+document.getElementById('modal-overlay').addEventListener('click', function(e) { 
+  if (e.target === this) closeModal(); 
+});
+document.addEventListener('keydown', e => { 
+  if (e.key === 'Escape') closeModal(); 
+});
 
 // ── VIEW TOGGLE ──
 document.getElementById('vt-grid').addEventListener('click', function() {
