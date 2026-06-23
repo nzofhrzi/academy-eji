@@ -45,15 +45,6 @@
     "timestamp": "2026-05-28T05:24:46.361Z"
   },
   {
-    "tesKey": "toefl",
-    "tesNama": "TOEFL",
-    "pesertaNama": "Aril",
-    "skor": 3,
-    "totalSoal": 30,
-    "waktuDipakai": 189,
-    "timestamp": "2026-05-29T11:04:05.404Z"
-  },
-  {
     "tesKey": "iq",
     "tesNama": "Tes IQ",
     "pesertaNama": "Firmansyah",
