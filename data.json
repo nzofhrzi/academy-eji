@@ -38,6 +38,15 @@
   ],
   "artikel": [
     {
+      "id": "id_65wii0v",
+      "judul": "Prompt Wawancara",
+      "deskripsi": "kami akan melakukan observasi sebuah kelompok olahraga, contohnya seperti para atlit dan pelatih nya. dengan metode wawancara. buatkan aku bberapa pertanyaan berdasarkan aspek aspek berikut. setiap aspek memiliki 2 pertanyaan namun berbobot. ditunjukan untuk atlit dan pelatih. \n\n1. [Contoh aspek]\n2. [Contoh Aspek]\n3. etc.",
+      "gambar": "https://raw.githubusercontent.com/nzofhrzi/academy-eji/main/images/163043-1782280822729.jpg",
+      "kategori_id": "id_vlr2ug9",
+      "tanggal": "2026-06-24",
+      "featured": false
+    },
+    {
       "id": "id_k6hydoy",
       "judul": "Parafrase Vol 1",
       "deskripsi": "aku ingin kamu memparafrase kan kalimat kalimat berkut dengan gaya bahasa yang ringan dan hindari validasi ulang, tetap sertakan sitasi yang ada dengan rapi dan benar. gaya akademik dan mudah dipahami.",
