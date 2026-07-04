@@ -38,6 +38,15 @@
   ],
   "artikel": [
     {
+      "id": "id_8znrwz5",
+      "judul": "Ganti Outfit 1 Orang",
+      "deskripsi": "Pada foto pertama ialah refrensi baju, foto kedua aku ingin kamu ubah baju/oufit nya tanpa merubah wajah dan pose nya. hanya outfit nya saja.",
+      "gambar": "https://raw.githubusercontent.com/nzofhrzi/academy-eji/main/images/175446-1783125821495.jpg",
+      "kategori_id": "id_0bdwwqs",
+      "tanggal": "2026-07-04",
+      "featured": false
+    },
+    {
       "id": "id_65wii0v",
       "judul": "Prompt Wawancara",
       "deskripsi": "kami akan melakukan observasi sebuah kelompok olahraga, contohnya seperti para atlit dan pelatih nya. dengan metode wawancara. buatkan aku bberapa pertanyaan berdasarkan aspek aspek berikut. setiap aspek memiliki 2 pertanyaan namun berbobot. ditunjukan untuk atlit dan pelatih. \n\n1. [Contoh aspek]\n2. [Contoh Aspek]\n3. etc.",
