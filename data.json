@@ -38,6 +38,15 @@
   ],
   "artikel": [
     {
+      "id": "id_gpp4jnj",
+      "judul": "Lampiran Wawancara",
+      "deskripsi": "Transkripkan apa yang di ucapkan, jadikan docx. susun seperti format wawancara pada hasil laporan umumnya.",
+      "gambar": "https://raw.githubusercontent.com/nzofhrzi/academy-eji/main/images/175825-1783125930822.jpg",
+      "kategori_id": "id_vlr2ug9",
+      "tanggal": "2026-07-04",
+      "featured": true
+    },
+    {
       "id": "id_8znrwz5",
       "judul": "Ganti Outfit 1 Orang",
       "deskripsi": "Pada foto pertama ialah refrensi baju, foto kedua aku ingin kamu ubah baju/oufit nya tanpa merubah wajah dan pose nya. hanya outfit nya saja.",
