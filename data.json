@@ -38,6 +38,15 @@
   ],
   "artikel": [
     {
+      "id": "id_0utrpi4",
+      "judul": "Rangkuman Materi UAS",
+      "deskripsi": "saya akan melaksanakan UAS, buatkan aku sebuah materi berdasarkan hal berikut\n\n[tempel salinan e/makalah e]\n\npastikak lengkap detail namun singkat dengan gaya bahasa akademik yang mudah dipahami. serta berikan penjelasan dalam tabel agar mudah dimengerti, pastikan sertakan contoh nya juga.",
+      "gambar": "https://raw.githubusercontent.com/nzofhrzi/academy-eji/main/images/177856-1783296229360.jpg",
+      "kategori_id": "id_vlr2ug9",
+      "tanggal": "2026-07-06",
+      "featured": false
+    },
+    {
       "id": "id_gpp4jnj",
       "judul": "Lampiran Wawancara",
       "deskripsi": "Transkripkan apa yang di ucapkan, jadikan docx. susun seperti format wawancara pada hasil laporan umumnya.",
