@@ -777,6 +777,56 @@
         opacity: 0.5;
       }
 
+      /* ── KATEGORI GRID ── */
+      .kategori-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+        gap: 14px;
+      }
+      .kat-card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: var(--surface2);
+        text-decoration: none;
+        transition: var(--transition);
+      }
+      .kat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+      }
+      .kat-card-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 21px;
+        flex-shrink: 0;
+      }
+      .kat-card-name {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 2px;
+      }
+      .kat-card-count {
+        font-size: 12px;
+        color: var(--ink3);
+      }
+      .kat-skeleton {
+        height: 78px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: linear-gradient(90deg, var(--surface2) 25%, var(--border) 50%, var(--surface2) 75%);
+        background-size: 200% 100%;
+        animation: feat-loading 1.4s infinite;
+      }
+
       /* ── MAIN ── */
       #main {
         padding: 28px 30px;
@@ -1119,6 +1169,13 @@
         #sidebar-toggle {
           display: flex;
         }
+        /* Hindari dobel: notifikasi & sapaan sudah tersedia di greet-header mobile */
+        #topbar-notif-btn {
+          display: none;
+        }
+        .hero-greeting {
+          display: none;
+        }
       }
 
       @media (max-width: 768px) {
@@ -1313,7 +1370,7 @@
           <button class="icon-btn" id="theme-toggle" title="Toggle Dark Mode">
             <i class="bx bx-moon"></i>
           </button>
-          <button class="icon-btn" title="Notifikasi" aria-label="Notifikasi">
+          <button class="icon-btn" id="topbar-notif-btn" title="Notifikasi" aria-label="Notifikasi">
             <i class="bx bx-bell"></i>
           </button>
         </div>
@@ -1480,6 +1537,24 @@
               <div class="stat-val" id="stat-total-artikel">–</div>
               <div class="stat-label">Artikel Tersedia</div>
             </div>
+          </div>
+        </div>
+
+        <!-- Jelajahi Berdasarkan Kategori -->
+        <div class="card-wrap" style="margin-bottom: 28px">
+          <div class="section-head">
+            <h2>
+              <i class="bx bx-category-alt" style="color: var(--primary)"></i>
+              Jelajahi Berdasarkan Kategori
+            </h2>
+          </div>
+          <div class="kategori-grid" id="kategori-grid">
+            <div class="kat-skeleton"></div>
+            <div class="kat-skeleton"></div>
+            <div class="kat-skeleton"></div>
+            <div class="kat-skeleton"></div>
+            <div class="kat-skeleton"></div>
+            <div class="kat-skeleton"></div>
           </div>
         </div>
       </div>
@@ -1695,6 +1770,50 @@
         );
       }
 
+      function iconForKategori(namaKategori) {
+        const n = (namaKategori || "").toLowerCase();
+        if (n.includes("foto")) return "bx-camera";
+        if (n.includes("desain")) return "bx-palette";
+        if (n.includes("makalah")) return "bx-file-blank";
+        if (n.includes("materi")) return "bx-book-content";
+        if (n.includes("artikel")) return "bx-news";
+        if (n.includes("buku") || n.includes("penelitian")) return "bx-book-open";
+        if (n.includes("ebook") || n.includes("e-book")) return "bx-book";
+        if (n.includes("prompt")) return "bx-bot";
+        return "bx-folder";
+      }
+
+      function renderKategoriGrid(DB) {
+        const grid = document.getElementById("kategori-grid");
+        if (!grid) return;
+        const counts = {};
+        (DB.artikel || []).forEach((a) => {
+          counts[a.kategori_id] = (counts[a.kategori_id] || 0) + 1;
+        });
+        const kats = (DB.kategori || []).filter((k) => counts[k.id]);
+        if (!kats.length) {
+          grid.innerHTML = `<div class="feat-empty" style="grid-column:1/-1;"><i class="bx bx-category"></i>Belum ada kategori konten.</div>`;
+          return;
+        }
+        kats.sort((a, b) => (counts[b.id] || 0) - (counts[a.id] || 0));
+        grid.innerHTML = kats
+          .map((k) => {
+            const page = targetPageFor(k.nama);
+            const warna = k.warna || "#2563eb";
+            return `
+            <a href="${esc(page)}" class="kat-card">
+              <div class="kat-card-icon" style="background:${esc(warna)}1a;color:${esc(warna)}">
+                <i class="bx ${iconForKategori(k.nama)}"></i>
+              </div>
+              <div>
+                <div class="kat-card-name">${esc(k.nama)}</div>
+                <div class="kat-card-count">${counts[k.id]} konten</div>
+              </div>
+            </a>`;
+          })
+          .join("");
+      }
+
       async function loadKontenUnggulan() {
         const wrap = document.getElementById("feat-scroll");
         let DB = { kategori: [], artikel: [] };
@@ -1729,6 +1848,8 @@
         const elTotalArtikel = document.getElementById("stat-total-artikel");
         if (elTotalKonten) elTotalKonten.textContent = totalKonten || 0;
         if (elTotalArtikel) elTotalArtikel.textContent = totalArtikel || 0;
+
+        renderKategoriGrid(DB);
 
         const items = (DB.artikel || []).map((a) => {
           const c = byArticle[a.id];
