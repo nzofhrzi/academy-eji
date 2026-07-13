@@ -766,6 +766,23 @@ document.getElementById('sidebar-overlay').addEventListener('click', () => {
 });
 
 loadData();
+
+// ── Auto-buka item dari link luar (mis. dari dashboard "Konten Unggulan") ──
+(function () {
+  const params = new URLSearchParams(location.search);
+  const openId = params.get('open');
+  if (!openId) return;
+  let tries = 0;
+  const tryOpen = () => {
+    tries++;
+    if (typeof openModal === 'function' && typeof DB !== 'undefined' && DB.artikel && DB.artikel.some(a => a.id === openId)) {
+      openModal(openId);
+    } else if (tries < 15) {
+      setTimeout(tryOpen, 300);
+    }
+  };
+  setTimeout(tryOpen, 300);
+})();
 </script>
 <script src="../auth.js"></script>
 <script src="../auth-gate.js"></script>
