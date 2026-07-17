@@ -43,6 +43,15 @@
   ],
   "artikel": [
     {
+      "id": "id_zqjs8bc",
+      "judul": "Web Klub Sepak Bola V1",
+      "deskripsi": "baik, mari memulai sesuatu yang baru. aku berpikir ingin membuat sebuah lan web saya simpan di github dan host ke vercel. aku ingin membuat sebuah laman web sebuah klub sepak bola, yaitu klub saya sendiri, saya ingin membuat laman tsb terasa sangat megah dan bagus, beranimasi, professional dan yah sebagus dan semaksimal mungkin lah. dengan aksen warna sesuai logo pada gambar tsb, kemudian untuk nama juga sesuai pada gambar tsb. nah aku ingin juga pada laman nya terdapat fitur atau bagian bagian seperti \"Ajak tanding friendly match\" atau \"Bergabung dengan Tim\" serta ada tampilan lini posisi nama pemain seperti tampilan game game ps gitu, ada stats nya nomor punggung dan sbg nya dan ada juga foto org nya nanti, untuk foto itu nanti saya sediakan sendiri dan fotonya sudah saya hapus backgroundnya gitu. \n\nmari kita kerjakan, buatkan laman statis/html, css, java nya dulu.\n\nhtml, css, dan js satukan saja jadi satu.. index.html digabung gitu, pastikan jangan gunakan emoji, melainkan <i> atau <div> atau apalah.",
+      "gambar": "https://raw.githubusercontent.com/nzofhrzi/academy-eji/main/images/190366-1784284807104.jpg",
+      "kategori_id": "id_y2qjggt",
+      "tanggal": "2026-07-17",
+      "featured": false
+    },
+    {
       "id": "id_kqg972c",
       "judul": "Rangkuman Materi Detail",
       "deskripsi": "berdasarkan pdf berikut  aku ingin kamu buatkan rangkuman penjelasan secara sederhana, singkat, tetapi detail guna untuk dipelajari dipahami diingat untuk persiapan UAS. \n\nterutama soal RUMUS jangan sampai ketinggalan. jadikan docx.",
