@@ -43,6 +43,15 @@
   ],
   "artikel": [
     {
+      "id": "id_2yncwhb",
+      "judul": "Membuat Maskot Hewan",
+      "deskripsi": "buatkan aku maskot hewan berdasarkan refrensi gambar yang ditempelkan berikut, gunakan tata letak 3x3 dengan pose yang berbeds beda, latar belakang putih.",
+      "gambar": "https://raw.githubusercontent.com/nzofhrzi/academy-eji/main/images/196058-1784775160955.jpg",
+      "kategori_id": "id_tnr4rxv",
+      "tanggal": "2026-07-10",
+      "featured": false
+    },
+    {
       "id": "id_o3rybbl",
       "judul": "Latar Belakang Desain Grafis",
       "deskripsi": "bisakah kamu ambil background nya untuk ku? generate ulang secara detail tanpa teks tanpa apapun, aku mau background nya saja.",
