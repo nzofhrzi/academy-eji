@@ -43,6 +43,15 @@
   ],
   "artikel": [
     {
+      "id": "id_xw2whk9",
+      "judul": "Membuat PPT Gemini",
+      "deskripsi": "Kamu adalah Desainer Presentasi Edukasi dan Instruksional Visual. Saya memiliki sebuah naskah dokumen (berupa RPP, Makalah, atau Bahan Ajar) yang akan saya tempelkan di bawah. saya ingin kamu buatkan PPT berdasarkan data atau materi yang saya tempelkan ini.",
+      "gambar": "https://raw.githubusercontent.com/nzofhrzi/academy-eji/main/images/196044-1784774275570.jpg",
+      "kategori_id": "id_vlr2ug9",
+      "tanggal": "2026-07-14",
+      "featured": false
+    },
+    {
       "id": "id_hugak0w",
       "judul": "Rencana Kegiatan Belajar Mengajar (KBM) Aktif",
       "deskripsi": "Kamu adalah Senior Instructional Designer dan Guru Penggerak yang ahli dalam manajemen waktu kelas. Saya ingin kamu membuatkan Skenario Kegiatan Belajar Mengajar (KBM) untuk 1 kali pertemuan tatap muka dengan durasi bersih 60 menit.\n\nRancanglah skenario ini dengan metode pembelajaran aktif (student-centered), lengkap dengan narasi dialog instruksional yang bisa saya ucapkan langsung di depan kelas.\n\nIDENTITAS KBM (SILAHKAN EDIT SEMUA BAGIAN INI):\n\n· TENTANG/TEMA UTAMA: [Misal: \"Pencemaran Lingkungan\"]\n· SUB PEMBAHASAN (untuk pertemuan ini): [Misal: \"Dampak Sampah Plastik terhadap Ekosistem Laut\"]\n· KELAS: [Misal: \"VII\"]\n· TINGKAT SEKOLAH: [Misal: \"SMP/MTs\"]\n· LEVEL MATERI: [Pilih: \"Pengetahuan Dasar (Baru)\" / \"Menengah (Penguatan)\" / \"Lanjutan (Analisis)\"]\n· MODEL/METODE PEMBELAJARAN: [Misal: \"Problem Based Learning (PBL)\" atau \"Discovery Learning\"]\n· JUMLAH SISWA: [Misal: \"32 Siswa\"]\n· SARANA YANG TERSEDIA: [Misal: \"Proyektor, Papan Tulis, dan HP Siswa\"]\n· KARAKTERISTIK SISWA: [Misal: \"Cenderung pasif dan kurang percaya diri\"]",
