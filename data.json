@@ -43,6 +43,15 @@
   ],
   "artikel": [
     {
+      "id": "id_oysvyae",
+      "judul": "Membuat PPT Gemini Vol 2",
+      "deskripsi": "Buatkan aku PPT berdasarkan materi berikut. secara bagus, sistematis dan mudah di paparkan atau sampaikan.",
+      "gambar": "https://raw.githubusercontent.com/nzofhrzi/academy-eji/main/images/196044-1784774335142.jpg",
+      "kategori_id": "id_vlr2ug9",
+      "tanggal": "2026-07-10",
+      "featured": false
+    },
+    {
       "id": "id_xw2whk9",
       "judul": "Membuat PPT Gemini",
       "deskripsi": "Kamu adalah Desainer Presentasi Edukasi dan Instruksional Visual. Saya memiliki sebuah naskah dokumen (berupa RPP, Makalah, atau Bahan Ajar) yang akan saya tempelkan di bawah. saya ingin kamu buatkan PPT berdasarkan data atau materi yang saya tempelkan ini.",
