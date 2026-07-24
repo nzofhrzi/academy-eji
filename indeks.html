@@ -1,0 +1,1101 @@
+<!doctype html>
+<html lang="id" data-theme="light" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Academy Eji - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- ── TAILWIND CSS ── -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sora: ["Sora", "sans-serif"],
+              sans: ["Sora", "sans-serif"],
+              lora: ["Lora", "serif"],
+            },
+            colors: {
+              primary: "#2563eb",
+              "primary-dark": "#1d4ed8",
+              "primary-light": "var(--primary-light)",
+              accent: "#f97316",
+              success: "#10b981",
+              warn: "#f59e0b",
+              bg: "var(--bg)",
+              surface: "var(--surface)",
+              surface2: "var(--surface2)",
+              border: "var(--border)",
+              ink: "var(--ink)",
+              ink2: "var(--ink2)",
+              ink3: "var(--ink3)",
+              ink4: "var(--ink4)",
+            },
+            boxShadow: {
+              sm2: "0 1px 3px rgba(0,0,0,.05), 0 1px 2px rgba(0,0,0,.03)",
+              md2: "0 4px 6px -1px rgba(0,0,0,.07), 0 2px 4px -1px rgba(0,0,0,.04)",
+              lg2: "0 10px 25px -3px rgba(0,0,0,.1), 0 4px 6px -2px rgba(0,0,0,.05)",
+            },
+            keyframes: {
+              wave: {
+                "0%, 60%, 100%": { transform: "rotate(0deg)" },
+                "10%": { transform: "rotate(14deg)" },
+                "20%": { transform: "rotate(-8deg)" },
+                "30%": { transform: "rotate(14deg)" },
+                "40%": { transform: "rotate(-4deg)" },
+                "50%": { transform: "rotate(10deg)" },
+              },
+              shimmer: {
+                "0%": { backgroundPosition: "200% 0" },
+                "100%": { backgroundPosition: "-200% 0" },
+              },
+              fadeInUp: {
+                "0%": { opacity: 0, transform: "translateY(14px)" },
+                "100%": { opacity: 1, transform: "translateY(0)" },
+              },
+            },
+            animation: {
+              wave: "wave 2s infinite",
+              shimmer: "shimmer 1.4s infinite linear",
+              fadeInUp: "fadeInUp .7s cubic-bezier(.4,0,.2,1) both",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style type="text/tailwindcss">
+      /* ── THEME TOKENS (dipakai lewat kelas Tailwind: bg-surface, text-ink, dst) ── */
+      :root {
+        --primary-light: #eff6ff;
+        --bg: #f3f4f6;
+        --surface: #ffffff;
+        --surface2: #f8fafc;
+        --border: #e2e8f0;
+        --ink: #0f172a;
+        --ink2: #334155;
+        --ink3: #64748b;
+        --ink4: #94a3b8;
+      }
+      [data-theme="dark"] {
+        --primary-light: #1e3a8a;
+        --bg: #0f172a;
+        --surface: #1e293b;
+        --surface2: #334155;
+        --border: #334155;
+        --ink: #f8fafc;
+        --ink2: #cbd5e1;
+        --ink3: #94a3b8;
+        --ink4: #64748b;
+      }
+
+      /* ── STATE CLASSES YANG DI-TOGGLE OLEH JS (jangan diganti nama kelasnya) ── */
+      .nav-item {
+        @apply flex items-center gap-3 px-4 py-2.5 my-0.5 mx-3 rounded-[10px] text-ink2 text-sm font-medium no-underline min-h-11 transition-all duration-300;
+      }
+      .nav-item:hover {
+        @apply bg-surface2 text-ink translate-x-1;
+      }
+      .nav-item.active {
+        @apply bg-primary-light text-primary font-semibold;
+      }
+
+      .cat-item.active .cat-icon {
+        @apply bg-primary border-primary text-white shadow-[0_8px_20px_rgba(37,99,235,0.35)];
+      }
+      .cat-item.active span {
+        @apply text-primary;
+      }
+
+      .toggle-opt.active {
+        @apply bg-primary text-white shadow-[0_4px_12px_rgba(37,99,235,0.3)];
+      }
+
+      .feat-fav-btn.is-fav {
+        @apply text-red-500 bg-white/90;
+      }
+
+      .hide,
+      .is-hidden {
+        display: none !important;
+      }
+
+      #sidebar.open {
+        transform: translateX(0) !important;
+        box-shadow:
+          0 10px 25px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      #sidebar-overlay.open {
+        display: block;
+      }
+
+      /* ── SCROLLBAR HALUS ── */
+      .no-scrollbar {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .thin-scrollbar::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      .thin-scrollbar::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 10px;
+      }
+
+      /* ── HORMATI PREFERENSI REDUCED MOTION ── */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="font-sora bg-bg text-ink min-h-screen flex text-[14px] antialiased transition-colors duration-300 selection:bg-primary/20 selection:text-primary"
+  >
+    <!-- ── SIDEBAR ── -->
+    <nav
+      id="sidebar"
+      class="fixed top-0 left-0 z-50 h-screen w-[260px] bg-surface border-r border-border flex flex-col overflow-hidden -translate-x-full lg:translate-x-0 transition-[transform,background-color] duration-300 ease-in-out"
+    >
+      <div
+        class="h-[70px] flex items-center gap-3 px-6 border-b border-border shrink-0"
+      >
+        <div
+          class="w-9 h-9 rounded-[10px] bg-gradient-to-br from-primary to-sky-400 flex items-center justify-center text-white text-xl shrink-0 shadow-[0_4px_10px_rgba(37,99,235,0.3)]"
+        >
+          <i class="bx bxs-graduation"></i>
+        </div>
+        <div class="text-lg font-bold text-ink tracking-tight">
+          Academy<span class="text-primary">Eji.</span>
+        </div>
+      </div>
+
+      <div class="flex-1 min-h-0 overflow-y-auto thin-scrollbar pt-2.5 pb-2.5">
+        <div
+          class="px-6 pt-4 pb-2 text-[11px] font-semibold tracking-[0.1em] uppercase text-ink4"
+        >
+          Menu Utama
+        </div>
+        <a class="nav-item active" href="index.html">
+          <i class="bx bx-home-alt text-xl shrink-0"></i> Dashboard
+        </a>
+        <a class="nav-item" href="article-landing.html">
+          <i class="bx bx-news text-xl shrink-0"></i> Artikel &amp; Wawasan
+        </a>
+        <a class="nav-item" href="prompt/index.html">
+          <i class="bx bx-bot text-xl shrink-0"></i> Tools & Prompt AI
+        </a>
+        <a class="nav-item" href="referensi/index.html">
+          <i class="bx bx-book-open text-xl shrink-0"></i> Referensi &amp; Ebook
+        </a>
+        <a class="nav-item" href="ujicoba/index.html">
+          <i class="bx bx-trophy text-xl shrink-0"></i> Kelas Uji Coba
+        </a>
+        <a class="nav-item" href="config.html">
+          <i class="bx bx-info-circle text-xl shrink-0"></i> Tentang Kami
+        </a>
+        <a
+          class="nav-item text-amber-600"
+          id="nav-upgrade-vip"
+          href="premium/index.html"
+          style="display: none"
+        >
+          <i class="bx bxs-crown text-xl shrink-0 text-amber-500"></i> Upgrade
+          VIP
+        </a>
+
+        <div
+          class="px-6 pt-4 pb-2 mt-3.5 text-[11px] font-semibold tracking-[0.1em] uppercase text-ink4"
+        >
+          Manajemen
+        </div>
+        <a class="nav-item" href="admin.html">
+          <i class="bx bx-user-pin text-xl shrink-0"></i> Admin Panel
+        </a>
+      </div>
+
+      <div class="p-5 border-t border-border shrink-0">
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center text-xl text-primary shrink-0"
+          >
+            <i class="bx bxs-user"></i>
+          </div>
+          <div class="flex flex-col overflow-hidden">
+            <span
+              class="text-[13px] font-semibold text-ink whitespace-nowrap overflow-hidden text-ellipsis"
+              id="sidebar-username"
+              >Memuat...</span
+            >
+            <span class="text-[11px] text-ink3" id="sidebar-role">—</span>
+          </div>
+          <button
+            id="logout-btn"
+            title="Keluar"
+            style="display: none"
+            class="ml-auto bg-transparent border-none cursor-pointer text-ink3 text-lg p-1 rounded-full transition-colors duration-200 hover:text-red-500 hover:bg-surface2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            onclick="Auth.logout()"
+          >
+            <i class="bx bx-log-out"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Overlay untuk mobile -->
+    <div
+      id="sidebar-overlay"
+      class="hidden fixed inset-0 bg-black/50 backdrop-blur-[2px] z-[49]"
+    ></div>
+
+    <!-- ── WRAPPER ── -->
+    <div
+      id="wrapper"
+      class="lg:ml-[260px] flex-1 min-h-screen flex flex-col min-w-0 transition-[margin] duration-300"
+    >
+      <!-- Topbar -->
+      <div
+        id="topbar"
+        class="h-[70px] bg-surface border-b border-border flex items-center justify-between px-4 md:px-8 sticky top-0 z-40 shrink-0 transition-colors duration-300"
+      >
+        <div class="flex items-center gap-4 min-w-0">
+          <button
+            id="sidebar-toggle"
+            aria-label="Toggle sidebar"
+            class="flex lg:hidden items-center justify-center min-w-11 min-h-11 text-[26px] text-ink bg-transparent border-none cursor-pointer rounded-full transition-colors duration-200 hover:bg-surface2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          >
+            <i class="bx bx-menu"></i>
+          </button>
+          <div>
+            <div
+              class="text-sm md:text-base font-semibold text-ink whitespace-nowrap"
+            >
+              Dashboard Academy Eji
+            </div>
+            <div class="text-xs text-ink4">Beranda</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 md:gap-3 shrink-0">
+          <div
+            class="hidden sm:flex items-center gap-2 bg-surface2 border border-border rounded-[10px] px-3.5 h-[38px] transition-all duration-300 focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10"
+          >
+            <i class="bx bx-search text-ink4 text-lg"></i>
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Cari artikel..."
+              class="border-none outline-none bg-transparent font-sora text-[13px] text-ink w-40 placeholder:text-ink4"
+            />
+          </div>
+          <button
+            class="w-10 h-10 rounded-full border border-border bg-surface text-ink2 flex items-center justify-center text-xl cursor-pointer transition-all duration-300 hover:bg-bg hover:text-primary hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            id="theme-toggle"
+            title="Toggle Dark Mode"
+          >
+            <i class="bx bx-moon"></i>
+          </button>
+          <button
+            class="hidden lg:flex w-10 h-10 rounded-full border border-border bg-surface text-ink2 items-center justify-center text-xl cursor-pointer transition-all duration-300 hover:bg-bg hover:text-primary hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            id="topbar-notif-btn"
+            title="Notifikasi"
+            aria-label="Notifikasi"
+          >
+            <i class="bx bx-bell"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div id="main" class="p-4 md:p-6 lg:p-8 flex-1">
+        <!-- Greeting Header (gaya beranda mobile) -->
+        <div
+          class="flex lg:hidden items-center justify-between gap-3 mb-[18px] animate-fadeInUp"
+        >
+          <div class="flex items-center gap-3 min-w-0">
+            <div
+              class="w-12 h-12 rounded-full bg-primary-light text-primary flex items-center justify-center text-[26px] shrink-0"
+            >
+              <i class="bx bxs-user-circle"></i>
+            </div>
+            <div class="min-w-0">
+              <div class="text-[13px] text-ink3 flex items-center gap-1">
+                Halo
+                <span class="inline-block animate-wave origin-[70%_70%]"
+                  >👋</span
+                >
+              </div>
+              <div
+                class="text-[17px] font-bold text-ink whitespace-nowrap overflow-hidden text-ellipsis"
+                id="greet-username"
+              >
+                Memuat...
+              </div>
+            </div>
+          </div>
+          <button
+            class="notif-btn relative w-11 h-11 rounded-full bg-surface border border-border flex items-center justify-center text-xl text-ink2 cursor-pointer shrink-0 transition-all duration-300 hover:text-primary hover:-translate-y-0.5 hover:shadow-md2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            id="notif-btn"
+            aria-label="Notifikasi"
+          >
+            <i class="bx bx-bell"></i>
+            <span
+              class="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[10px] font-bold min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center border-2 border-surface"
+              id="notif-badge"
+              >2</span
+            >
+          </button>
+        </div>
+
+        <!-- Quick Search + Filter -->
+        <div
+          class="flex lg:hidden gap-2.5 mb-[22px] animate-fadeInUp [animation-delay:80ms]"
+        >
+          <div
+            class="flex-1 min-w-0 flex items-center gap-2.5 bg-surface border border-border rounded-2xl px-4 h-[50px] shadow-sm2 transition-all duration-300 focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10"
+          >
+            <i class="bx bx-search text-ink4 text-xl shrink-0"></i>
+            <input
+              type="text"
+              id="quick-search-input"
+              placeholder="Cari Artikel, Ujian, Prompt..."
+              class="border-none outline-none bg-transparent font-sora text-sm text-ink w-full min-w-0 placeholder:text-ink4"
+            />
+          </div>
+          <button
+            class="w-[50px] h-[50px] rounded-2xl bg-gradient-to-br from-primary to-primary-dark border-none text-white text-xl flex items-center justify-center cursor-pointer shadow-[0_6px_16px_rgba(37,99,235,0.3)] shrink-0 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(37,99,235,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            id="filter-btn"
+            aria-label="Filter"
+          >
+            <i class="bx bx-slider-alt"></i>
+          </button>
+        </div>
+
+        <!-- Category Icons -->
+        <div class="no-scrollbar overflow-x-auto lg:overflow-visible mb-[26px]">
+          <div class="flex gap-[22px] lg:gap-10 px-0.5 py-1 w-max lg:w-auto">
+            <a
+              href="article-landing.html"
+              class="cat-item group flex flex-col items-center gap-2 no-underline shrink-0 w-[66px] lg:w-auto"
+              data-cat="artikel"
+            >
+              <div
+                class="cat-icon w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-surface border border-border flex items-center justify-center text-2xl lg:text-[28px] text-ink2 shadow-sm2 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-md2"
+              >
+                <i class="bx bx-news"></i>
+              </div>
+              <span
+                class="text-[11px] lg:text-[12.5px] font-semibold text-ink3 text-center whitespace-nowrap"
+                >Artikel</span
+              >
+            </a>
+            <a
+              href="prompt/index.html"
+              class="cat-item active group flex flex-col items-center gap-2 no-underline shrink-0 w-[66px] lg:w-auto"
+              data-cat="prompt"
+            >
+              <div
+                class="cat-icon w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-surface border border-border flex items-center justify-center text-2xl lg:text-[28px] text-ink2 shadow-sm2 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-md2"
+              >
+                <i class="bx bx-bot"></i>
+              </div>
+              <span
+                class="text-[11px] lg:text-[12.5px] font-semibold text-ink3 text-center whitespace-nowrap"
+                >Prompt AI</span
+              >
+            </a>
+            <a
+              href="referensi/index.html"
+              class="cat-item group flex flex-col items-center gap-2 no-underline shrink-0 w-[66px] lg:w-auto"
+              data-cat="referensi"
+            >
+              <div
+                class="cat-icon w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-surface border border-border flex items-center justify-center text-2xl lg:text-[28px] text-ink2 shadow-sm2 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-md2"
+              >
+                <i class="bx bx-book-open"></i>
+              </div>
+              <span
+                class="text-[11px] lg:text-[12.5px] font-semibold text-ink3 text-center whitespace-nowrap"
+                >Referensi</span
+              >
+            </a>
+            <a
+              href="ujicoba/index.html"
+              class="cat-item group flex flex-col items-center gap-2 no-underline shrink-0 w-[66px] lg:w-auto"
+              data-cat="tryout"
+            >
+              <div
+                class="cat-icon w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-surface border border-border flex items-center justify-center text-2xl lg:text-[28px] text-ink2 shadow-sm2 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-md2"
+              >
+                <i class="bx bx-trophy"></i>
+              </div>
+              <span
+                class="text-[11px] lg:text-[12.5px] font-semibold text-ink3 text-center whitespace-nowrap"
+                >Tryout</span
+              >
+            </a>
+            <a
+              href="premium/index.html"
+              class="cat-item group flex flex-col items-center gap-2 no-underline shrink-0 w-[66px] lg:w-auto"
+              data-cat="premium"
+            >
+              <div
+                class="cat-icon w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-surface border border-border flex items-center justify-center text-2xl lg:text-[28px] text-ink2 shadow-sm2 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-md2"
+              >
+                <i class="bx bxs-crown"></i>
+              </div>
+              <span
+                class="text-[11px] lg:text-[12.5px] font-semibold text-ink3 text-center whitespace-nowrap"
+                >Premium</span
+              >
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Banner -->
+        <div
+          class="relative overflow-hidden rounded-xl px-6 py-8 md:px-[42px] md:py-[38px] mb-7 bg-gradient-to-br from-primary via-primary-dark to-violet-600 shadow-[0_8px_30px_rgba(37,99,235,0.3)] animate-fadeInUp [animation-delay:120ms]"
+        >
+          <div
+            class="pointer-events-none absolute -top-[70px] -right-[70px] w-[300px] h-[300px] rounded-full bg-white/[0.07]"
+          ></div>
+          <div
+            class="pointer-events-none absolute -bottom-[90px] right-40 w-[220px] h-[220px] rounded-full bg-white/[0.04]"
+          ></div>
+
+          <div
+            class="hidden lg:flex relative items-center gap-2 text-[13px] text-white/80 font-medium mb-2"
+          >
+            <i class="bx bxs-zap text-amber-400"></i>
+            <span id="greeting-text">Selamat Belajar,</span>
+            <strong class="text-white">Semua 👋</strong>
+          </div>
+          <div
+            class="relative font-lora text-2xl md:text-[28px] font-bold text-white leading-[1.3] mb-2.5"
+          >
+            Kembangkan Potensimu Disini!
+          </div>
+          <div
+            class="relative hidden md:block text-[13px] text-white/75 leading-[1.7] max-w-[520px]"
+          >
+            Kami menyediakan beragam fitur untuk dipelajari serta menyediakan
+            simulasi tes ujian tingkat mahasiswa dan lain-lain.
+          </div>
+          <div class="relative flex gap-3 mt-6 flex-wrap">
+            <a
+              href="ujicoba/index.html"
+              class="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-6 py-[11px] rounded-[10px] font-sora text-[13px] font-semibold cursor-pointer no-underline min-h-11 transition-all duration-300 bg-white text-primary hover:-translate-y-0.5 hover:shadow-lg2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+            >
+              <i class="bx bx-play-circle"></i> Lanjut Belajar
+            </a>
+            <a
+              href="ujicoba/index.html"
+              class="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-6 py-[11px] rounded-[10px] font-sora text-[13px] font-semibold cursor-pointer no-underline min-h-11 transition-all duration-300 bg-white/15 text-white border border-white/30 backdrop-blur-sm hover:bg-white/25 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+            >
+              <i class="bx bx-list-check"></i> Ikut Tryout Baru
+            </a>
+          </div>
+        </div>
+
+        <!-- Toggle + Sort -->
+        <div
+          class="flex items-center justify-between flex-wrap gap-3 mt-1 mb-[18px]"
+        >
+          <div
+            class="flex bg-surface2 border border-border rounded-xl p-1 gap-1"
+            id="toggle-pill"
+          >
+            <button
+              class="toggle-opt active border-none bg-transparent px-5 py-2.5 rounded-[9px] font-sora text-[13px] font-semibold text-ink3 cursor-pointer transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              data-filter="semua"
+            >
+              Semua
+            </button>
+            <button
+              class="toggle-opt border-none bg-transparent px-5 py-2.5 rounded-[9px] font-sora text-[13px] font-semibold text-ink3 cursor-pointer transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              data-filter="favorit"
+            >
+              Favorit Saya
+            </button>
+          </div>
+          <button
+            class="flex items-center gap-2 bg-surface border border-border rounded-xl px-[18px] py-2.5 font-sora text-[13px] font-semibold text-ink2 cursor-pointer transition-all duration-300 hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            id="sort-btn"
+          >
+            <i class="bx bx-sort-alt-2"></i> Urutkan
+          </button>
+        </div>
+
+        <!-- Featured / Konten Unggulan (dinamis: berdasarkan konten paling banyak diklik) -->
+        <div
+          class="bg-surface border border-border rounded-xl p-5 md:p-6 shadow-sm2 mb-7"
+        >
+          <div
+            class="flex items-center justify-between flex-wrap gap-2.5 mb-[18px]"
+          >
+            <h2
+              class="text-base font-semibold text-ink flex items-center gap-2"
+            >
+              <i class="bx bx-flame text-warn"></i>
+              Konten Unggulan
+            </h2>
+            <a
+              href="prompt/index.html"
+              class="group text-[13px] text-primary font-semibold no-underline flex items-center gap-1"
+            >
+              Lihat Semua
+              <i
+                class="bx bx-chevron-right transition-transform duration-200 group-hover:translate-x-1"
+              ></i>
+            </a>
+          </div>
+          <div
+            class="flex gap-[18px] overflow-x-auto pb-2 snap-x snap-mandatory thin-scrollbar"
+            id="feat-scroll"
+          >
+            <div
+              class="flex-none w-[250px] h-[224px] rounded-2xl border border-border bg-gradient-to-r from-surface2 via-border to-surface2 bg-[length:200%_100%] animate-shimmer"
+            ></div>
+            <div
+              class="flex-none w-[250px] h-[224px] rounded-2xl border border-border bg-gradient-to-r from-surface2 via-border to-surface2 bg-[length:200%_100%] animate-shimmer"
+            ></div>
+            <div
+              class="flex-none w-[250px] h-[224px] rounded-2xl border border-border bg-gradient-to-r from-surface2 via-border to-surface2 bg-[length:200%_100%] animate-shimmer"
+            ></div>
+            <div
+              class="flex-none w-[250px] h-[224px] rounded-2xl border border-border bg-gradient-to-r from-surface2 via-border to-surface2 bg-[length:200%_100%] animate-shimmer"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 md:gap-[18px] mb-7"
+        >
+          <div
+            class="bg-surface border border-border rounded-xl p-5 flex items-center gap-4 shadow-sm2 transition-all duration-300 hover:-translate-y-1 hover:shadow-md2"
+          >
+            <div
+              class="w-12 h-12 rounded-xl flex items-center justify-center text-[22px] shrink-0 bg-[rgba(37,99,235,0.1)] text-primary"
+            >
+              <i class="bx bx-layer"></i>
+            </div>
+            <div>
+              <div class="text-[22px] font-bold text-ink leading-tight" id="stat-total-konten">–</div>
+              <div class="text-xs text-ink3 mt-0.5">Konten Tersedia</div>
+            </div>
+          </div>
+          <div
+            class="bg-surface border border-border rounded-xl p-5 flex items-center gap-4 shadow-sm2 transition-all duration-300 hover:-translate-y-1 hover:shadow-md2"
+          >
+            <div
+              class="w-12 h-12 rounded-xl flex items-center justify-center text-[22px] shrink-0 bg-[rgba(16,185,129,0.1)] text-success"
+            >
+              <i class="bx bx-check-circle"></i>
+            </div>
+            <div>
+              <div class="text-[22px] font-bold text-ink leading-tight">1</div>
+              <div class="text-xs text-ink3 mt-0.5">Ujian Selesai</div>
+            </div>
+          </div>
+          <div
+            class="bg-surface border border-border rounded-xl p-5 flex items-center gap-4 shadow-sm2 transition-all duration-300 hover:-translate-y-1 hover:shadow-md2"
+          >
+            <div
+              class="w-12 h-12 rounded-xl flex items-center justify-center text-[22px] shrink-0 bg-[rgba(245,158,11,0.1)] text-warn"
+            >
+              <i class="bx bx-trophy"></i>
+            </div>
+            <div>
+              <div class="text-[22px] font-bold text-ink leading-tight">100</div>
+              <div class="text-xs text-ink3 mt-0.5">Skor Terbaik</div>
+            </div>
+          </div>
+          <div
+            class="bg-surface border border-border rounded-xl p-5 flex items-center gap-4 shadow-sm2 transition-all duration-300 hover:-translate-y-1 hover:shadow-md2"
+          >
+            <div
+              class="w-12 h-12 rounded-xl flex items-center justify-center text-[22px] shrink-0 bg-[rgba(249,115,22,0.1)] text-accent"
+            >
+              <i class="bx bx-news"></i>
+            </div>
+            <div>
+              <div class="text-[22px] font-bold text-ink leading-tight" id="stat-total-artikel">–</div>
+              <div class="text-xs text-ink3 mt-0.5">Artikel Tersedia</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Jelajahi Berdasarkan Kategori -->
+        <div
+          class="bg-surface border border-border rounded-xl p-5 md:p-6 shadow-sm2 mb-7"
+        >
+          <div class="flex items-center justify-between flex-wrap gap-2.5 mb-[18px]">
+            <h2
+              class="text-base font-semibold text-ink flex items-center gap-2"
+            >
+              <i class="bx bx-category-alt text-primary"></i>
+              Jelajahi Berdasarkan Kategori
+            </h2>
+          </div>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5"
+            id="kategori-grid"
+          >
+            <div
+              class="h-[78px] rounded-xl border border-border bg-gradient-to-r from-surface2 via-border to-surface2 bg-[length:200%_100%] animate-shimmer"
+            ></div>
+            <div
+              class="h-[78px] rounded-xl border border-border bg-gradient-to-r from-surface2 via-border to-surface2 bg-[length:200%_100%] animate-shimmer"
+            ></div>
+            <div
+              class="h-[78px] rounded-xl border border-border bg-gradient-to-r from-surface2 via-border to-surface2 bg-[length:200%_100%] animate-shimmer"
+            ></div>
+            <div
+              class="h-[78px] rounded-xl border border-border bg-gradient-to-r from-surface2 via-border to-surface2 bg-[length:200%_100%] animate-shimmer"
+            ></div>
+            <div
+              class="h-[78px] rounded-xl border border-border bg-gradient-to-r from-surface2 via-border to-surface2 bg-[length:200%_100%] animate-shimmer"
+            ></div>
+            <div
+              class="h-[78px] rounded-xl border border-border bg-gradient-to-r from-surface2 via-border to-surface2 bg-[length:200%_100%] animate-shimmer"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <!-- /#main -->
+
+      <!-- Footer -->
+      <footer class="bg-surface border-t border-border mt-12">
+        <div class="max-w-[1400px] mx-auto px-4 md:px-8 pt-10 pb-6">
+          <div class="mb-[30px]">
+            <div class="max-w-md">
+              <a
+                href="index.html"
+                class="flex items-center gap-2.5 no-underline mb-3.5"
+              >
+                <div
+                  class="w-[34px] h-[34px] rounded-[9px] bg-gradient-to-br from-primary to-sky-400 flex items-center justify-center text-white text-lg"
+                >
+                  <i class="bx bxs-graduation"></i>
+                </div>
+                <div class="text-[17px] font-bold text-ink">
+                  Academy<span class="text-primary">Eji.</span>
+                </div>
+              </a>
+              <p class="text-[13px] text-ink3 leading-[1.7] mb-[18px]">
+                Platform belajar dan simulasi ujian sertifikasi bahasa
+                terpercaya untuk siswa dan mahasiswa di seluruh Indonesia.
+              </p>
+              <div class="flex gap-2.5 flex-wrap">
+                <a
+                  href="#"
+                  class="w-9 h-9 rounded-full border border-border flex items-center justify-center text-ink3 text-lg no-underline transition-all duration-300 hover:border-primary hover:text-primary hover:-translate-y-0.5"
+                  aria-label="Instagram"
+                  ><i class="bx bxl-instagram"></i
+                ></a>
+                <a
+                  href="#"
+                  class="w-9 h-9 rounded-full border border-border flex items-center justify-center text-ink3 text-lg no-underline transition-all duration-300 hover:border-primary hover:text-primary hover:-translate-y-0.5"
+                  aria-label="YouTube"
+                  ><i class="bx bxl-youtube"></i
+                ></a>
+                <a
+                  href="#"
+                  class="w-9 h-9 rounded-full border border-border flex items-center justify-center text-ink3 text-lg no-underline transition-all duration-300 hover:border-primary hover:text-primary hover:-translate-y-0.5"
+                  aria-label="Twitter"
+                  ><i class="bx bxl-twitter"></i
+                ></a>
+                <a
+                  href="#"
+                  class="w-9 h-9 rounded-full border border-border flex items-center justify-center text-ink3 text-lg no-underline transition-all duration-300 hover:border-primary hover:text-primary hover:-translate-y-0.5"
+                  aria-label="WhatsApp"
+                  ><i class="bx bxl-whatsapp"></i
+                ></a>
+                <a
+                  href="#"
+                  class="w-9 h-9 rounded-full border border-border flex items-center justify-center text-ink3 text-lg no-underline transition-all duration-300 hover:border-primary hover:text-primary hover:-translate-y-0.5"
+                  aria-label="Telegram"
+                  ><i class="bx bxl-telegram"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="border-t border-border pt-5 flex items-center justify-between flex-wrap gap-3"
+          >
+            <p class="text-xs text-ink4">
+              © 2025 Academy Eji. Dibuat dengan ❤️ untuk pelajar Indonesia.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <!-- /#wrapper -->
+
+    <script>
+      // ── TEMA ──
+      const themeToggle = document.getElementById("theme-toggle");
+      const htmlEl = document.documentElement;
+
+      if (localStorage.getItem("theme") === "dark") {
+        htmlEl.setAttribute("data-theme", "dark");
+        themeToggle.innerHTML = "<i class='bx bx-sun'></i>";
+      }
+
+      themeToggle.addEventListener("click", () => {
+        const isDark = htmlEl.getAttribute("data-theme") === "dark";
+        htmlEl.setAttribute("data-theme", isDark ? "light" : "dark");
+        themeToggle.innerHTML = isDark
+          ? "<i class='bx bx-moon'></i>"
+          : "<i class='bx bx-sun'></i>";
+        localStorage.setItem("theme", isDark ? "light" : "dark");
+      });
+
+      // ── GREETING ──
+      const greetingEl = document.getElementById("greeting-text");
+      const hour = new Date().getHours();
+      greetingEl.textContent =
+        hour < 11
+          ? "Selamat Pagi,"
+          : hour < 15
+            ? "Selamat Siang,"
+            : hour < 18
+              ? "Selamat Sore,"
+              : "Selamat Malam,";
+
+      // ── SIDEBAR MOBILE ──
+      const sidebar = document.getElementById("sidebar");
+      const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+      document
+        .getElementById("sidebar-toggle")
+        .addEventListener("click", () => {
+          sidebar.classList.toggle("open");
+          sidebarOverlay.classList.toggle("open");
+        });
+
+      sidebarOverlay.addEventListener("click", () => {
+        sidebar.classList.remove("open");
+        sidebarOverlay.classList.remove("open");
+      });
+
+      sidebar.querySelectorAll(".nav-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          if (window.innerWidth <= 992) {
+            sidebar.classList.remove("open");
+            sidebarOverlay.classList.remove("open");
+          }
+        });
+      });
+
+      // ── SINKRON NAMA DI GREETING HEADER ──
+      function syncGreetName() {
+        const el = document.getElementById("greet-username");
+        if (!el) return;
+        const u = window.Auth && Auth.getUser ? Auth.getUser() : null;
+        el.textContent = u && u.username ? u.username : "Pengguna";
+      }
+      syncGreetName();
+      setTimeout(syncGreetName, 600);
+      setTimeout(syncGreetName, 1800);
+
+      // ── KATEGORI IKON: state aktif ──
+      document.querySelectorAll(".cat-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          document
+            .querySelectorAll(".cat-item")
+            .forEach((i) => i.classList.remove("active"));
+          item.classList.add("active");
+        });
+      });
+
+      // ── TOMBOL FILTER (fokus ke kolom pencarian cepat) ──
+      const filterBtn = document.getElementById("filter-btn");
+      if (filterBtn) {
+        filterBtn.addEventListener("click", () => {
+          document.getElementById("quick-search-input")?.focus();
+        });
+      }
+
+      // ── LONCENG NOTIFIKASI ──
+      const notifBtn = document.getElementById("notif-btn");
+      const notifBadge = document.getElementById("notif-badge");
+      if (notifBtn) {
+        notifBtn.addEventListener("click", () => {
+          notifBadge?.classList.add("hide");
+        });
+      }
+
+      // ── TOGGLE SEMUA / FAVORIT SAYA ──
+      const toggleOpts = document.querySelectorAll(".toggle-opt");
+      toggleOpts.forEach((opt) => {
+        opt.addEventListener("click", () => {
+          toggleOpts.forEach((o) => o.classList.remove("active"));
+          opt.classList.add("active");
+          const mode = opt.dataset.filter;
+          document.querySelectorAll(".feat-card").forEach((card) => {
+            if (mode === "favorit") {
+              card.classList.toggle("is-hidden", card.dataset.fav !== "1");
+            } else {
+              card.classList.remove("is-hidden");
+            }
+          });
+        });
+      });
+
+      // ── TOMBOL URUTKAN (balik urutan kartu unggulan) ──
+      const sortBtn = document.getElementById("sort-btn");
+      if (sortBtn) {
+        sortBtn.addEventListener("click", () => {
+          const wrap = document.getElementById("feat-scroll");
+          if (!wrap) return;
+          Array.from(wrap.children)
+            .reverse()
+            .forEach((c) => wrap.appendChild(c));
+        });
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // ── KONTEN UNGGULAN: ambil data asli + ranking berdasarkan klik ──
+      // ══════════════════════════════════════════════════════════
+      const FAV_KEY = "eji_favorites";
+      function getFavs() {
+        try {
+          return JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
+        } catch (e) {
+          return [];
+        }
+      }
+      function toggleFav(id) {
+        let favs = getFavs();
+        const idx = favs.indexOf(id);
+        if (idx === -1) favs.push(id);
+        else favs.splice(idx, 1);
+        localStorage.setItem(FAV_KEY, JSON.stringify(favs));
+        return favs.includes(id);
+      }
+
+      function esc(s) {
+        return String(s || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      // Tentukan halaman tujuan berdasarkan nama kategori (mengikuti logika filter tiap halaman)
+      function targetPageFor(namaKategori) {
+        const n = (namaKategori || "").toLowerCase();
+        if (n === "artikel") return "article-landing.html";
+        if (/materi|ebook|e-book|referensi|jurnal|buku/.test(n))
+          return "referensi/index.html";
+        if (n.includes("prompt")) return "prompt/index.html";
+        return "article-landing.html";
+      }
+
+      function getKategori(list, id) {
+        return (
+          list.find((k) => k.id === id) || {
+            nama: "Konten",
+            warna: "#2563eb",
+          }
+        );
+      }
+
+      function iconForKategori(namaKategori) {
+        const n = (namaKategori || "").toLowerCase();
+        if (n.includes("foto")) return "bx-camera";
+        if (n.includes("desain")) return "bx-palette";
+        if (n.includes("makalah")) return "bx-file-blank";
+        if (n.includes("materi")) return "bx-book-content";
+        if (n.includes("artikel")) return "bx-news";
+        if (n.includes("buku") || n.includes("penelitian")) return "bx-book-open";
+        if (n.includes("ebook") || n.includes("e-book")) return "bx-book";
+        if (n.includes("prompt")) return "bx-bot";
+        return "bx-folder";
+      }
+
+      function renderKategoriGrid(DB) {
+        const grid = document.getElementById("kategori-grid");
+        if (!grid) return;
+        const counts = {};
+        (DB.artikel || []).forEach((a) => {
+          counts[a.kategori_id] = (counts[a.kategori_id] || 0) + 1;
+        });
+        const kats = (DB.kategori || []).filter((k) => counts[k.id]);
+        if (!kats.length) {
+          grid.innerHTML = `<div class="feat-empty" style="grid-column:1/-1;"><i class="bx bx-category"></i>Belum ada kategori konten.</div>`;
+          return;
+        }
+        kats.sort((a, b) => (counts[b.id] || 0) - (counts[a.id] || 0));
+        grid.innerHTML = kats
+          .map((k) => {
+            const page = targetPageFor(k.nama);
+            const warna = k.warna || "#2563eb";
+            return `
+            <a href="${esc(page)}" class="kat-card flex items-center gap-3.5 p-4 rounded-xl border border-border bg-surface2 no-underline transition-all duration-300 hover:-translate-y-[3px] hover:shadow-md2">
+              <div class="w-[46px] h-[46px] rounded-xl flex items-center justify-center text-[21px] shrink-0" style="background:${esc(warna)}1a;color:${esc(warna)}">
+                <i class="bx ${iconForKategori(k.nama)}"></i>
+              </div>
+              <div>
+                <div class="text-[13px] font-bold text-ink mb-0.5">${esc(k.nama)}</div>
+                <div class="text-xs text-ink3">${counts[k.id]} konten</div>
+              </div>
+            </a>`;
+          })
+          .join("");
+      }
+
+      async function loadKontenUnggulan() {
+        const wrap = document.getElementById("feat-scroll");
+        let DB = { kategori: [], artikel: [] };
+        let byArticle = {};
+
+        try {
+          const res = await fetch("api/get-data");
+          if (res.ok) DB = await res.json();
+        } catch (e) {
+          console.warn("Gagal memuat data konten:", e);
+        }
+
+        try {
+          const res2 = await fetch("api/get-clicks");
+          if (res2.ok) {
+            const j = await res2.json();
+            byArticle = (j.summary && j.summary.by_article) || {};
+          }
+        } catch (e) {
+          console.warn("Gagal memuat data klik:", e);
+        }
+
+        // Update statistik di stats-row
+        const totalKonten = (DB.artikel || []).length;
+        const totalArtikelKat = (DB.kategori || [])
+          .filter((k) => (k.nama || "").trim().toLowerCase() === "artikel")
+          .map((k) => k.id);
+        const totalArtikel = (DB.artikel || []).filter((a) =>
+          totalArtikelKat.includes(a.kategori_id)
+        ).length;
+        const elTotalKonten = document.getElementById("stat-total-konten");
+        const elTotalArtikel = document.getElementById("stat-total-artikel");
+        if (elTotalKonten) elTotalKonten.textContent = totalKonten || 0;
+        if (elTotalArtikel) elTotalArtikel.textContent = totalArtikel || 0;
+
+        renderKategoriGrid(DB);
+
+        const items = (DB.artikel || []).map((a) => {
+          const c = byArticle[a.id];
+          return { ...a, _clicks: c ? c.count : 0 };
+        });
+
+        items.sort((x, y) => {
+          if (y._clicks !== x._clicks) return y._clicks - x._clicks;
+          if ((y.featured ? 1 : 0) !== (x.featured ? 1 : 0))
+            return (y.featured ? 1 : 0) - (x.featured ? 1 : 0);
+          return (y.tanggal || "").localeCompare(x.tanggal || "");
+        });
+
+        let top = items.filter((i) => i._clicks > 0).slice(0, 8);
+        if (top.length < 4) {
+          const usedIds = new Set(top.map((i) => i.id));
+          const fallback = items
+            .filter((i) => !usedIds.has(i.id))
+            .slice(0, 8 - top.length);
+          top = top.concat(fallback);
+        }
+
+        if (!wrap) return;
+
+        if (!top.length) {
+          wrap.innerHTML = `<div class="feat-empty flex-1 py-[30px] px-5 text-center text-ink3 text-[13px]"><i class="bx bx-inbox block text-[32px] mb-2 opacity-50"></i>Belum ada konten untuk ditampilkan.</div>`;
+          return;
+        }
+
+        const favs = getFavs();
+
+        wrap.innerHTML = top
+          .map((a) => {
+            const k = getKategori(DB.kategori || [], a.kategori_id);
+            const page = targetPageFor(k.nama);
+            const href = `${page}?open=${encodeURIComponent(a.id)}`;
+            const isFav = favs.includes(a.id);
+            const bg = a.gambar
+              ? `background-image:url('${a.gambar.replace(/'/g, "%27")}');background-size:cover;background-position:center`
+              : `background:linear-gradient(135deg, ${k.warna || "#2563eb"}, #1d4ed8)`;
+            return `
+            <div class="feat-card flex-none w-[250px] snap-start rounded-2xl overflow-hidden border border-border bg-surface transition-all duration-300 hover:-translate-y-1 hover:shadow-md2" data-id="${esc(a.id)}" data-fav="${isFav ? "1" : "0"}">
+              <div class="relative h-[140px] flex items-end justify-center pb-3.5" style="${bg}">
+                <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/5 via-black/15 to-black/75"></div>
+                <span class="absolute top-3 left-3 text-white text-[11px] font-semibold px-2.5 py-1 rounded-full z-[1]" style="background:${esc(k.warna || "#2563eb")}cc">${esc(k.nama)}</span>
+                <div class="absolute top-3 right-3 flex flex-col gap-2 z-[1]">
+                  <button class="feat-fav-btn w-[30px] h-[30px] rounded-full bg-black/45 backdrop-blur-sm border-none text-white text-[15px] flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-black/65 hover:scale-105${isFav ? " is-fav" : ""}" title="Favorit" data-id="${esc(a.id)}">
+                    <i class="bx ${isFav ? "bxs-heart" : "bx-heart"}"></i>
+                  </button>
+                </div>
+                <a href="${esc(href)}" class="relative z-[1] inline-flex items-center gap-1.5 bg-white/95 text-primary no-underline text-xs font-bold px-4 py-2 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.2)] transition-transform duration-300 hover:-translate-y-0.5">
+                  <i class="bx bx-show"></i> Lihat
+                </a>
+              </div>
+              <div class="p-4 pt-3.5">
+                <div class="text-sm font-bold text-ink mb-1 line-clamp-1">${esc(a.judul)}</div>
+                <div class="text-xs text-ink3 flex items-center gap-1.5">
+                  <span>${esc(k.nama)}</span>
+                  ${a._clicks > 0 ? `<span class="text-accent font-semibold inline-flex items-center gap-1">&bull; <i class="bx bx-trending-up"></i> ${a._clicks} dilihat</span>` : ""}
+                </div>
+              </div>
+            </div>`;
+          })
+          .join("");
+
+        wrap.querySelectorAll(".feat-fav-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const id = btn.dataset.id;
+            const nowFav = toggleFav(id);
+            const card = btn.closest(".feat-card");
+            const icon = btn.querySelector("i");
+            card.dataset.fav = nowFav ? "1" : "0";
+            btn.classList.toggle("is-fav", nowFav);
+            icon.classList.toggle("bx-heart", !nowFav);
+            icon.classList.toggle("bxs-heart", nowFav);
+            const activeFilter = document.querySelector(".toggle-opt.active")?.dataset.filter;
+            if (activeFilter === "favorit" && !nowFav) {
+              card.classList.add("is-hidden");
+            }
+          });
+        });
+      }
+
+      loadKontenUnggulan();
+    </script>
+    <!-- ── AUTH SCRIPTS ── -->
+    <script src="auth.js"></script>
+    <script src="auth-gate.js"></script>
+  </body>
+</html>
