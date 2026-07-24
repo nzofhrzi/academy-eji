@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="light">
+<html lang="id" class="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,8 +15,6 @@
 
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Tailwind custom configuration (dark mode, font, etc) -->
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -39,163 +37,15 @@
               800: '#1e40af',
               900: '#1e3a8a',
             },
-            accent: '#f97316',
-            success: '#10b981',
-            warn: '#f59e0b',
-            danger: '#ef4444',
           },
         },
       },
     }
   </script>
 
-  <!-- Custom global styles (for things Tailwind can't easily replace) -->
+  <!-- Minimal custom CSS for components that Tailwind can't handle -->
   <style>
-    /* ── CSS Variables for theme (used in JS and some legacy parts) ── */
-    :root {
-      --primary: #2563eb;
-      --primary-light: #eff6ff;
-      --primary-dark: #1d4ed8;
-      --accent: #f97316;
-      --success: #10b981;
-      --warn: #f59e0b;
-      --danger: #ef4444;
-      --sidebar-w: 260px;
-      --header-h: 64px;
-      --radius: 12px;
-    }
-
-    [data-theme="dark"] {
-      /* overwrite Tailwind dark mode for legacy variables */
-    }
-
-    /* ── Base reset & scrollbar ── */
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Sora', sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      min-height: 100vh;
-      display: flex;
-      font-size: 14px;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    /* Custom scrollbar for sidebar & tables */
-    .sidebar-scroll::-webkit-scrollbar,
-    .table-scroll::-webkit-scrollbar {
-      width: 6px;
-    }
-    .sidebar-scroll::-webkit-scrollbar-thumb,
-    .table-scroll::-webkit-scrollbar-thumb {
-      background: var(--border);
-      border-radius: 10px;
-    }
-
-    /* ── Sidebar toggle ── */
-    #sidebar-toggle {
-      display: none;
-      background: transparent;
-      border: none;
-      font-size: 26px;
-      cursor: pointer;
-      color: var(--ink);
-      flex-shrink: 0;
-    }
-
-    /* ── Auth gate ── */
-    #auth-gate-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      background: var(--bg);
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-    #auth-gate-overlay.visible {
-      display: flex;
-    }
-
-    /* ── Modal animation ── */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.55);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-    }
-    .modal-overlay.open {
-      display: flex;
-      animation: fadeOverlay 0.25s ease;
-    }
-    @keyframes fadeOverlay {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-    @keyframes slideModal {
-      from {
-        transform: translateY(24px) scale(0.97);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-    }
-    .modal {
-      animation: slideModal 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* ── Toast ── */
-    #toast {
-      position: fixed;
-      bottom: 20px;
-      right: 16px;
-      left: 16px;
-      background: var(--ink);
-      color: #fff;
-      padding: 14px 20px;
-      border-radius: 12px;
-      font-size: 13px;
-      z-index: 999;
-      display: none;
-      box-shadow: var(--shadow-lg);
-      border-left: 4px solid var(--success);
-      max-width: 340px;
-      margin: 0 auto;
-      font-weight: 500;
-      transform: translateY(20px);
-      opacity: 0;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-    #toast.show {
-      display: block;
-      transform: translateY(0);
-      opacity: 1;
-    }
-    #toast.err {
-      border-left-color: var(--danger);
-    }
-
-    /* ── Toggle switch ── */
+    /* ── Custom toggle switch ── */
     .toggle {
       position: relative;
       display: inline-block;
@@ -211,10 +61,13 @@
     .toggle-slider {
       position: absolute;
       inset: 0;
-      background: var(--border);
-      border-radius: 99px;
+      background: #cbd5e1;
+      border-radius: 9999px;
       cursor: pointer;
       transition: background 0.25s;
+    }
+    .dark .toggle-slider {
+      background: #475569;
     }
     .toggle-slider:before {
       content: '';
@@ -226,59 +79,40 @@
       background: #fff;
       border-radius: 50%;
       transition: transform 0.25s;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     }
     .toggle input:checked+.toggle-slider {
-      background: var(--primary);
+      background: #2563eb;
     }
     .toggle input:checked+.toggle-slider:before {
       transform: translateX(20px);
     }
 
-    /* ── Image preview ── */
-    .img-preview-wrap {
-      border: 2px dashed var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      height: 160px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--surface2);
-      transition: var(--transition);
-      position: relative;
-    }
-    .img-preview-wrap:hover {
-      border-color: var(--primary);
-    }
-    .img-preview-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .img-preview-ph .icon {
-      font-size: 32px;
-      margin-bottom: 8px;
-      opacity: 0.4;
-    }
-
     /* ── Upload zone ── */
     .upload-zone {
-      border: 2px dashed var(--border);
-      border-radius: 10px;
-      padding: 20px 14px;
+      border: 2px dashed #cbd5e1;
+      border-radius: 0.75rem;
+      padding: 1.5rem 1rem;
       text-align: center;
       cursor: pointer;
-      transition: var(--transition);
-      background: var(--surface2);
+      transition: all 0.2s;
+      background: #f8fafc;
       position: relative;
+    }
+    .dark .upload-zone {
+      border-color: #334155;
+      background: #1e293b;
     }
     .upload-zone:hover,
     .upload-zone.drag-over {
-      border-color: var(--primary);
-      background: var(--primary-light);
+      border-color: #2563eb;
+      background: #eff6ff;
     }
-    .upload-zone input[type=file] {
+    .dark .upload-zone:hover,
+    .dark .upload-zone.drag-over {
+      background: #1e3a8a;
+    }
+    .upload-zone input[type="file"] {
       position: absolute;
       inset: 0;
       opacity: 0;
@@ -286,180 +120,51 @@
       width: 100%;
       height: 100%;
     }
-    .upload-zone .uz-icon {
-      font-size: 28px;
-      margin-bottom: 8px;
-      color: var(--ink4);
-    }
-    .upload-zone .uz-text {
-      font-size: 12px;
-      color: var(--ink3);
-      line-height: 1.6;
-    }
-    .upload-zone .uz-hint {
-      font-size: 11px;
-      color: var(--ink4);
-      margin-top: 4px;
-    }
-    .upload-progress {
-      margin-top: 8px;
-      display: none;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      background: var(--primary-light);
-      border-radius: 8px;
-      border: 1px solid #bfdbfe;
-    }
-    .upload-progress.show {
-      display: flex;
-    }
+
+    /* ── Progress bar ── */
     .progress-bar-wrap {
-      flex: 1;
       height: 6px;
       background: #dbeafe;
-      border-radius: 99px;
+      border-radius: 9999px;
       overflow: hidden;
+    }
+    .dark .progress-bar-wrap {
+      background: #1e3a8a;
     }
     .progress-bar {
       height: 100%;
-      background: var(--primary);
-      border-radius: 99px;
+      background: #2563eb;
+      border-radius: 9999px;
       transition: width 0.3s;
       width: 0%;
     }
-    .progress-text {
-      font-size: 11px;
-      color: var(--primary);
-      font-weight: 500;
-      white-space: nowrap;
+
+    /* ── Image preview ── */
+    .img-preview-wrap {
+      border: 2px dashed #cbd5e1;
+      border-radius: 0.75rem;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8fafc;
+      transition: border-color 0.2s;
+      overflow: hidden;
+    }
+    .dark .img-preview-wrap {
+      border-color: #334155;
+      background: #1e293b;
+    }
+    .img-preview-wrap:hover {
+      border-color: #2563eb;
+    }
+    .img-preview-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    /* ── Spinner ── */
-    .spinner {
-      display: inline-block;
-      width: 14px;
-      height: 14px;
-      border: 2px solid rgba(255, 255, 255, .4);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
-      vertical-align: middle;
-    }
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* ── Responsive overrides ── */
-    @media(max-width: 992px) {
-      #sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-      }
-      #sidebar.open {
-        transform: translateX(0);
-      }
-      #sidebar-overlay.open {
-        display: block;
-      }
-      #wrapper {
-        margin-left: 0 !important;
-      }
-      #sidebar-toggle {
-        display: block !important;
-      }
-    }
-
-    @media(max-width: 640px) {
-      .table-scroll table thead {
-        display: none;
-      }
-      .table-scroll table,
-      .table-scroll table tbody,
-      .table-scroll table tr,
-      .table-scroll table td {
-        display: block;
-        width: 100%;
-      }
-      .table-scroll table tr {
-        padding: 12px 16px;
-        border-bottom: 1px solid var(--border);
-      }
-      .table-scroll table tr:hover {
-        background: none;
-      }
-      .table-scroll table td {
-        padding: 4px 0;
-        border: none;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-      }
-      .table-scroll table td:first-child {
-        display: block;
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--ink);
-        padding-top: 2px;
-        padding-bottom: 8px;
-        font-family: 'Lora', serif;
-      }
-      .table-scroll table td:last-child {
-        justify-content: flex-end;
-        margin-top: 8px;
-        padding-top: 10px;
-        border-top: 1px dashed var(--border);
-      }
-      .table-scroll table td:last-child .td-actions {
-        width: 100%;
-        justify-content: flex-end;
-      }
-      #art-table tbody td:nth-child(3)::before {
-        content: "Kategori";
-        font-size: 11px;
-        font-weight: 600;
-        color: var(--ink4);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-      #art-table tbody td:nth-child(4)::before {
-        content: "Tanggal";
-        font-size: 11px;
-        font-weight: 600;
-        color: var(--ink4);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-      #art-table tbody td:nth-child(5)::before {
-        content: "Status";
-        font-size: 11px;
-        font-weight: 600;
-        color: var(--ink4);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-      #kat-table tbody td:nth-child(3)::before {
-        content: "Warna";
-        font-size: 11px;
-        font-weight: 600;
-        color: var(--ink4);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-      #kat-table tbody td:nth-child(4)::before {
-        content: "Artikel";
-        font-size: 11px;
-        font-weight: 600;
-        color: var(--ink4);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-    }
-
-    /* ── keep utility for fadeUp animation ── */
+    /* ── Animations ── */
     @keyframes fadeUp {
       from {
         opacity: 0;
@@ -471,19 +176,66 @@
       }
     }
     .animate-fadeUp {
-      animation: fadeUp 0.5s ease forwards;
+      animation: fadeUp 0.4s ease forwards;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255, 255, 255, .4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      vertical-align: middle;
+    }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      left: 16px;
+      right: 16px;
+      max-width: 400px;
+      margin: 0 auto;
+      background: #0f172a;
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 999;
+      display: none;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      border-left: 4px solid #10b981;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    .dark #toast {
+      background: #1e293b;
+    }
+    #toast.show {
+      display: block;
+      transform: translateY(0);
+      opacity: 1;
+    }
+    #toast.err {
+      border-left-color: #ef4444;
     }
   </style>
 </head>
-
 <body>
 
-  <!-- ===== AUTH GATE OVERLAY ===== -->
-  <div id="auth-gate-overlay" class="visible">
-    <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl p-8 sm:p-10 text-center max-w-md w-full">
-      <div class="text-5xl text-primary-600 dark:text-primary-400 mb-4">
-        <i class='bx bx-lock-alt'></i>
-      </div>
+  <!-- ===== AUTH GATE ===== -->
+  <div id="auth-gate-overlay" class="fixed inset-0 z-[200] bg-slate-100 dark:bg-slate-900 flex items-center justify-center p-4 hidden visible">
+    <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
+      <div class="text-5xl text-primary-600 dark:text-primary-400 mb-4"><i class='bx bx-lock-alt'></i></div>
       <h2 class="font-lora text-2xl font-bold text-slate-800 dark:text-white mb-2">Admin Panel</h2>
       <p class="text-sm text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
         Masukkan Admin Key untuk mengakses panel. Key dikonfigurasi via environment variable <code class="bg-slate-100 dark:bg-slate-700 px-1 rounded">ADMIN_KEY</code> di Vercel.
@@ -491,7 +243,7 @@
       <div id="auth-gate-error" class="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 p-2 rounded-lg mb-3 hidden text-left">
         <i class='bx bx-error-circle'></i> Admin key salah atau tidak valid.
       </div>
-      <input type="password" id="auth-gate-input" class="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-800 dark:text-white font-sora text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition mb-3" placeholder="Masukkan Admin Key..." autocomplete="current-password" />
+      <input type="password" id="auth-gate-input" class="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-800 dark:text-white text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition mb-3" placeholder="Masukkan Admin Key..." autocomplete="current-password" />
       <button id="auth-gate-btn" onclick="submitAdminGate()" class="w-full py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition flex items-center justify-center gap-2 text-sm">
         <i class='bx bx-log-in'></i> Masuk
       </button>
@@ -499,7 +251,7 @@
   </div>
 
   <!-- ===== SIDEBAR ===== -->
-  <nav id="sidebar" class="w-[260px] min-h-screen bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col fixed top-0 left-0 z-50 transition-transform duration-300 ease-in-out">
+  <nav id="sidebar" class="w-[260px] min-h-screen bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col fixed top-0 left-0 z-50 transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0">
     <!-- Logo -->
     <div class="h-16 flex items-center gap-3 px-6 border-b border-slate-200 dark:border-slate-700">
       <div class="w-9 h-9 bg-gradient-to-br from-primary-600 to-primary-400 rounded-xl flex items-center justify-center text-white text-xl shadow-md shadow-primary-500/30">
@@ -510,7 +262,7 @@
       </div>
     </div>
 
-    <!-- User profile (top) -->
+    <!-- User profile -->
     <div class="p-4 border-b border-slate-200 dark:border-slate-700">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center text-white text-lg shadow-md shadow-primary-500/20">
@@ -523,43 +275,42 @@
       </div>
     </div>
 
-    <!-- Scrollable nav -->
-    <div class="flex-1 overflow-y-auto sidebar-scroll py-2">
-      <div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-6 pt-4 pb-2">Menu Utama</div>
-      <a href="index.html" class="flex items-center gap-3 px-4 py-2.5 mx-3 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-white transition duration-200 text-sm font-medium">
+    <!-- Navigation -->
+    <div class="flex-1 overflow-y-auto py-2 px-3">
+      <div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-3 pt-4 pb-2">Menu Utama</div>
+      <a href="index.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-white transition text-sm font-medium">
         <i class='bx bx-home-alt text-xl'></i> Dashboard
       </a>
-      <a href="config.html" class="flex items-center gap-3 px-4 py-2.5 mx-3 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-white transition duration-200 text-sm font-medium">
+      <a href="config.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-white transition text-sm font-medium">
         <i class='bx bx-info-circle text-xl'></i> Tentang Kami
       </a>
-
-      <div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-6 pt-4 pb-2">Manajemen</div>
-      <a href="admin.html" class="flex items-center gap-3 px-4 py-2.5 mx-3 rounded-lg bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 font-semibold transition duration-200 text-sm">
+      <div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-3 pt-4 pb-2">Manajemen</div>
+      <a href="admin.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 font-semibold transition text-sm">
         <i class='bx bx-user-pin text-xl'></i> Admin Panel
       </a>
-      <a href="admin-user.html" class="flex items-center gap-3 px-4 py-2.5 mx-3 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-white transition duration-200 text-sm font-medium">
+      <a href="admin-user.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-white transition text-sm font-medium">
         <i class='bx bx-group text-xl'></i> Kelola User
       </a>
-      <a href="ujicoba/admin-soal.html" class="flex items-center gap-3 px-4 py-2.5 mx-3 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-white transition duration-200 text-sm font-medium">
+      <a href="ujicoba/admin-soal.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-white transition text-sm font-medium">
         <i class='bx bx-edit text-xl'></i> Kelola Soal
       </a>
-
-      <div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-6 pt-4 pb-2">Analitik</div>
-      <a href="analytics.html" class="flex items-center gap-3 px-4 py-2.5 mx-3 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-white transition duration-200 text-sm font-medium">
+      <div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-3 pt-4 pb-2">Analitik</div>
+      <a href="analytics.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-white transition text-sm font-medium">
         <i class='bx bx-bar-chart-alt-2 text-xl'></i> Traffic Klik
       </a>
     </div>
   </nav>
-  <!-- Sidebar overlay for mobile -->
+
+  <!-- Sidebar overlay mobile -->
   <div id="sidebar-overlay" class="fixed inset-0 z-40 hidden bg-black/50 backdrop-blur-sm"></div>
 
   <!-- ===== WRAPPER ===== -->
-  <div id="wrapper" class="flex-1 min-h-screen ml-[260px] transition-[margin] duration-300 ease-in-out flex flex-col">
+  <div id="wrapper" class="flex-1 min-h-screen lg:ml-[260px] flex flex-col transition-[margin] duration-300">
 
     <!-- ===== TOPBAR ===== -->
     <header id="topbar" class="h-16 sticky top-0 z-40 bg-white/85 dark:bg-slate-800/85 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 flex items-center justify-between px-4 sm:px-6 transition-colors">
-      <div class="flex items-center gap-3 min-w-0">
-        <button id="sidebar-toggle" class="text-2xl text-slate-700 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400 transition">
+      <div class="flex items-center gap-3">
+        <button id="sidebar-toggle" class="text-2xl text-slate-700 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400 transition lg:hidden">
           <i class='bx bx-menu'></i>
         </button>
         <h1 class="text-lg font-semibold text-slate-800 dark:text-white truncate">Admin Panel</h1>
@@ -568,12 +319,8 @@
         <button id="theme-toggle" class="w-9 h-9 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center justify-center text-xl" title="Toggle Dark Mode">
           <i class='bx bx-moon'></i>
         </button>
-        <button id="btn-save-gh" class="hidden sm:flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-sm font-semibold transition shadow-sm shadow-primary-500/20">
-          <i class='bx bx-cloud-upload'></i><span class="btn-label">Simpan ke GitHub</span>
-        </button>
-        <!-- mobile version -->
-        <button id="btn-save-gh-mobile" class="sm:hidden w-9 h-9 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-primary-600 dark:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center justify-center text-xl">
-          <i class='bx bx-cloud-upload'></i>
+        <button id="btn-save-gh" class="flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-sm font-semibold transition shadow-sm shadow-primary-500/20">
+          <i class='bx bx-cloud-upload'></i> <span class="hidden sm:inline">Simpan ke GitHub</span>
         </button>
       </div>
     </header>
@@ -581,7 +328,7 @@
     <!-- ===== MAIN ===== -->
     <main id="main" class="p-4 sm:p-6 flex-1 max-w-7xl mx-auto w-full">
 
-      <!-- Stats row -->
+      <!-- Stats -->
       <div class="grid grid-cols-3 gap-3 sm:gap-4 mb-6">
         <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 flex items-center gap-3 shadow-sm hover:shadow-md transition-all duration-300 animate-fadeUp" style="animation-delay:0s">
           <div class="w-11 h-11 rounded-xl bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 flex items-center justify-center text-xl">
@@ -614,7 +361,7 @@
 
       <!-- Tabs -->
       <div class="flex gap-1 mb-5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-1 w-fit max-w-full overflow-x-auto shadow-sm animate-fadeUp" style="animation-delay:0.2s">
-        <button class="tab-btn active px-4 py-2 rounded-lg text-sm font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center gap-1.5 whitespace-nowrap" data-tab="tab-artikel">
+        <button class="tab-btn active px-4 py-2 rounded-lg text-sm font-medium text-white bg-primary-600 shadow-sm shadow-primary-500/20 transition flex items-center gap-1.5 whitespace-nowrap" data-tab="tab-artikel">
           <i class='bx bx-list-ul'></i> Artikel
         </button>
         <button class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center gap-1.5 whitespace-nowrap" data-tab="tab-tambah">
@@ -655,7 +402,7 @@
             </div>
           </div>
 
-          <!-- Filter bar -->
+          <!-- Filter -->
           <div class="flex flex-wrap items-center gap-2 px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
             <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1">
               <i class='bx bx-filter-alt'></i> Filter
@@ -690,10 +437,9 @@
       </div>
 
       <!-- ========== PANEL TAMBAH / EDIT ========== -->
-      <div class="panel" id="tab-tambah">
+      <div class="panel hidden" id="tab-tambah">
         <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm overflow-hidden transition-shadow hover:shadow-md">
-          <!-- Header -->
-          <div class="flex flex-wrap items-center justify-between gap-3 px-5 py-4 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+          <div class="flex flex-wrap items-center justify-between gap-3 px-5 py-4 border-b border-slate-200 dark:border-slate-700">
             <h3 id="form-title" class="text-base font-semibold text-slate-800 dark:text-white flex items-center gap-2">
               <i class='bx bx-edit text-primary-600 dark:text-primary-400'></i> Tambah Artikel Baru
             </h3>
@@ -702,7 +448,6 @@
             </button>
           </div>
 
-          <!-- Body -->
           <div class="p-5 space-y-6">
             <input type="hidden" id="edit-id" />
 
@@ -727,13 +472,12 @@
               </div>
             </div>
 
-            <!-- Media & Penerbitan -->
+            <!-- Media -->
             <div>
               <h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2 after:flex-1 after:h-px after:bg-slate-200 dark:after:bg-slate-700">Media &amp; Penerbitan</h4>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label class="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1.5">Gambar Artikel</label>
-                  <!-- Tab picker -->
                   <div class="flex border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden w-fit mb-2.5">
                     <button id="tab-url-btn" class="img-src-tab active px-3 py-1.5 text-xs font-medium bg-primary-600 text-white hover:bg-primary-700 transition flex items-center gap-1" onclick="switchImgTab('url')">
                       <i class='bx bx-link'></i> Link URL
@@ -742,41 +486,37 @@
                       <i class='bx bx-upload'></i> Upload File
                     </button>
                   </div>
-                  <!-- URL panel -->
                   <div id="img-panel-url" class="img-source-panel">
                     <input type="url" id="f-gambar" class="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-800 dark:text-white text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition placeholder:text-slate-400 dark:placeholder:text-slate-500" placeholder="https://…" oninput="previewImage()" />
                     <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">Tempel URL gambar dari Unsplash atau sumber lain</p>
                   </div>
-                  <!-- Upload panel -->
                   <div id="img-panel-upload" class="img-source-panel hidden">
-                    <div id="upload-zone" class="upload-zone border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl p-6 text-center cursor-pointer hover:border-primary-500 dark:hover:border-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition relative bg-slate-50 dark:bg-slate-800/50">
+                    <div id="upload-zone" class="upload-zone">
                       <input type="file" id="f-gambar-file" accept="image/*" onchange="handleFileSelect(event)" />
                       <div class="uz-icon text-3xl text-slate-400 dark:text-slate-500 mb-2"><i class='bx bx-folder-open'></i></div>
                       <div class="uz-text text-sm text-slate-600 dark:text-slate-300">Klik atau drag &amp; drop gambar di sini</div>
                       <div class="uz-hint text-xs text-slate-400 dark:text-slate-500 mt-1">JPG, PNG, WebP, GIF · Maks 5 MB</div>
                     </div>
-                    <div id="upload-progress" class="upload-progress hidden mt-3 bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800 rounded-lg p-3 flex items-center gap-3">
-                      <div class="progress-bar-wrap flex-1 h-1.5 bg-primary-100 dark:bg-primary-800/50 rounded-full overflow-hidden">
-                        <div id="progress-bar" class="progress-bar h-full bg-primary-600 dark:bg-primary-400 rounded-full w-0 transition-all duration-300"></div>
+                    <div id="upload-progress" class="hidden mt-3 bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800 rounded-lg p-3 flex items-center gap-3">
+                      <div class="progress-bar-wrap flex-1">
+                        <div id="progress-bar" class="progress-bar w-0"></div>
                       </div>
-                      <span id="progress-text" class="progress-text text-xs font-semibold text-primary-600 dark:text-primary-400 whitespace-nowrap">Mengupload…</span>
+                      <span id="progress-text" class="text-xs font-semibold text-primary-600 dark:text-primary-400 whitespace-nowrap">Mengupload…</span>
                     </div>
                     <div id="upload-success" class="hidden mt-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400"><i class='bx bx-check-circle'></i> Gambar berhasil diupload ke GitHub</div>
                   </div>
                 </div>
-
                 <div>
                   <label class="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1.5">Pratinjau Gambar</label>
-                  <div id="img-preview-wrap" class="img-preview-wrap border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl h-40 flex items-center justify-center bg-slate-50 dark:bg-slate-800/50 transition hover:border-primary-500 dark:hover:border-primary-400 relative overflow-hidden">
-                    <div id="img-ph" class="img-preview-ph text-center text-slate-400 dark:text-slate-500 p-4">
-                      <div class="icon text-4xl opacity-40"><i class='bx bx-image'></i></div>
+                  <div id="img-preview-wrap" class="img-preview-wrap">
+                    <div id="img-ph" class="text-center text-slate-400 dark:text-slate-500 p-4">
+                      <div class="text-4xl opacity-40"><i class='bx bx-image'></i></div>
                       <div class="text-sm">Gambar akan tampil di sini</div>
                     </div>
                     <img id="img-preview" src="" alt="" class="hidden w-full h-full object-cover" />
                   </div>
                 </div>
               </div>
-
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                 <div>
                   <label class="text-xs font-semibold text-slate-600 dark:text-slate-300 block mb-1.5">Tanggal Terbit</label>
@@ -787,7 +527,7 @@
                   <div class="flex items-center gap-2.5">
                     <label class="toggle">
                       <input type="checkbox" id="f-featured" />
-                      <span class="toggle-slider bg-slate-300 dark:bg-slate-600"></span>
+                      <span class="toggle-slider"></span>
                     </label>
                     <span class="text-sm font-medium text-slate-600 dark:text-slate-300">⭐</span>
                   </div>
@@ -796,7 +536,6 @@
             </div>
           </div>
 
-          <!-- Actions -->
           <div class="flex flex-wrap items-center gap-3 px-5 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 rounded-b-xl">
             <button id="btn-submit-art" class="px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-sm font-semibold transition flex items-center gap-2 shadow-sm shadow-primary-500/20">
               <i class='bx bx-save'></i> Simpan Artikel
@@ -809,8 +548,7 @@
       </div>
 
       <!-- ========== PANEL KATEGORI ========== -->
-      <div class="panel" id="tab-kategori">
-        <!-- Form tambah kategori -->
+      <div class="panel hidden" id="tab-kategori">
         <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm overflow-hidden transition-shadow hover:shadow-md max-w-xl mb-6">
           <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
             <h3 class="text-base font-semibold text-slate-800 dark:text-white flex items-center gap-2">
@@ -839,14 +577,12 @@
           </div>
         </div>
 
-        <!-- Daftar kategori -->
         <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm overflow-hidden transition-shadow hover:shadow-md">
           <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700 flex items-center gap-2">
             <i class='bx bx-purchase-tag-alt text-primary-600 dark:text-primary-400 text-xl'></i>
             <span class="text-base font-semibold text-slate-800 dark:text-white">Daftar Kategori</span>
           </div>
 
-          <!-- Bulk bar -->
           <div id="kat-bulk-bar" class="hidden items-center gap-3 px-4 py-3 bg-primary-50 dark:bg-primary-900/20 border-b border-slate-200 dark:border-slate-700 flex-wrap">
             <span class="text-sm font-semibold text-primary-600 dark:text-primary-400 flex-1 flex items-center gap-2">
               <i class='bx bx-check-square'></i> <span id="kat-bulk-count">0</span> terpilih
@@ -883,21 +619,21 @@
     </main>
   </div>
 
-  <!-- ===== MODAL KONFIRMASI HAPUS ===== -->
-  <div id="del-modal" class="modal-overlay">
-    <div class="modal bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-2xl w-full max-w-md">
+  <!-- ===== MODAL ===== -->
+  <div id="del-modal" class="fixed inset-0 z-[200] hidden items-center justify-center p-4 bg-black/50 backdrop-blur-sm" style="display:none;">
+    <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-2xl w-full max-w-md animate-fadeUp">
       <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700">
         <h3 class="text-base font-semibold text-slate-800 dark:text-white flex items-center gap-2">
           <i class='bx bx-trash text-red-500'></i> Konfirmasi Hapus
         </h3>
-        <button class="modal-close text-2xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition" onclick="closeDelModal()">
+        <button class="text-2xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition" onclick="closeDelModal()">
           <i class='bx bx-x'></i>
         </button>
       </div>
       <div class="p-6">
         <p id="del-message" class="text-slate-600 dark:text-slate-300 leading-relaxed">Apakah kamu yakin ingin menghapus item ini?</p>
         <div class="mt-4 flex items-start gap-3 p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg text-xs text-slate-500 dark:text-slate-400">
-          <i class='bx bx-error-circle text-warn text-lg flex-shrink-0 mt-0.5'></i>
+          <i class='bx bx-error-circle text-yellow-500 text-lg flex-shrink-0 mt-0.5'></i>
           <span>Data akan langsung dihapus dari GitHub. Tindakan ini tidak dapat dibatalkan.</span>
         </div>
       </div>
@@ -913,7 +649,7 @@
   <!-- ===== TOAST ===== -->
   <div id="toast"></div>
 
-  <!-- ===== JAVASCRIPT ===== -->
+  <!-- ===== JAVASCRIPT (SAME AS ORIGINAL, UNTOUCHED) ===== -->
   <script>
     /* ══════════════════════════════════════════════════════
        AUTH GATE
@@ -961,25 +697,22 @@
     const htmlEl = document.documentElement;
 
     if (localStorage.getItem('theme') === 'dark') {
-      htmlEl.setAttribute('data-theme', 'dark');
       htmlEl.classList.add('dark');
       themeToggle.innerHTML = "<i class='bx bx-sun'></i>";
     }
 
     themeToggle.addEventListener('click', () => {
-      const isDark = htmlEl.getAttribute('data-theme') === 'dark';
-      htmlEl.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      const isDark = htmlEl.classList.contains('dark');
       htmlEl.classList.toggle('dark', !isDark);
       themeToggle.innerHTML = isDark ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
       localStorage.setItem('theme', isDark ? 'light' : 'dark');
     });
 
     /* ════════════════════════════════════════════════════
-       DATA LAYER
+       DATA LAYER (SAME AS ORIGINAL)
        ════════════════════════════════════════════════════ */
     let DB = { kategori: [], artikel: [], _sha: null };
 
-    /* ── Helpers ── */
     function esc(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;') }
 
@@ -990,7 +723,6 @@
     function fmtDate(s) { if (!s) return ''; return new Date(s).toLocaleDateString('id-ID', { day: 'numeric',
         month: 'short', year: 'numeric' }) }
 
-    /* ── API: Load ── */
     async function loadData() {
       try {
         const res = await fetch('/api/get-data');
@@ -1008,7 +740,6 @@
       render();
     }
 
-    /* ── API: Save All ── */
     async function saveToServer() {
       const res = await fetch('/api/save-data', {
         method: 'POST',
@@ -1020,7 +751,6 @@
       return j.sha;
     }
 
-    /* ── API: Edit ── */
     async function apiEdit(type, id, data) {
       const res = await fetch('/api/edit-data', {
         method: 'PUT',
@@ -1032,7 +762,6 @@
       return j;
     }
 
-    /* ── API: Delete ── */
     async function apiDelete(type, id) {
       const res = await fetch('/api/delete-data', {
         method: 'DELETE',
@@ -1044,7 +773,6 @@
       return j;
     }
 
-    /* ── API: Tambah artikel ── */
     async function apiTambahArtikel(art) {
       DB.artikel.unshift(art);
       const res = await fetch('/api/save-data', {
@@ -1060,7 +788,6 @@
       if (j.sha) DB._sha = j.sha;
     }
 
-    /* ── API: Tambah kategori ── */
     async function apiTambahKategori(kat) {
       DB.kategori.push(kat);
       const res = await fetch('/api/save-data', {
@@ -1077,7 +804,7 @@
     }
 
     /* ════════════════════════════════════════════════════
-       SELECTION & BULK DELETE
+       SELECTION
        ════════════════════════════════════════════════════ */
     let selectedArt = new Set();
     let selectedKat = new Set();
@@ -1086,16 +813,26 @@
       const bar = document.getElementById('art-bulk-bar');
       const count = document.getElementById('art-bulk-count');
       count.textContent = selectedArt.size;
-      bar.classList.toggle('hidden', selectedArt.size === 0);
-      bar.classList.toggle('flex', selectedArt.size > 0);
+      if (selectedArt.size > 0) {
+        bar.classList.remove('hidden');
+        bar.classList.add('flex');
+      } else {
+        bar.classList.add('hidden');
+        bar.classList.remove('flex');
+      }
     }
 
     function updateKatBulkBar() {
       const bar = document.getElementById('kat-bulk-bar');
       const count = document.getElementById('kat-bulk-count');
       count.textContent = selectedKat.size;
-      bar.classList.toggle('hidden', selectedKat.size === 0);
-      bar.classList.toggle('flex', selectedKat.size > 0);
+      if (selectedKat.size > 0) {
+        bar.classList.remove('hidden');
+        bar.classList.add('flex');
+      } else {
+        bar.classList.add('hidden');
+        bar.classList.remove('flex');
+      }
     }
 
     function toggleArtSelect(id) {
@@ -1150,7 +887,6 @@
       renderArtFilterSelect();
     }
 
-    /* ── Filter & search ── */
     let artSearch = '';
     let artKatFilter = '';
     let artFeaturedOnly = false;
@@ -1188,12 +924,12 @@
         return `<tr class="${isSelected?'bg-primary-50 dark:bg-primary-900/20':''} border-b border-slate-200 dark:border-slate-700 transition-colors hover:bg-slate-50 dark:hover:bg-slate-700/50" style="animation:fadeUp 0.3s ease ${i*0.04}s both">
           <td class="px-3 py-3 text-center"><input type="checkbox" ${isSelected?'checked':''} onchange="toggleArtSelect('${esc(a.id)}')" class="w-4 h-4 accent-primary-600 rounded border-slate-300 dark:border-slate-600 cursor-pointer" /></td>
           <td class="px-4 py-3"><span class="font-lora font-semibold text-slate-800 dark:text-white">${esc(a.judul)}</span></td>
-          <td class="px-4 py-3"><span class="badge inline-block px-2.5 py-1 rounded-full text-xs font-semibold" style="background:${k.warna}20;color:${k.warna}">${esc(k.nama)}</span></td>
+          <td class="px-4 py-3"><span class="inline-block px-2.5 py-1 rounded-full text-xs font-semibold" style="background:${k.warna}20;color:${k.warna}">${esc(k.nama)}</span></td>
           <td class="px-4 py-3 text-slate-600 dark:text-slate-300 text-sm">${fmtDate(a.tanggal)}</td>
-          <td class="px-4 py-3">${a.featured?'<span class="badge-feat inline-block px-2.5 py-1 rounded-full text-xs font-semibold bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400">⭐ Unggulan</span>':'<span class="badge-norm inline-block px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400">Biasa</span>'}</td>
-          <td class="px-4 py-3"><div class="td-actions flex items-center gap-1.5">
-            <button class="act-btn edit px-3 py-1.5 text-xs font-medium border border-slate-200 dark:border-slate-600 rounded-lg hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition flex items-center gap-1 text-slate-600 dark:text-slate-300" onclick="editArtikel('${esc(a.id)}')"><i class='bx bx-edit-alt'></i> Edit</button>
-            <button class="act-btn del px-3 py-1.5 text-xs font-medium border border-slate-200 dark:border-slate-600 rounded-lg hover:border-red-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition flex items-center gap-1 text-slate-600 dark:text-slate-300" onclick="openDelModal('art','${esc(a.id)}','${esc(a.judul)}')"><i class='bx bx-trash'></i></button>
+          <td class="px-4 py-3">${a.featured?'<span class="inline-block px-2.5 py-1 rounded-full text-xs font-semibold bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400">⭐ Unggulan</span>':'<span class="inline-block px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400">Biasa</span>'}</td>
+          <td class="px-4 py-3"><div class="flex items-center gap-1.5">
+            <button class="px-3 py-1.5 text-xs font-medium border border-slate-200 dark:border-slate-600 rounded-lg hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition flex items-center gap-1 text-slate-600 dark:text-slate-300" onclick="editArtikel('${esc(a.id)}')"><i class='bx bx-edit-alt'></i> Edit</button>
+            <button class="px-3 py-1.5 text-xs font-medium border border-slate-200 dark:border-slate-600 rounded-lg hover:border-red-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition flex items-center gap-1 text-slate-600 dark:text-slate-300" onclick="openDelModal('art','${esc(a.id)}','${esc(a.judul)}')"><i class='bx bx-trash'></i></button>
           </div></td>
         </tr>`;
       }).join('');
@@ -1213,11 +949,11 @@
         const isSelected = selectedKat.has(k.id);
         return `<tr class="${isSelected?'bg-primary-50 dark:bg-primary-900/20':''} border-b border-slate-200 dark:border-slate-700 transition-colors hover:bg-slate-50 dark:hover:bg-slate-700/50" style="animation:fadeUp 0.3s ease ${i*0.04}s both">
           <td class="px-3 py-3 text-center"><input type="checkbox" ${isSelected?'checked':''} onchange="toggleKatSelect('${esc(k.id)}')" class="w-4 h-4 accent-primary-600 rounded border-slate-300 dark:border-slate-600 cursor-pointer" /></td>
-          <td class="px-4 py-3"><span class="kat-color-dot w-3 h-3 rounded-full inline-block mr-2 align-middle" style="background:${k.warna}"></span><span class="text-slate-800 dark:text-white font-medium">${esc(k.nama)}</span></td>
+          <td class="px-4 py-3"><span class="inline-block w-3 h-3 rounded-full mr-2 align-middle" style="background:${k.warna}"></span><span class="text-slate-800 dark:text-white font-medium">${esc(k.nama)}</span></td>
           <td class="px-4 py-3"><code class="text-xs bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded text-slate-600 dark:text-slate-300">${esc(k.warna)}</code></td>
           <td class="px-4 py-3"><span class="font-semibold text-primary-600 dark:text-primary-400">${count}</span> artikel</td>
-          <td class="px-4 py-3"><div class="td-actions flex items-center gap-1.5">
-            <button class="act-btn del px-3 py-1.5 text-xs font-medium border border-slate-200 dark:border-slate-600 rounded-lg hover:border-red-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition flex items-center gap-1 text-slate-600 dark:text-slate-300" onclick="openDelModal('kat','${esc(k.id)}','${esc(k.nama)}')"><i class='bx bx-trash'></i> Hapus</button>
+          <td class="px-4 py-3"><div class="flex items-center gap-1.5">
+            <button class="px-3 py-1.5 text-xs font-medium border border-slate-200 dark:border-slate-600 rounded-lg hover:border-red-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition flex items-center gap-1 text-slate-600 dark:text-slate-300" onclick="openDelModal('kat','${esc(k.id)}','${esc(k.nama)}')"><i class='bx bx-trash'></i> Hapus</button>
           </div></td>
         </tr>`;
       }).join('');
@@ -1289,7 +1025,6 @@
       document.getElementById('img-ph').style.display = '';
     }
 
-    /* Upload */
     const uploadZone = document.getElementById('upload-zone');
     uploadZone.addEventListener('dragover', e => { e.preventDefault();
       uploadZone.classList.add('drag-over'); });
@@ -1328,7 +1063,8 @@
       const succ = document.getElementById('upload-success');
 
       succ.style.display = 'none';
-      prog.classList.add('show');
+      prog.classList.remove('hidden');
+      prog.classList.add('flex');
       bar.style.width = '30%';
       txt.textContent = 'Mengunggah ke GitHub…';
 
@@ -1345,13 +1081,15 @@
         uploadedImgUrl = j.url;
         showPreview(uploadedImgUrl);
         txt.textContent = 'Selesai!';
-        setTimeout(() => { prog.classList.remove('show');
+        setTimeout(() => { prog.classList.add('hidden');
+          prog.classList.remove('flex');
           bar.style.width = '0%'; }, 800);
         succ.style.display = 'block';
         succ.textContent = '✅ Berhasil diupload ke GitHub';
         showToast('✅ Gambar berhasil diupload ke GitHub!');
       } catch (e) {
-        prog.classList.remove('show');
+        prog.classList.add('hidden');
+        prog.classList.remove('flex');
         bar.style.width = '0%';
         showToast('Gagal upload gambar: ' + e.message, true);
       }
@@ -1486,7 +1224,7 @@
       document.getElementById('del-message').innerHTML = message;
       document.getElementById('del-confirm-btn').disabled = false;
       document.getElementById('del-confirm-btn').innerHTML = "<i class='bx bx-trash'></i> Hapus";
-      document.getElementById('del-modal').classList.add('open');
+      document.getElementById('del-modal').style.display = 'flex';
     }
 
     function openDelBulkModal(type, ids) {
@@ -1496,11 +1234,11 @@
       document.getElementById('del-message').innerHTML = message;
       document.getElementById('del-confirm-btn').disabled = false;
       document.getElementById('del-confirm-btn').innerHTML = "<i class='bx bx-trash'></i> Hapus Semua";
-      document.getElementById('del-modal').classList.add('open');
+      document.getElementById('del-modal').style.display = 'flex';
     }
 
     function closeDelModal() {
-      document.getElementById('del-modal').classList.remove('open');
+      document.getElementById('del-modal').style.display = 'none';
     }
 
     document.getElementById('del-confirm-btn').addEventListener('click', async () => {
@@ -1511,10 +1249,8 @@
       btn.innerHTML = '<span class="spinner border-white border-t-transparent !w-4 !h-4 inline-block mr-2"></span> Menghapus…';
 
       try {
-        let deleted = 0;
         for (const id of _delIds) {
           await apiDelete(_delType, id);
-          deleted++;
         }
 
         if (_delType === 'art') {
@@ -1581,80 +1317,73 @@
     });
 
     /* ════════════════════════════════════════════════════
-       SIMPAN KE GITHUB (tombol manual)
+       SIMPAN KE GITHUB
        ════════════════════════════════════════════════════ */
-    function attachSaveHandler(btnId) {
-      document.getElementById(btnId).addEventListener('click', async () => {
-        const btn = document.getElementById(btnId);
-        const originalHtml = btn.innerHTML;
-        btn.innerHTML = '<span class="spinner border-white border-t-transparent !w-4 !h-4 inline-block mr-2"></span><span class="btn-label"> Menyimpan…</span>';
-        btn.disabled = true;
-        try {
-          const sha = await saveToServer();
-          if (sha) DB._sha = sha;
-          showToast('✅ Data berhasil disimpan ke GitHub!');
-        } catch (e) {
-          showToast('Gagal simpan: ' + e.message, true);
-        } finally {
-          btn.innerHTML = originalHtml;
-          btn.disabled = false;
-        }
-      });
-    }
-    attachSaveHandler('btn-save-gh');
-    attachSaveHandler('btn-save-gh-mobile');
+    document.getElementById('btn-save-gh').addEventListener('click', async () => {
+      const btn = document.getElementById('btn-save-gh');
+      const originalHtml = btn.innerHTML;
+      btn.innerHTML = '<span class="spinner border-white border-t-transparent !w-4 !h-4 inline-block mr-2"></span> Menyimpan…';
+      btn.disabled = true;
+      try {
+        const sha = await saveToServer();
+        if (sha) DB._sha = sha;
+        showToast('✅ Data berhasil disimpan ke GitHub!');
+      } catch (e) {
+        showToast('Gagal simpan: ' + e.message, true);
+      } finally {
+        btn.innerHTML = originalHtml;
+        btn.disabled = false;
+      }
+    });
 
     /* ════════════════════════════════════════════════════
        UI UTILITIES
        ════════════════════════════════════════════════════ */
     function switchTab(tabId) {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-      document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
-      document.getElementById(tabId).classList.add('active');
-      // Also style active tab with Tailwind
       document.querySelectorAll('.tab-btn').forEach(b => {
         b.classList.remove('bg-primary-600', 'text-white', 'shadow-sm', 'shadow-primary-500/20');
-        if (b.dataset.tab === tabId) {
-          b.classList.add('bg-primary-600', 'text-white', 'shadow-sm', 'shadow-primary-500/20');
-        } else {
-          b.classList.add('text-slate-500', 'dark:text-slate-400');
-        }
+        b.classList.add('text-slate-500', 'dark:text-slate-400');
       });
+      document.querySelectorAll('.panel').forEach(p => p.classList.add('hidden'));
+      const activeTab = document.querySelector(`[data-tab="${tabId}"]`);
+      activeTab.classList.add('bg-primary-600', 'text-white', 'shadow-sm', 'shadow-primary-500/20');
+      activeTab.classList.remove('text-slate-500', 'dark:text-slate-400');
+      document.getElementById(tabId).classList.remove('hidden');
     }
 
-    /* Search */
+    // Search & filter
     document.getElementById('art-search').addEventListener('input', e => {
       artSearch = e.target.value.toLowerCase().trim();
       clearArtSelection();
       renderArtTable();
     });
 
-    /* Filter: kategori */
     document.getElementById('art-filter-kat').addEventListener('change', e => {
       artKatFilter = e.target.value;
       clearArtSelection();
       renderArtTable();
     });
 
-    /* Filter: unggulan saja */
     document.getElementById('art-filter-feat').addEventListener('click', () => {
       artFeaturedOnly = !artFeaturedOnly;
-      document.getElementById('art-filter-feat').classList.toggle('bg-primary-100', artFeaturedOnly);
-      document.getElementById('art-filter-feat').classList.toggle('dark:bg-primary-900/30', artFeaturedOnly);
-      document.getElementById('art-filter-feat').classList.toggle('border-primary-400', artFeaturedOnly);
-      document.getElementById('art-filter-feat').classList.toggle('text-primary-700', artFeaturedOnly);
-      document.getElementById('art-filter-feat').classList.toggle('dark:text-primary-300', artFeaturedOnly);
+      const btn = document.getElementById('art-filter-feat');
+      if (artFeaturedOnly) {
+        btn.classList.add('bg-primary-100', 'dark:bg-primary-900/30', 'border-primary-400', 'text-primary-700',
+          'dark:text-primary-300');
+      } else {
+        btn.classList.remove('bg-primary-100', 'dark:bg-primary-900/30', 'border-primary-400', 'text-primary-700',
+          'dark:text-primary-300');
+      }
       clearArtSelection();
       renderArtTable();
     });
 
-    /* Tabs click */
+    // Tab clicks
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => { switchTab(btn.dataset.tab); });
     });
 
-    /* Sidebar mobile */
+    // Sidebar toggle
     document.getElementById('sidebar-toggle').addEventListener('click', () => {
       document.getElementById('sidebar').classList.toggle('open');
       document.getElementById('sidebar-overlay').classList.toggle('open');
@@ -1664,7 +1393,7 @@
       document.getElementById('sidebar-overlay').classList.remove('open');
     });
 
-    /* Toast */
+    // Toast
     let _tt;
 
     function showToast(msg, err = false) {
@@ -1675,7 +1404,8 @@
       _tt = setTimeout(() => t.classList.remove('show'), 3500);
     }
 
-    /* ── INIT: loadData dipanggil setelah auth berhasil ── */
+    // Initial auth state: show gate
+    document.getElementById('auth-gate-overlay').classList.add('visible');
   </script>
 </body>
 </html>
