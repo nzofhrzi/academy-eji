@@ -1,559 +1,656 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="light">
+<html lang="id" data-theme="light" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Panel – Academy Eji</title>
-  
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-  
-  <!-- Boxicons -->
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin Panel – Academy Eji</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Tailwind CSS Configuration -->
-  <script>
-    tailwind.config = {
-      darkMode: ['selector', '[data-theme="dark"]'],
-      theme: {
-        extend: {
-          fontFamily: {
-            sora: ['Sora', 'sans-serif'],
-            lora: ['Lora', 'serif'],
-          },
-          colors: {
-            primary: {
-              DEFAULT: '#2563eb',
-              light: '#eff6ff',
-              dark: '#1d4ed8',
-            },
-            accent: '#f97316',
-            success: '#10b981',
-            warn: '#f59e0b',
-            danger: '#ef4444',
-          },
-          keyframes: {
-            fadeUp: {
-              '0%': { opacity: '0', transform: 'translateY(16px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            },
-            fadeOverlay: {
-              '0%': { opacity: '0' },
-              '100%': { opacity: '1' },
-            },
-            slideModal: {
-              '0%': { opacity: '0', transform: 'translateY(24px) scale(0.97)' },
-              '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
-            }
-          },
-          animation: {
-            fadeUp: 'fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-            fadeOverlay: 'fadeOverlay 0.25s ease forwards',
-            slideModal: 'slideModal 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-          }
-        }
-      }
-    }
-  </script>
+<!-- ── TAILWIND CSS ── -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sora: ["Sora", "sans-serif"],
+          sans: ["Sora", "sans-serif"],
+          lora: ["Lora", "serif"],
+        },
+        colors: {
+          primary: "#2563eb",
+          "primary-dark": "#1d4ed8",
+          "primary-light": "var(--primary-light)",
+          accent: "#f97316",
+          success: "#10b981",
+          warn: "#f59e0b",
+          danger: "#ef4444",
+          bg: "var(--bg)",
+          surface: "var(--surface)",
+          surface2: "var(--surface2)",
+          border: "var(--border)",
+          ink: "var(--ink)",
+          ink2: "var(--ink2)",
+          ink3: "var(--ink3)",
+          ink4: "var(--ink4)",
+        },
+        boxShadow: {
+          sm2: "0 1px 3px rgba(0,0,0,.05), 0 1px 2px rgba(0,0,0,.03)",
+          md2: "0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -1px rgba(0,0,0,.03)",
+          lg2: "0 10px 25px -3px rgba(0,0,0,.08), 0 4px 6px -2px rgba(0,0,0,.04)",
+        },
+      },
+    },
+  };
+</script>
 
-  <style>
-    /* Custom Scrollbar Styles */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 99px;
-    }
-    [data-theme="dark"] ::-webkit-scrollbar-thumb {
-      background: #334155;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
-    }
+<style type="text/tailwindcss">
+  /* ── THEME TOKENS ── */
+  :root {
+    --primary-light: #eff6ff;
+    --bg: #f3f4f6; --surface: #ffffff; --surface2: #f8fafc; --border: #e2e8f0;
+    --ink: #0f172a; --ink2: #334155; --ink3: #64748b; --ink4: #94a3b8;
+  }
+  [data-theme="dark"] {
+    --primary-light: #1e3a8a;
+    --bg: #0f172a; --surface: #1e293b; --surface2: #334155; --border: #334155;
+    --ink: #f8fafc; --ink2: #cbd5e1; --ink3: #94a3b8; --ink4: #64748b;
+  }
+  [data-theme="dark"] #topbar { background: rgba(30,41,59,0.85); }
+  #topbar { background: rgba(255,255,255,0.85); }
 
-    /* Mobile Responsive Card Tables */
-    @media (max-width: 640px) {
-      .table-responsive table thead { display: none; }
-      .table-responsive table, .table-responsive table tbody, .table-responsive table tr, .table-responsive table td { display: block; width: 100%; }
-      .table-responsive table tr { padding: 14px 16px; margin-bottom: 8px; border-bottom: 1px solid rgba(226, 232, 240, 0.8); }
-      [data-theme="dark"] .table-responsive table tr { border-bottom-color: rgba(51, 65, 85, 0.8); }
-      .table-responsive table td {
-        padding: 4px 0; border: none;
-        display: flex; align-items: center; justify-content: space-between; gap: 10px;
-      }
-      .table-responsive table td:first-child {
-        display: block; font-size: 14px; font-weight: 600; padding-bottom: 8px; font-family: 'Lora', serif;
-      }
-      .table-responsive table td:last-child {
-        justify-content: flex-end; margin-top: 8px; padding-top: 10px;
-        border-top: 1px dashed #e2e8f0;
-      }
-      [data-theme="dark"] .table-responsive table td:last-child { border-top-color: #334155; }
-      .table-responsive table td:last-child .td-actions { width: 100%; justify-content: flex-end; }
-      #art-table tbody td:nth-child(3)::before { content: "Kategori"; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; }
-      #art-table tbody td:nth-child(4)::before { content: "Tanggal"; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; }
-      #art-table tbody td:nth-child(5)::before { content: "Status"; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; }
-      #kat-table tbody td:nth-child(3)::before { content: "Warna"; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; }
-      #kat-table tbody td:nth-child(4)::before { content: "Artikel"; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; }
-    }
-  </style>
+  /* ── RAW KEYFRAMES (dipakai via `animation:` inline & class, aman dari tree-shaking) ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes fadeOverlay { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideModal { from { transform: translateY(24px) scale(.97); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+  @keyframes slideSheet { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  }
+
+  /* ── NAV / SIDEBAR ── */
+  .nav-item { @apply flex items-center gap-3 px-4 py-2.5 my-1 mx-3 rounded-[10px] text-ink2 text-sm font-medium no-underline transition-all duration-300 min-h-11; }
+  .nav-item:hover { @apply bg-surface2 text-ink translate-x-1; }
+  .nav-item.active { @apply bg-primary-light text-primary font-semibold; }
+
+  /* ── BUTTONS ── */
+  .icon-btn { @apply w-[38px] h-[38px] rounded-full border border-border bg-surface text-ink2 flex items-center justify-center text-[19px] cursor-pointer transition-all duration-300 shrink-0; }
+  .icon-btn:hover { @apply bg-bg text-primary -translate-y-0.5; }
+
+  .topbar-btn { @apply inline-flex items-center gap-2 px-[18px] py-[9px] rounded-lg font-sora text-[13px] font-semibold cursor-pointer border-none transition-all duration-300 no-underline whitespace-nowrap min-h-11; }
+  .btn-ghost { @apply bg-transparent text-ink2 border border-border; }
+  .btn-ghost:hover { @apply bg-surface2 text-ink; }
+  .btn-primary { @apply bg-primary text-white; }
+  .btn-primary:hover { @apply bg-primary-dark -translate-y-0.5 shadow-[0_4px_12px_rgba(37,99,235,0.3)]; }
+  .btn-danger { @apply bg-danger text-white; }
+  .btn-danger:hover { @apply bg-red-600 -translate-y-0.5; }
+  .btn-success { @apply bg-success text-white; }
+  .btn-success:hover { @apply bg-emerald-600; }
+
+  /* ── STATS ── */
+  .stat-card { @apply bg-surface border border-border rounded-xl p-[18px] flex items-center gap-3.5 shadow-sm2 transition-all duration-300 opacity-0; animation: fadeUp .5s ease forwards; }
+  .stat-card:hover { @apply -translate-y-[5px] shadow-md2; }
+
+  /* ── TABS ── */
+  .tabs { @apply flex gap-1 mb-5 bg-surface border border-border rounded-xl p-1 w-fit max-w-full overflow-x-auto no-scrollbar shadow-sm2 opacity-0; animation: fadeUp .5s ease .2s forwards; }
+  .tab-btn { @apply px-5 py-2.5 rounded-[9px] border-none bg-transparent font-sora text-[13px] font-medium cursor-pointer text-ink3 transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap shrink-0; }
+  .tab-btn.active { @apply bg-primary text-white shadow-[0_2px_8px_rgba(37,99,235,0.25)]; }
+  .tab-btn:not(.active):hover { @apply bg-surface2 text-ink; }
+
+  /* ── PANEL ── */
+  .panel { @apply hidden; }
+  .panel.active { @apply block; animation: fadeUp .3s ease; }
+
+  /* ── FORM CARD ── */
+  .form-card { @apply bg-surface border border-border rounded-xl shadow-sm2 overflow-hidden mb-6 transition-shadow duration-300; }
+  .form-card:hover { @apply shadow-md2; }
+  .form-card-header { @apply px-5 sm:px-6 py-[18px] border-b border-border flex items-center justify-between gap-2 bg-surface; }
+  .form-card-header h3 { @apply text-[15px] font-semibold text-ink flex items-center gap-2; }
+  .form-card-header h3 i { @apply text-primary; }
+  .form-card-body { @apply p-4 sm:p-6; }
+  .form-row { @apply grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4; }
+  .form-row.full { @apply grid-cols-1; }
+  .form-group { @apply flex flex-col gap-1.5; }
+  .form-label { @apply text-xs font-semibold text-ink2 tracking-wide; }
+  .form-label .req { @apply text-danger; }
+  .form-control { @apply px-3.5 py-2.5 border-[1.5px] border-border rounded-lg font-sora text-[13px] text-ink bg-surface outline-none transition-all duration-300 w-full placeholder:text-ink4; }
+  .form-control:focus { @apply border-primary ring-4 ring-primary/10; }
+  textarea.form-control { @apply resize-y min-h-[110px] leading-relaxed; }
+  select.form-control { @apply cursor-pointer; }
+  .form-hint { @apply text-[11px] text-ink4 mt-0.5; }
+  .form-actions { @apply flex items-center gap-2.5 px-4 sm:px-6 py-4 border-t border-border bg-surface2 flex-wrap sticky bottom-0; }
+
+  /* ── TOGGLE SWITCH (native :checked, tidak butuh JS) ── */
+  .toggle { @apply relative inline-block w-11 h-6 shrink-0; }
+  .toggle input { @apply opacity-0 w-0 h-0; }
+  .toggle-slider { @apply absolute inset-0 bg-border rounded-full cursor-pointer transition-colors duration-200; }
+  .toggle-slider::before { content: ''; @apply absolute w-[18px] h-[18px] left-[3px] top-[3px] bg-white rounded-full transition-transform duration-200 shadow-[0_1px_4px_rgba(0,0,0,0.2)]; }
+  .toggle input:checked + .toggle-slider { @apply bg-primary; }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(20px); }
+  .toggle-label { @apply text-[13px] font-medium text-ink2; }
+
+  /* ── IMAGE PREVIEW ── */
+  .img-preview-wrap { @apply border-2 border-dashed border-border rounded-[10px] overflow-hidden h-40 flex items-center justify-center bg-surface2 transition-all duration-300 relative; }
+  .img-preview-wrap:hover { @apply border-primary; }
+  .img-preview-wrap img { @apply w-full h-full object-cover; }
+  .img-preview-ph { @apply text-ink4 text-[13px] text-center p-4; }
+  .img-preview-ph .icon { @apply text-[32px] mb-2 opacity-40; }
+
+  /* ── TABLE ── */
+  .table-wrap { @apply bg-surface border border-border rounded-xl shadow-sm2 overflow-hidden transition-shadow duration-300; }
+  .table-wrap:hover { @apply shadow-md2; }
+  .table-toolbar { @apply flex items-center justify-between px-4 sm:px-5 py-4 border-b border-border gap-2.5 flex-wrap; }
+  .search-box { @apply flex items-center gap-2 bg-bg border border-border rounded-full px-3.5 py-2 transition-all duration-300; }
+  .search-box:focus-within { @apply border-primary ring-4 ring-primary/10 bg-surface; }
+  .search-box input { @apply border-none bg-transparent font-sora text-[13px] text-ink outline-none w-[180px] placeholder:text-ink4; }
+  .search-box i { @apply text-ink4 text-lg; }
+
+  .bulk-action-bar { @apply hidden items-center gap-3 px-4 sm:px-5 py-3 bg-primary-light border-y border-border; }
+  .bulk-action-bar.show { @apply flex; }
+  .bulk-count { @apply text-[13px] font-semibold text-primary flex-1 flex items-center gap-1.5; }
+  .bulk-actions { @apply flex items-center gap-2 flex-wrap; }
+
+  .filter-bar { @apply flex items-center gap-2 px-4 sm:px-5 py-3 border-b border-border bg-surface2 flex-wrap; }
+  .filter-bar .form-control { @apply py-[7px] px-3 text-xs w-auto min-w-[150px]; }
+  .filter-label { @apply text-[11px] font-semibold text-ink4 uppercase tracking-wide flex items-center gap-1 shrink-0; }
+  .chip { @apply inline-flex items-center gap-1.5 px-3.5 py-[7px] rounded-full border-[1.5px] border-border bg-surface font-sora text-xs font-semibold text-ink3 cursor-pointer transition-all duration-300 whitespace-nowrap; }
+  .chip i { @apply text-[15px]; }
+  .chip.active { @apply bg-accent text-white border-accent; }
+  .chip:not(.active):hover { @apply bg-bg text-ink; }
+
+  .checkbox-cell { @apply !px-4 py-3; }
+  .checkbox-cell input[type="checkbox"] { @apply w-[18px] h-[18px] cursor-pointer rounded border-[1.5px] border-border; accent-color: var(--primary); }
+
+  .table-scroll { @apply max-h-[60vh] overflow-y-auto overflow-x-auto thin-scrollbar; }
+  .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .thin-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+  .thin-scrollbar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+  table { @apply w-full border-collapse; }
+  thead th { @apply px-4 py-[11px] text-left text-[11px] font-semibold text-ink3 uppercase tracking-wider bg-surface2 border-b border-border sticky top-0 z-[2]; }
+  .checkbox-th { @apply !w-10 !px-3 !text-center; }
+  tbody tr { @apply border-b border-border transition-colors duration-150; }
+  tbody tr:last-child { @apply border-b-0; }
+  tbody tr:hover { @apply bg-surface2; }
+  tbody tr.selected { background: rgba(37,99,235,0.08); }
+  tbody td { @apply px-4 py-3 text-[13px] text-ink2 align-middle; }
+  .td-title { @apply font-medium text-ink font-lora; }
+  .td-actions { @apply flex items-center gap-1.5; }
+  .act-btn { @apply px-3 py-[6px] rounded-[7px] border border-border bg-surface font-sora text-xs font-medium cursor-pointer transition-all duration-300 text-ink2 inline-flex items-center gap-1; }
+  .act-btn:hover { @apply bg-surface2; }
+  .act-btn.edit:hover { @apply border-primary text-primary bg-primary-light; }
+  .act-btn.del:hover { @apply border-danger text-danger; background: #fef2f2; }
+  [data-theme="dark"] .act-btn.del:hover { background: rgba(239,68,68,0.1); }
+  .act-btn:disabled { @apply opacity-50 cursor-not-allowed; }
+
+  .badge { @apply px-[9px] py-[3px] rounded-full text-[10px] font-semibold tracking-wide; }
+  .badge-feat { background: #fff7ed; color: var(--accent); }
+  .badge-norm { @apply bg-surface2 text-ink3; }
+  [data-theme="dark"] .badge-feat { background: rgba(249,115,22,0.15); }
+
+  .kat-color-dot { @apply w-3 h-3 rounded-full inline-block mr-1.5 align-middle shrink-0; }
+
+  .spinner { @apply inline-block w-3.5 h-3.5 rounded-full align-middle; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; animation: spin .6s linear infinite; }
+
+  /* ── MODAL / BOTTOM SHEET (mobile praktis) ── */
+  .modal-overlay { @apply fixed inset-0 z-[200] hidden items-end sm:items-center justify-center p-0 sm:p-5 bg-black/55; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .modal-overlay.open { display: flex; animation: fadeOverlay .25s ease; }
+  .modal { @apply bg-surface w-full sm:max-w-[500px] rounded-t-[20px] sm:rounded-[20px] border border-border shadow-lg2; animation: slideSheet .3s cubic-bezier(.4,0,.2,1); }
+  @media (min-width: 640px) { .modal { animation: slideModal .28s cubic-bezier(.4,0,.2,1); } }
+  .modal-header { @apply px-5 sm:px-6 py-[18px] border-b border-border flex items-center justify-between; }
+  .modal-header h3 { @apply text-[15px] font-semibold text-ink flex items-center gap-2; }
+  .modal-close { @apply bg-transparent border-none text-[22px] cursor-pointer text-ink4 leading-none p-1.5 rounded-lg transition-all duration-300; }
+  .modal-close:hover { @apply bg-bg text-ink; }
+  .modal-body { @apply p-5 sm:p-6; }
+  .modal-footer { @apply px-5 sm:px-6 py-4 border-t border-border flex gap-2.5 justify-end bg-surface2 rounded-b-none sm:rounded-b-[20px] flex-wrap; padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
+  .color-picker-wrap { @apply flex items-center gap-2.5; }
+  .color-picker-wrap input[type=color] { @apply w-[42px] h-9 border-[1.5px] border-border rounded-lg cursor-pointer p-0.5 bg-surface; }
+
+  /* ── IMAGE PICKER TABS ── */
+  .img-source-tabs { @apply flex border-[1.5px] border-border rounded-lg overflow-hidden w-fit mb-2.5; }
+  .img-src-tab { @apply px-4 py-2 border-none bg-transparent font-sora text-xs font-medium text-ink3 cursor-pointer transition-all duration-300 flex items-center gap-1.5; }
+  .img-src-tab.active { @apply bg-primary text-white; }
+  .img-src-tab:not(.active):hover { @apply bg-surface2 text-ink; }
+  .img-source-panel { @apply hidden; }
+  .img-source-panel.active { @apply block; }
+  .upload-zone { @apply border-2 border-dashed border-border rounded-[10px] py-5 px-3.5 text-center cursor-pointer transition-all duration-300 bg-surface2 relative; }
+  .upload-zone:hover, .upload-zone.drag-over { @apply border-primary bg-primary-light; }
+  .upload-zone input[type=file] { @apply absolute inset-0 opacity-0 cursor-pointer w-full h-full; }
+  .upload-zone .uz-icon { @apply text-[28px] mb-2 text-ink4; }
+  .upload-zone .uz-text { @apply text-xs text-ink3 leading-relaxed; }
+  .upload-zone .uz-hint { @apply text-[11px] text-ink4 mt-1; }
+  .upload-progress { @apply mt-2 hidden items-center gap-2.5 px-3 py-2 bg-primary-light rounded-lg border border-blue-200; }
+  .upload-progress.show { @apply flex; }
+  .progress-bar-wrap { @apply flex-1 h-1.5 bg-blue-100 rounded-full overflow-hidden; }
+  .progress-bar { @apply h-full bg-primary rounded-full transition-all duration-300; width: 0%; }
+  .progress-text { @apply text-[11px] text-primary font-medium whitespace-nowrap; }
+
+  /* ── TOAST ── */
+  #toast {
+    @apply fixed left-4 right-4 sm:left-auto bg-ink text-white px-5 py-3.5 rounded-xl text-[13px] z-[999] hidden shadow-lg2 max-w-[340px] mx-auto font-medium;
+    right: 1rem; bottom: calc(20px + env(safe-area-inset-bottom));
+    border-left: 4px solid var(--success);
+    transform: translateY(20px); opacity: 0;
+    transition: transform .3s ease, opacity .3s ease;
+  }
+  #toast.show { display: block; transform: translateY(0); opacity: 1; }
+  #toast.err { border-left-color: var(--danger); }
+
+  .empty-row td { @apply text-center py-12 px-4 text-ink4 text-sm; }
+
+  .section-divider { @apply flex items-center gap-3 my-6 first:mt-0; }
+  .section-divider h4 { @apply text-[13px] font-semibold text-ink3 whitespace-nowrap; }
+  .section-divider::after { content: ''; @apply flex-1 h-px bg-border; }
+
+  /* ── AUTH GATE ── */
+  #auth-gate-overlay { @apply hidden fixed inset-0 z-[200] bg-bg items-center justify-center p-4; }
+  #auth-gate-overlay.visible { @apply flex; }
+  .auth-card { @apply bg-surface border border-border rounded-[20px] p-8 sm:p-10 shadow-lg2 text-center w-full max-w-[420px]; }
+  .auth-icon { @apply text-[52px] text-primary mb-4; }
+  .auth-title { @apply font-lora text-[22px] font-bold text-ink mb-2; }
+  .auth-sub { @apply text-[13px] text-ink3 mb-6 leading-relaxed; }
+  .auth-input { @apply w-full px-4 py-3 border-[1.5px] border-border rounded-[10px] font-sora text-sm bg-surface text-ink outline-none transition-colors duration-200 mb-3; }
+  .auth-input:focus { @apply border-primary ring-4 ring-primary/15; }
+  .auth-error { @apply text-xs text-danger mb-3 hidden text-left px-3 py-2 rounded-lg; background: #fef2f2; }
+
+  /* ── RESPONSIVE TABLE → CARD LIST (Android/ponsel) ── */
+  @media (max-width: 640px) {
+    .table-scroll table thead { display: none; }
+    .table-scroll table, .table-scroll table tbody, .table-scroll table tr, .table-scroll table td { display: block; width: 100%; }
+    .table-scroll table tr { padding: 14px 16px; }
+    .table-scroll table tr:hover { background: none; }
+    .table-scroll table td { padding: 4px 0; border: none; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .table-scroll table td:first-child { display: block; font-size: 14px; font-weight: 600; color: var(--ink); padding-top: 2px; padding-bottom: 8px; font-family: 'Lora', serif; }
+    .table-scroll table td:last-child { justify-content: flex-end; margin-top: 10px; padding-top: 12px; border-top: 1px dashed var(--border); }
+    .table-scroll table td:last-child .td-actions { width: 100%; justify-content: flex-end; }
+    .table-scroll table td:last-child .act-btn { min-height: 38px; padding: 8px 14px; }
+    #art-table tbody td:nth-child(3)::before { content: "Kategori"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
+    #art-table tbody td:nth-child(4)::before { content: "Tanggal"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
+    #art-table tbody td:nth-child(5)::before { content: "Status"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
+    #kat-table tbody td:nth-child(3)::before { content: "Warna"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
+    #kat-table tbody td:nth-child(4)::before { content: "Artikel"; font-size: 11px; font-weight: 600; color: var(--ink4); text-transform: uppercase; letter-spacing: 0.05em; }
+  }
+
+  /* Sidebar slide (mobile) */
+  #sidebar.open { transform: translateX(0) !important; box-shadow: 0 10px 25px -3px rgba(0,0,0,.1), 0 4px 6px -2px rgba(0,0,0,.05); }
+  #sidebar-overlay.open { display: block; }
+</style>
 </head>
-
-<body class="font-sora bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex antialiased selection:bg-blue-500 selection:text-white transition-colors duration-300">
+<body class="font-sora bg-bg text-ink min-h-screen flex text-[14px] antialiased transition-colors duration-300 selection:bg-primary/20 selection:text-primary">
 
 <!-- AUTH GATE OVERLAY -->
-<div id="auth-gate-overlay" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md hidden justify-center items-center p-4 transition-all duration-300 visible">
-  <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 sm:p-10 shadow-2xl text-center w-full max-w-md animate-slideModal">
-    <div class="w-16 h-16 bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5 shadow-inner">
-      <i class='bx bx-lock-alt'></i>
-    </div>
-    <h2 class="font-lora text-2xl font-bold text-slate-900 dark:text-white mb-2">Admin Panel</h2>
-    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
-      Masukkan Admin Key untuk mengakses panel. Key dikonfigurasi via environment variable <code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-blue-600 dark:text-blue-400 font-mono text-xs">ADMIN_KEY</code> di Vercel.
-    </p>
-    <div class="hidden text-xs text-red-600 dark:text-red-400 mb-4 text-left p-3 bg-red-50 dark:bg-red-950/40 rounded-xl border border-red-200 dark:border-red-900/50" id="auth-gate-error">
-      <i class='bx bx-error-circle mr-1'></i> Admin key salah atau tidak valid.
-    </div>
-    <input type="password" id="auth-gate-input" class="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl font-sora text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 mb-4" placeholder="Masukkan Admin Key..." autocomplete="current-password" />
-    <button class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/30 active:scale-[0.99]" id="auth-gate-btn" onclick="submitAdminGate()">
-      <i class='bx bx-log-in text-lg'></i> Masuk
+<div id="auth-gate-overlay" class="visible">
+  <div class="auth-card">
+    <div class="auth-icon"><i class='bx bx-lock-alt'></i></div>
+    <div class="auth-title">Admin Panel</div>
+    <p class="auth-sub">Masukkan Admin Key untuk mengakses panel. Key dikonfigurasi via environment variable <code>ADMIN_KEY</code> di Vercel.</p>
+    <div class="auth-error" id="auth-gate-error"><i class='bx bx-error-circle'></i> Admin key salah atau tidak valid.</div>
+    <input type="password" id="auth-gate-input" class="auth-input" placeholder="Masukkan Admin Key..." autocomplete="current-password" />
+    <button class="topbar-btn btn-primary" style="width:100%;justify-content:center;font-size:14px;padding:12px;" id="auth-gate-btn" onclick="submitAdminGate()">
+      <i class='bx bx-log-in'></i> Masuk
     </button>
   </div>
 </div>
 
 <!-- SIDEBAR -->
-<nav id="sidebar" class="fixed top-0 left-0 z-40 h-screen w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0">
-  <!-- Logo -->
-  <div class="h-16 flex items-center gap-3 px-6 border-b border-slate-200 dark:border-slate-800 flex-shrink-0">
-    <div class="w-9 h-9 bg-gradient-to-tr from-blue-600 to-blue-400 rounded-xl flex items-center justify-center text-white text-xl shadow-md shadow-blue-500/30 flex-shrink-0">
+<nav id="sidebar" class="fixed top-0 left-0 z-50 h-screen w-[260px] bg-surface border-r border-border flex flex-col -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
+  <div class="h-16 flex items-center gap-3 px-6 border-b border-border shrink-0">
+    <div class="w-9 h-9 rounded-[10px] bg-gradient-to-br from-primary to-sky-400 flex items-center justify-center text-white text-xl shrink-0 shadow-[0_4px_10px_rgba(37,99,235,0.3)]">
       <i class='bx bxs-graduation'></i>
     </div>
-    <div class="text-lg font-bold text-slate-900 dark:text-white tracking-tight">Academy<span class="text-blue-600 dark:text-blue-400">Eji.</span></div>
+    <div class="text-lg font-bold text-ink tracking-tight">Academy<span class="text-primary">Eji.</span></div>
   </div>
 
-  <!-- User Profile -->
-  <div class="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
+  <div class="px-5 py-4 border-b border-border shrink-0">
     <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-sky-400 flex items-center justify-center text-white text-xl shadow-sm flex-shrink-0">
+      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-sky-400 flex items-center justify-center text-lg text-white shrink-0 shadow-[0_2px_8px_rgba(37,99,235,0.25)]">
         <i class='bx bxs-user'></i>
       </div>
-      <div class="flex flex-col min-w-0">
-        <span class="text-xs font-semibold text-slate-900 dark:text-white truncate">Admin Eji</span>
-        <span class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Super Admin</span>
+      <div class="flex flex-col">
+        <span class="text-[13px] font-semibold text-ink">Admin Eji</span>
+        <span class="text-[11px] text-ink3">Super Admin</span>
       </div>
     </div>
   </div>
 
-  <!-- Navigation -->
-  <div class="flex-1 overflow-y-auto py-4 space-y-1">
-    <div class="px-6 py-2 text-[11px] font-bold tracking-wider uppercase text-slate-400 dark:text-slate-500">Menu Utama</div>
-    <a class="flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white hover:translate-x-1 transition-all duration-200" href="index.html">
-      <i class='bx bx-home-alt text-lg flex-shrink-0'></i> Dashboard
-    </a>
-    <a class="flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white hover:translate-x-1 transition-all duration-200" href="config.html">
-      <i class='bx bx-info-circle text-lg flex-shrink-0'></i> Tentang Kami
-    </a>
-
-    <div class="px-6 pt-4 pb-2 text-[11px] font-bold tracking-wider uppercase text-slate-400 dark:text-slate-500">Manajemen</div>
-    <a class="flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 transition-all duration-200" href="admin.html">
-      <i class='bx bx-user-pin text-lg flex-shrink-0'></i> Admin Panel
-    </a>
-    <a class="flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white hover:translate-x-1 transition-all duration-200" href="admin-user.html">
-      <i class='bx bx-group text-lg flex-shrink-0'></i> Kelola User
-    </a>
-    <a class="flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white hover:translate-x-1 transition-all duration-200" href="ujicoba/admin-soal.html">
-      <i class='bx bx-edit text-lg flex-shrink-0'></i> Kelola Soal
-    </a>
-
-    <div class="px-6 pt-4 pb-2 text-[11px] font-bold tracking-wider uppercase text-slate-400 dark:text-slate-500">Analitik</div>
-    <a class="flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white hover:translate-x-1 transition-all duration-200" href="analytics.html">
-      <i class='bx bx-bar-chart-alt-2 text-lg flex-shrink-0'></i> Traffic Klik
-    </a>
+  <div class="flex-1 min-h-0 overflow-y-auto thin-scrollbar pt-2.5">
+    <div class="px-6 pt-4 pb-2 text-[11px] font-semibold tracking-widest uppercase text-ink4">Menu Utama</div>
+    <a class="nav-item" href="index.html"><i class='bx bx-home-alt text-xl shrink-0'></i> Dashboard</a>
+    <a class="nav-item" href="config.html"><i class='bx bx-info-circle text-xl shrink-0'></i> Tentang Kami</a>
+    <div class="px-6 pt-4 pb-2 mt-2.5 text-[11px] font-semibold tracking-widest uppercase text-ink4">Manajemen</div>
+    <a class="nav-item active" href="admin.html"><i class='bx bx-user-pin text-xl shrink-0'></i> Admin Panel</a>
+    <a class="nav-item" href="admin-user.html"><i class='bx bx-group text-xl shrink-0'></i> Kelola User</a>
+    <a class="nav-item" href="ujicoba/admin-soal.html"><i class='bx bx-edit text-xl shrink-0'></i> Kelola Soal</a>
+    <div class="px-6 pt-4 pb-2 mt-2.5 text-[11px] font-semibold tracking-widest uppercase text-ink4">Analitik</div>
+    <a class="nav-item" href="analytics.html"><i class='bx bx-bar-chart-alt-2 text-xl shrink-0'></i> Traffic Klik</a>
   </div>
 </nav>
+<div id="sidebar-overlay" class="hidden fixed inset-0 bg-black/50 backdrop-blur-[2px] z-[49]"></div>
 
-<!-- SIDEBAR OVERLAY FOR MOBILE -->
-<div id="sidebar-overlay" class="fixed inset-0 z-30 bg-slate-950/50 backdrop-blur-xs hidden lg:hidden transition-opacity duration-300"></div>
-
-<!-- MAIN WRAPPER -->
-<div id="wrapper" class="lg:ml-64 flex-1 min-h-screen flex flex-col transition-all duration-300">
+<!-- WRAPPER -->
+<div id="wrapper" class="lg:ml-[260px] flex-1 min-h-screen flex flex-col min-w-0 transition-[margin] duration-300">
   <!-- TOPBAR -->
-  <header idtopbar class="sticky top-0 z-20 h-16 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 sm:px-6 transition-colors duration-300">
-    <div class="flex items-center gap-3 min-w-0">
-      <button id="sidebar-toggle" class="lg:hidden text-2xl text-slate-700 dark:text-slate-200 hover:text-blue-600 p-1 rounded-lg transition-colors">
+  <div id="topbar" class="h-16 backdrop-blur-xl border-b border-border flex items-center justify-between px-4 sm:px-6 sticky top-0 z-40 transition-colors duration-300">
+    <div class="flex items-center gap-3.5 min-w-0">
+      <button id="sidebar-toggle" class="flex lg:hidden items-center justify-center min-w-11 min-h-11 text-2xl text-ink bg-transparent border-none cursor-pointer rounded-full transition-colors duration-200 hover:bg-surface2">
         <i class='bx bx-menu'></i>
       </button>
-      <h1 class="text-base sm:text-lg font-semibold text-slate-900 dark:text-white truncate">Admin Panel</h1>
+      <div class="text-[15px] sm:text-[17px] font-semibold text-ink whitespace-nowrap overflow-hidden text-ellipsis">Admin Panel</div>
     </div>
-
-    <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-      <button id="theme-toggle" title="Toggle Dark Mode" class="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center text-xl hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 hover:-translate-y-0.5 transition-all duration-200 shadow-xs">
+    <div class="flex items-center gap-2.5 shrink-0">
+      <button class="icon-btn" id="theme-toggle" title="Toggle Dark Mode">
         <i class='bx bx-moon'></i>
       </button>
-
-      <button id="btn-save-gh" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white font-semibold text-xs sm:text-sm transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/25">
-        <i class='bx bx-cloud-upload text-base sm:text-lg'></i>
-        <span class="btn-label hidden sm:inline">Simpan ke GitHub</span>
+      <button class="topbar-btn btn-primary" id="btn-save-gh">
+        <i class='bx bx-cloud-upload'></i><span class="btn-label"> Simpan ke GitHub</span>
       </button>
     </div>
-  </header>
+  </div>
 
-  <!-- MAIN CONTENT CONTAINER -->
-  <main id="main" class="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full flex-1 space-y-6">
+  <!-- MAIN -->
+  <div id="main" class="p-3 sm:p-5 lg:p-6 flex-1 max-w-[1400px] mx-auto w-full">
 
-    <!-- STATS ROW -->
-    <div class="grid grid-cols-3 gap-3 sm:gap-5">
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-3 sm:p-5 flex flex-col sm:flex-row items-center gap-2 sm:gap-4 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 opacity-0 animate-fadeUp">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl sm:text-2xl flex-shrink-0">
+    <!-- STATS -->
+    <div class="grid grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6">
+      <div class="stat-card flex-col sm:flex-row text-center sm:text-left !gap-1 sm:!gap-3.5 !p-3 sm:!p-[18px]" style="animation-delay:0s">
+        <div class="stat-icon w-9 h-9 sm:w-[46px] sm:h-[46px] rounded-xl flex items-center justify-center text-base sm:text-xl shrink-0 mx-auto sm:mx-0 mb-1 sm:mb-0" style="background:rgba(37,99,235,0.1);color:var(--primary)">
           <i class='bx bx-file'></i>
         </div>
-        <div class="text-center sm:text-left">
-          <div class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white leading-tight" id="s-total">–</div>
-          <div class="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">Total Artikel</div>
+        <div>
+          <div class="text-[17px] sm:text-[22px] font-bold text-ink leading-tight" id="s-total">–</div>
+          <div class="text-[10px] sm:text-xs text-ink3 font-medium">Total Artikel</div>
         </div>
       </div>
-
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-3 sm:p-5 flex flex-col sm:flex-row items-center gap-2 sm:gap-4 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 opacity-0 animate-fadeUp" style="animation-delay: 0.1s">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-orange-50 dark:bg-orange-950/60 text-orange-500 dark:text-orange-400 flex items-center justify-center text-xl sm:text-2xl flex-shrink-0">
+      <div class="stat-card flex-col sm:flex-row text-center sm:text-left !gap-1 sm:!gap-3.5 !p-3 sm:!p-[18px]" style="animation-delay:0.1s">
+        <div class="stat-icon w-9 h-9 sm:w-[46px] sm:h-[46px] rounded-xl flex items-center justify-center text-base sm:text-xl shrink-0 mx-auto sm:mx-0 mb-1 sm:mb-0" style="background:rgba(249,115,22,0.1);color:var(--accent)">
           <i class='bx bx-star'></i>
         </div>
-        <div class="text-center sm:text-left">
-          <div class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white leading-tight" id="s-feat">–</div>
-          <div class="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">Unggulan</div>
+        <div>
+          <div class="text-[17px] sm:text-[22px] font-bold text-ink leading-tight" id="s-feat">–</div>
+          <div class="text-[10px] sm:text-xs text-ink3 font-medium">Unggulan</div>
         </div>
       </div>
-
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-3 sm:p-5 flex flex-col sm:flex-row items-center gap-2 sm:gap-4 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 opacity-0 animate-fadeUp" style="animation-delay: 0.2s">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-500 dark:text-emerald-400 flex items-center justify-center text-xl sm:text-2xl flex-shrink-0">
+      <div class="stat-card flex-col sm:flex-row text-center sm:text-left !gap-1 sm:!gap-3.5 !p-3 sm:!p-[18px]" style="animation-delay:0.2s">
+        <div class="stat-icon w-9 h-9 sm:w-[46px] sm:h-[46px] rounded-xl flex items-center justify-center text-base sm:text-xl shrink-0 mx-auto sm:mx-0 mb-1 sm:mb-0" style="background:rgba(16,185,129,0.1);color:var(--success)">
           <i class='bx bx-purchase-tag-alt'></i>
         </div>
-        <div class="text-center sm:text-left">
-          <div class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white leading-tight" id="s-kat">–</div>
-          <div class="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">Kategori</div>
+        <div>
+          <div class="text-[17px] sm:text-[22px] font-bold text-ink leading-tight" id="s-kat">–</div>
+          <div class="text-[10px] sm:text-xs text-ink3 font-medium">Kategori</div>
         </div>
       </div>
     </div>
 
-    <!-- TABS BUTTONS -->
-    <div class="tabs flex gap-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-1.5 w-fit max-w-full overflow-x-auto shadow-xs opacity-0 animate-fadeUp" style="animation-delay: 0.25s">
-      <button class="tab-btn active inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-sora text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white" data-tab="tab-artikel">
-        <i class='bx bx-list-ul text-base'></i> Artikel
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="tab-artikel">
+        <i class='bx bx-list-ul'></i> Artikel
       </button>
-      <button class="tab-btn inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-sora text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white" data-tab="tab-tambah">
-        <i class='bx bx-plus text-base'></i> Tambah Artikel
+      <button class="tab-btn" data-tab="tab-tambah">
+        <i class='bx bx-plus'></i> Tambah Artikel
       </button>
-      <button class="tab-btn inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-sora text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white" data-tab="tab-kategori">
-        <i class='bx bx-purchase-tag-alt text-base'></i> Kategori
+      <button class="tab-btn" data-tab="tab-kategori">
+        <i class='bx bx-purchase-tag-alt'></i> Kategori
       </button>
     </div>
 
     <!-- PANEL: ARTIKEL LIST -->
-    <div class="panel block transition-all duration-300" id="tab-artikel">
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xs overflow-hidden">
-        
-        <!-- Table Toolbar -->
-        <div class="p-4 sm:px-6 border-b border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
-          <span class="text-sm sm:text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-            <i class='bx bx-list-ul text-blue-600 dark:text-blue-400 text-lg'></i>
+    <div class="panel active" id="tab-artikel">
+      <div class="table-wrap">
+        <div class="table-toolbar">
+          <span class="text-[15px] font-semibold text-ink flex items-center gap-2">
+            <i class='bx bx-list-ul text-primary text-lg'></i>
             Daftar Artikel
           </span>
-          <div class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 rounded-full px-3.5 py-1.5 focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500 transition-all duration-200">
-            <i class='bx bx-search text-slate-400 text-lg'></i>
-            <input type="text" id="art-search" class="bg-transparent font-sora text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 outline-none w-40 sm:w-56" placeholder="Cari artikel…">
+          <div class="search-box w-full sm:w-auto">
+            <i class='bx bx-search'></i>
+            <input type="text" id="art-search" placeholder="Cari artikel…" class="!w-full sm:!w-[180px]">
           </div>
         </div>
-
-        <!-- Bulk Action Bar -->
-        <div id="art-bulk-bar" class="hidden items-center justify-between px-4 sm:px-6 py-2.5 bg-blue-50 dark:bg-blue-950/40 border-b border-blue-100 dark:border-blue-900/40 transition-all duration-200">
-          <span class="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-2">
-            <i class='bx bx-check-square text-base'></i> <span id="art-bulk-count">0</span> terpilih
-          </span>
-          <div class="flex items-center gap-2">
-            <button id="art-bulk-clear" class="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs transition-all">
-              <i class='bx bx-x mr-1'></i> Batal
+        <div class="bulk-action-bar" id="art-bulk-bar">
+          <span class="bulk-count"><i class='bx bx-check-square'></i> <span id="art-bulk-count">0</span> terpilih</span>
+          <div class="bulk-actions">
+            <button class="topbar-btn btn-ghost !px-3.5 !py-[7px] !text-xs" id="art-bulk-clear">
+              <i class='bx bx-x'></i> Batal Pilih
             </button>
-            <button id="art-bulk-delete" class="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold text-xs transition-all shadow-xs">
-              <i class='bx bx-trash mr-1'></i> Hapus Massal
+            <button class="topbar-btn btn-danger !px-3.5 !py-[7px] !text-xs" id="art-bulk-delete">
+              <i class='bx bx-trash'></i> Hapus Massal
             </button>
           </div>
         </div>
-
-        <!-- Filter Bar -->
-        <div class="px-4 sm:px-6 py-3 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex flex-wrap items-center gap-3 text-xs">
-          <span class="font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1">
-            <i class='bx bx-filter-alt'></i> Filter:
-          </span>
-          <select id="art-filter-kat" class="px-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-xl font-sora text-xs text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800 focus:outline-none focus:border-blue-500">
+        <div class="filter-bar">
+          <span class="filter-label"><i class='bx bx-filter-alt'></i> Filter</span>
+          <select class="form-control" id="art-filter-kat">
             <option value="">Semua Kategori</option>
           </select>
-          <button id="art-filter-feat" type="button" class="chip inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-all hover:bg-slate-100 dark:hover:bg-slate-700">
-            <i class='bx bx-star text-orange-400'></i> Unggulan saja
+          <button class="chip" id="art-filter-feat" type="button">
+            <i class='bx bx-star'></i> Unggulan saja
           </button>
         </div>
-
-        <!-- Table View -->
-        <div class="table-responsive max-h-[60vh] overflow-auto">
-          <table id="art-table" class="w-full text-left border-collapse">
-            <thead class="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10">
+        <div class="table-scroll">
+          <table id="art-table">
+            <thead>
               <tr>
-                <th class="p-3 text-center w-10"><input type="checkbox" id="art-select-all" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" title="Pilih semua"></th>
-                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Judul</th>
-                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Kategori</th>
-                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Tanggal</th>
-                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Status</th>
-                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Aksi</th>
+                <th class="checkbox-th"><input type="checkbox" id="art-select-all" title="Pilih semua"></th>
+                <th>Judul</th>
+                <th>Kategori</th>
+                <th>Tanggal</th>
+                <th>Status</th>
+                <th>Aksi</th>
               </tr>
             </thead>
-            <tbody id="art-tbody" class="divide-y divide-slate-200 dark:divide-slate-800/60 text-xs sm:text-sm"></tbody>
+            <tbody id="art-tbody"></tbody>
           </table>
         </div>
       </div>
     </div>
 
     <!-- PANEL: TAMBAH / EDIT ARTIKEL -->
-    <div class="panel hidden transition-all duration-300" id="tab-tambah">
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xs overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-          <h3 id="form-title" class="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-            <i class='bx bx-edit text-blue-600 dark:text-blue-400 text-xl'></i> Tambah Artikel Baru
-          </h3>
-          <button id="btn-reset-form" class="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold transition-all">
-            <i class='bx bx-reset mr-1'></i> Reset
+    <div class="panel" id="tab-tambah">
+      <div class="form-card">
+        <div class="form-card-header">
+          <h3 id="form-title"><i class='bx bx-edit'></i> Tambah Artikel Baru</h3>
+          <button class="topbar-btn btn-ghost !px-3.5 !py-1.5 !text-xs" id="btn-reset-form">
+            <i class='bx bx-reset'></i> Reset
           </button>
         </div>
-
-        <div class="p-6 space-y-6">
+        <div class="form-card-body">
           <input type="hidden" id="edit-id">
 
-          <!-- Section Divider -->
-          <div class="relative flex items-center">
-            <span class="pr-3 bg-white dark:bg-slate-900 text-xs font-semibold text-slate-400 uppercase tracking-wider">Informasi Dasar</span>
-            <div class="flex-1 border-t border-slate-200 dark:border-slate-800"></div>
-          </div>
+          <div class="section-divider"><h4>Informasi Dasar</h4></div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="space-y-1.5">
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300">Judul <span class="text-red-500">*</span></label>
-              <input type="text" id="f-judul" class="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl font-sora text-sm text-slate-900 dark:text-white bg-white dark:bg-slate-800 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all placeholder:text-slate-400" placeholder="Judul artikel…">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Judul <span class="req">*</span></label>
+              <input type="text" class="form-control" id="f-judul" placeholder="Judul artikel…">
             </div>
-            <div class="space-y-1.5">
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300">Kategori <span class="text-red-500">*</span></label>
-              <select id="f-kategori" class="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl font-sora text-sm text-slate-900 dark:text-white bg-white dark:bg-slate-800 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all">
+            <div class="form-group">
+              <label class="form-label">Kategori <span class="req">*</span></label>
+              <select class="form-control" id="f-kategori">
                 <option value="">-- Pilih Kategori --</option>
               </select>
             </div>
           </div>
-
-          <div class="space-y-1.5">
-            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300">Deskripsi / Ringkasan</label>
-            <textarea id="f-deskripsi" rows="4" class="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl font-sora text-sm text-slate-900 dark:text-white bg-white dark:bg-slate-800 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all placeholder:text-slate-400" placeholder="Tulis ringkasan artikel…"></textarea>
+          <div class="form-row full">
+            <div class="form-group">
+              <label class="form-label">Deskripsi / Ringkasan</label>
+              <textarea class="form-control" id="f-deskripsi" placeholder="Tulis ringkasan artikel…"></textarea>
+            </div>
           </div>
 
-          <!-- Section Divider -->
-          <div class="relative flex items-center pt-2">
-            <span class="pr-3 bg-white dark:bg-slate-900 text-xs font-semibold text-slate-400 uppercase tracking-wider">Media & Penerbitan</span>
-            <div class="flex-1 border-t border-slate-200 dark:border-slate-800"></div>
-          </div>
+          <div class="section-divider"><h4>Media & Penerbitan</h4></div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="space-y-3">
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300">Gambar Artikel</label>
-              
-              <!-- Tabs Source Picker -->
-              <div class="inline-flex p-1 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
-                <button id="tab-url-btn" onclick="switchImgTab('url')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 transition-all flex items-center gap-1.5 bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Gambar Artikel</label>
+              <!-- Tab Picker -->
+              <div class="img-source-tabs">
+                <button class="img-src-tab active" id="tab-url-btn" onclick="switchImgTab('url')">
                   <i class='bx bx-link'></i> Link URL
                 </button>
-                <button id="tab-upload-btn" onclick="switchImgTab('upload')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 dark:text-slate-400 transition-all flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white">
+                <button class="img-src-tab" id="tab-upload-btn" onclick="switchImgTab('upload')">
                   <i class='bx bx-upload'></i> Upload File
                 </button>
               </div>
-
               <!-- Panel URL -->
-              <div id="img-panel-url" class="space-y-1.5">
-                <input type="url" id="f-gambar" oninput="previewImage()" class="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl font-sora text-sm text-slate-900 dark:text-white bg-white dark:bg-slate-800 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all placeholder:text-slate-400" placeholder="https://…">
-                <p class="text-[11px] text-slate-400">Tempel URL gambar dari Unsplash atau sumber lain</p>
+              <div class="img-source-panel active" id="img-panel-url">
+                <input type="url" class="form-control mb-1" id="f-gambar" placeholder="https://…" oninput="previewImage()">
+                <span class="form-hint">Tempel URL gambar dari Unsplash atau sumber lain</span>
               </div>
-
               <!-- Panel Upload -->
-              <div id="img-panel-upload" class="hidden space-y-2">
-                <div id="upload-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center bg-slate-50/50 dark:bg-slate-800/30 hover:border-blue-500 transition-all cursor-pointer">
-                  <input type="file" id="f-gambar-file" accept="image/*" onchange="handleFileSelect(event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                  <i class='bx bx-folder-open text-3xl text-slate-400 mb-1 block'></i>
-                  <p class="text-xs text-slate-600 dark:text-slate-300 font-medium">Klik atau drag & drop gambar di sini</p>
-                  <p class="text-[11px] text-slate-400 mt-1">JPG, PNG, WebP, GIF · Maks 5 MB</p>
+              <div class="img-source-panel" id="img-panel-upload">
+                <div class="upload-zone" id="upload-zone">
+                  <input type="file" id="f-gambar-file" accept="image/*" onchange="handleFileSelect(event)">
+                  <div class="uz-icon"><i class='bx bx-folder-open'></i></div>
+                  <div class="uz-text">Klik atau drag &amp; drop gambar di sini</div>
+                  <div class="uz-hint">JPG, PNG, WebP, GIF · Maks 5 MB</div>
                 </div>
-
-                <div id="upload-progress" class="hidden items-center gap-3 p-3 bg-blue-50 dark:bg-blue-950/40 rounded-xl border border-blue-100 dark:border-blue-900/40">
-                  <div class="flex-1 h-1.5 bg-blue-200 dark:bg-blue-900/60 rounded-full overflow-hidden">
-                    <div id="progress-bar" class="h-full bg-blue-600 rounded-full transition-all duration-300 w-0"></div>
-                  </div>
-                  <span id="progress-text" class="text-xs font-semibold text-blue-600 dark:text-blue-400 whitespace-nowrap">Mengupload…</span>
+                <div class="upload-progress" id="upload-progress">
+                  <div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+                  <span class="progress-text" id="progress-text">Mengupload…</span>
                 </div>
-
-                <div id="upload-success" class="hidden text-xs text-emerald-600 dark:text-emerald-400 font-semibold pt-1">
-                  <i class='bx bx-check-circle mr-1'></i> Gambar berhasil diupload ke GitHub
+                <div id="upload-success" style="display:none;margin-top:6px;font-size:11px;color:var(--success);font-weight:600">
+                  <i class='bx bx-check-circle'></i> Gambar berhasil diupload ke GitHub
                 </div>
               </div>
             </div>
-
-            <!-- Preview Image Area -->
-            <div class="space-y-1.5">
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300">Pratinjau Gambar</label>
-              <div id="img-preview-wrap" class="h-40 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden bg-slate-50 dark:bg-slate-800/30 flex items-center justify-center relative">
-                <div id="img-ph" class="text-center p-4 text-slate-400">
-                  <i class='bx bx-image text-3xl opacity-40 mb-1 block'></i>
-                  <span class="text-xs">Gambar akan tampil di sini</span>
+            <div class="form-group">
+              <label class="form-label">Pratinjau Gambar</label>
+              <div class="img-preview-wrap" id="img-preview-wrap">
+                <div class="img-preview-ph" id="img-ph">
+                  <div class="icon"><i class='bx bx-image'></i></div>
+                  <div>Gambar akan tampil di sini</div>
                 </div>
-                <img id="img-preview" src="" alt="" class="hidden w-full h-full object-cover">
+                <img id="img-preview" src="" alt="" style="display:none">
               </div>
             </div>
           </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-            <div class="space-y-1.5">
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300">Tanggal Terbit</label>
-              <input type="date" id="f-tanggal" class="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl font-sora text-sm text-slate-900 dark:text-white bg-white dark:bg-slate-800 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Tanggal Terbit</label>
+              <input type="date" class="form-control" id="f-tanggal">
             </div>
-
-            <div class="flex flex-col justify-end pb-1">
-              <label class="relative inline-flex items-center cursor-pointer mt-2">
-                <input type="checkbox" id="f-featured" class="sr-only peer">
-                <div class="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                <span class="ml-3 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">Tandai sebagai unggulan ⭐</span>
-              </label>
+            <div class="form-group justify-end pb-1">
+              <label class="form-label">Artikel Unggulan</label>
+              <div class="toggle-wrap flex items-center gap-2.5 mt-2.5">
+                <label class="toggle">
+                  <input type="checkbox" id="f-featured">
+                  <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label">Tandai sebagai unggulan ⭐</span>
+              </div>
             </div>
           </div>
         </div>
-
-        <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex items-center gap-3">
-          <button id="btn-submit-art" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/25 active:scale-[0.98]">
-            <i class='bx bx-save text-lg'></i> Simpan Artikel
+        <div class="form-actions">
+          <button class="topbar-btn btn-primary flex-1 sm:flex-none justify-center" id="btn-submit-art">
+            <i class='bx bx-save'></i> Simpan Artikel
           </button>
-          <button id="btn-cancel-edit" class="hidden inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs sm:text-sm font-semibold transition-all">
-            <i class='bx bx-x text-lg'></i> Batal Edit
+          <button class="topbar-btn btn-ghost" id="btn-cancel-edit" style="display:none">
+            <i class='bx bx-x'></i> Batal Edit
           </button>
         </div>
       </div>
     </div>
 
     <!-- PANEL: KATEGORI -->
-    <div class="panel hidden transition-all duration-300 space-y-6" id="tab-kategori">
-      <!-- Add Category Form Card -->
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xs max-w-xl overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800">
-          <h3 class="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-            <i class='bx bx-purchase-tag-alt text-blue-600 dark:text-blue-400 text-xl'></i> Tambah Kategori
-          </h3>
+    <div class="panel" id="tab-kategori">
+      <div class="form-card max-w-[540px] mb-6">
+        <div class="form-card-header">
+          <h3><i class='bx bx-purchase-tag-alt'></i> Tambah Kategori</h3>
         </div>
-        <div class="p-6">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="space-y-1.5">
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300">Nama Kategori <span class="text-red-500">*</span></label>
-              <input type="text" id="kat-nama" class="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl font-sora text-sm text-slate-900 dark:text-white bg-white dark:bg-slate-800 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all placeholder:text-slate-400" placeholder="Misal: Teknologi">
+        <div class="form-card-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Nama Kategori <span class="req">*</span></label>
+              <input type="text" class="form-control" id="kat-nama" placeholder="Misal: Teknologi">
             </div>
-            <div class="space-y-1.5">
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300">Warna Badge</label>
-              <div class="flex items-center gap-3">
-                <input type="color" id="kat-warna" value="#3b82f6" class="w-12 h-10 p-1 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800 cursor-pointer">
-                <span class="text-xs text-slate-400">Pilih warna kategori</span>
+            <div class="form-group">
+              <label class="form-label">Warna</label>
+              <div class="color-picker-wrap">
+                <input type="color" id="kat-warna" value="#3b82f6">
+                <span class="form-hint">Pilih warna badge kategori</span>
               </div>
             </div>
           </div>
         </div>
-        <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
-          <button id="btn-add-kat" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/25 active:scale-[0.98]">
-            <i class='bx bx-plus text-lg'></i> Tambah Kategori
+        <div class="form-actions">
+          <button class="topbar-btn btn-primary flex-1 sm:flex-none justify-center" id="btn-add-kat">
+            <i class='bx bx-plus'></i> Tambah Kategori
           </button>
         </div>
       </div>
 
-      <!-- Category List Table -->
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xs overflow-hidden">
-        <div class="p-4 sm:px-6 border-b border-slate-200 dark:border-slate-800">
-          <span class="text-sm sm:text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-            <i class='bx bx-purchase-tag-alt text-blue-600 dark:text-blue-400 text-lg'></i>
+      <div class="table-wrap">
+        <div class="table-toolbar">
+          <span class="text-[15px] font-semibold text-ink flex items-center gap-2">
+            <i class='bx bx-purchase-tag-alt text-primary text-lg'></i>
             Daftar Kategori
           </span>
         </div>
-
-        <div id="kat-bulk-bar" class="hidden items-center justify-between px-4 sm:px-6 py-2.5 bg-blue-50 dark:bg-blue-950/40 border-b border-blue-100 dark:border-blue-900/40 transition-all">
-          <span class="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-2">
-            <i class='bx bx-check-square text-base'></i> <span id="kat-bulk-count">0</span> terpilih
-          </span>
-          <div class="flex items-center gap-2">
-            <button id="kat-bulk-clear" class="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs transition-all">
-              <i class='bx bx-x mr-1'></i> Batal
+        <div class="bulk-action-bar" id="kat-bulk-bar">
+          <span class="bulk-count"><i class='bx bx-check-square'></i> <span id="kat-bulk-count">0</span> terpilih</span>
+          <div class="bulk-actions">
+            <button class="topbar-btn btn-ghost !px-3.5 !py-[7px] !text-xs" id="kat-bulk-clear">
+              <i class='bx bx-x'></i> Batal Pilih
             </button>
-            <button id="kat-bulk-delete" class="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold text-xs transition-all shadow-xs">
-              <i class='bx bx-trash mr-1'></i> Hapus Massal
+            <button class="topbar-btn btn-danger !px-3.5 !py-[7px] !text-xs" id="kat-bulk-delete">
+              <i class='bx bx-trash'></i> Hapus Massal
             </button>
           </div>
         </div>
-
-        <div class="table-responsive max-h-[60vh] overflow-auto">
-          <table id="kat-table" class="w-full text-left border-collapse">
-            <thead class="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10">
+        <div class="table-scroll">
+          <table id="kat-table">
+            <thead>
               <tr>
-                <th class="p-3 text-center w-10"><input type="checkbox" id="kat-select-all" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" title="Pilih semua"></th>
-                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Nama</th>
-                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Warna</th>
-                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Jumlah Artikel</th>
-                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Aksi</th>
+                <th class="checkbox-th"><input type="checkbox" id="kat-select-all" title="Pilih semua"></th>
+                <th>Nama</th>
+                <th>Warna</th>
+                <th>Jumlah Artikel</th>
+                <th>Aksi</th>
               </tr>
             </thead>
-            <tbody id="kat-tbody" class="divide-y divide-slate-200 dark:divide-slate-800/60 text-xs sm:text-sm"></tbody>
+            <tbody id="kat-tbody"></tbody>
           </table>
         </div>
       </div>
     </div>
 
-  </main>
+  </div>
 </div>
 
 <!-- MODAL KONFIRMASI HAPUS -->
-<div id="del-modal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-md hidden items-center justify-center p-4 transition-all duration-300">
-  <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-slideModal">
-    <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-      <h3 class="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-        <i class='bx bx-trash text-red-500 text-xl'></i> Konfirmasi Hapus
-      </h3>
-      <button onclick="closeDelModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-2xl leading-none p-1 rounded-lg transition-colors">
-        <i class='bx bx-x'></i>
-      </button>
+<div class="modal-overlay" id="del-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3><i class='bx bx-trash' style="color:var(--danger)"></i> Konfirmasi Hapus</h3>
+      <button class="modal-close" onclick="closeDelModal()"><i class='bx bx-x'></i></button>
     </div>
-    <div class="p-6 space-y-4">
-      <p id="del-message" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">Apakah kamu yakin ingin menghapus item ini?</p>
-      <div class="flex items-center gap-3 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/50 text-xs text-slate-500 dark:text-slate-400">
-        <i class='bx bx-error-circle text-amber-500 text-xl flex-shrink-0'></i>
-        <span>Data akan langsung dihapus dari GitHub. Tindakan ini tidak dapat dibatalkan.</span>
-      </div>
+    <div class="modal-body">
+      <p style="color:var(--ink2);line-height:1.7" id="del-message">Apakah kamu yakin ingin menghapus item ini?</p>
+      <p style="color:var(--ink4);font-size:12px;margin-top:12px;display:flex;align-items:center;gap:6px;background:var(--surface2);padding:10px 12px;border-radius:8px;border:1px solid var(--border)">
+        <i class='bx bx-error-circle' style="color:var(--warn);font-size:18px;flex-shrink:0"></i>
+        Data akan langsung dihapus dari GitHub. Tindakan ini tidak dapat dibatalkan.
+      </p>
     </div>
-    <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex gap-2 justify-end">
-      <button id="del-cancel-btn" onclick="closeDelModal()" class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold transition-all">
-        Batal
-      </button>
-      <button id="del-confirm-btn" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-xs transition-all shadow-xs">
+    <div class="modal-footer">
+      <button class="topbar-btn btn-ghost flex-1 sm:flex-none justify-center" id="del-cancel-btn" onclick="closeDelModal()">Batal</button>
+      <button class="topbar-btn btn-danger flex-1 sm:flex-none justify-center" id="del-confirm-btn">
         <i class='bx bx-trash'></i> Hapus
       </button>
     </div>
   </div>
 </div>
 
-<!-- TOAST NOTIFICATION -->
-<div id="toast" class="fixed bottom-5 right-4 left-4 sm:left-auto max-w-xs bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-5 py-3.5 rounded-2xl text-xs sm:text-sm font-medium z-50 shadow-2xl border-l-4 border-emerald-500 transition-all duration-300 transform translate-y-8 opacity-0 pointer-events-none"></div>
+<!-- TOAST -->
+<div id="toast"></div>
 
-<!-- JAVASCRIPT LOGIC -->
 <script>
 /* ══════════════════════════════════════════════════════
    AUTH GATE
@@ -565,9 +662,9 @@ async function submitAdminGate() {
   const errEl = document.getElementById('auth-gate-error');
   const btn = document.getElementById('auth-gate-btn');
   if (!val) return;
-  errEl.classList.add('hidden');
+  errEl.style.display = 'none';
   btn.disabled = true;
-  btn.innerHTML = `<span class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span> Memverifikasi...`;
+  btn.innerHTML = `<span style="display:inline-block;width:16px;height:16px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin 0.6s linear infinite;vertical-align:middle;margin-right:8px;"></span> Memverifikasi...`;
   try {
     const res = await fetch('/api/ujicoba?action=verify-admin', {
       method: 'POST',
@@ -577,17 +674,16 @@ async function submitAdminGate() {
     if (res.ok) {
       adminKeyStored = val;
       document.getElementById('auth-gate-overlay').classList.remove('visible');
-      document.getElementById('auth-gate-overlay').classList.add('hidden');
       loadData();
     } else {
-      errEl.classList.remove('hidden');
+      errEl.style.display = 'block';
     }
   } catch(e) {
-    errEl.classList.remove('hidden');
-    errEl.innerHTML = `<i class='bx bx-error-circle mr-1'></i> Gagal menghubungi server. Coba lagi.`;
+    errEl.style.display = 'block';
+    errEl.innerHTML = `<i class='bx bx-error-circle'></i> Gagal menghubungi server. Coba lagi.`;
   } finally {
     btn.disabled = false;
-    btn.innerHTML = `<i class='bx bx-log-in text-lg'></i> Masuk`;
+    btn.innerHTML = `<i class='bx bx-log-in'></i> Masuk`;
   }
 }
 document.getElementById('auth-gate-input').addEventListener('keydown', e => {
@@ -641,7 +737,7 @@ async function loadData(){
   render();
 }
 
-/* ── API: Save All ── */
+/* ── API: Save All (tombol Simpan ke GitHub) ── */
 async function saveToServer(){
   const res = await fetch('/api/save-data', {
     method: 'POST',
@@ -653,7 +749,7 @@ async function saveToServer(){
   return j.sha;
 }
 
-/* ── API: Edit ── */
+/* ── API: Edit satu item langsung ke GitHub ── */
 async function apiEdit(type, id, data){
   const res = await fetch('/api/edit-data', {
     method: 'PUT',
@@ -665,7 +761,7 @@ async function apiEdit(type, id, data){
   return j;
 }
 
-/* ── API: Delete ── */
+/* ── API: Hapus satu item langsung ke GitHub ── */
 async function apiDelete(type, id){
   const res = await fetch('/api/delete-data', {
     method: 'DELETE',
@@ -677,7 +773,7 @@ async function apiDelete(type, id){
   return j;
 }
 
-/* ── API: Tambah Artikel ── */
+/* ── API: Tambah artikel baru ── */
 async function apiTambahArtikel(art){
   DB.artikel.unshift(art);
   const res = await fetch('/api/save-data', {
@@ -693,7 +789,7 @@ async function apiTambahArtikel(art){
   if(j.sha) DB._sha = j.sha;
 }
 
-/* ── API: Tambah Kategori ── */
+/* ── API: Tambah kategori baru ── */
 async function apiTambahKategori(kat){
   DB.kategori.push(kat);
   const res = await fetch('/api/save-data', {
@@ -719,26 +815,14 @@ function updateArtBulkBar(){
   const bar = document.getElementById('art-bulk-bar');
   const count = document.getElementById('art-bulk-count');
   count.textContent = selectedArt.size;
-  if(selectedArt.size > 0) {
-    bar.classList.remove('hidden');
-    bar.classList.add('flex');
-  } else {
-    bar.classList.add('hidden');
-    bar.classList.remove('flex');
-  }
+  bar.classList.toggle('show', selectedArt.size > 0);
 }
 
 function updateKatBulkBar(){
   const bar = document.getElementById('kat-bulk-bar');
   const count = document.getElementById('kat-bulk-count');
   count.textContent = selectedKat.size;
-  if(selectedKat.size > 0) {
-    bar.classList.remove('hidden');
-    bar.classList.add('flex');
-  } else {
-    bar.classList.add('hidden');
-    bar.classList.remove('flex');
-  }
+  bar.classList.toggle('show', selectedKat.size > 0);
 }
 
 function toggleArtSelect(id){
@@ -793,6 +877,7 @@ function render(){
   renderArtFilterSelect();
 }
 
+/* ── Filter & search state (Artikel) ── */
 let artSearch = '';
 let artKatFilter = '';
 let artFeaturedOnly = false;
@@ -818,8 +903,8 @@ function renderArtTable(){
   const tbody = document.getElementById('art-tbody');
   const arts = getFilteredArtikels();
   if(!arts.length){
-    tbody.innerHTML = `<tr><td colspan="6" class="text-center py-12 text-slate-400">
-      <i class='bx bx-folder-open text-4xl mb-2 block opacity-40'></i>
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="6">
+      <i class='bx bx-folder-open' style="font-size:36px;margin-bottom:10px;display:block;opacity:0.3"></i>
       Tidak ada artikel yang cocok.
     </td></tr>`;
     return;
@@ -827,22 +912,16 @@ function renderArtTable(){
   tbody.innerHTML = arts.map((a,i)=>{
     const k = getKat(a.kategori_id);
     const isSelected = selectedArt.has(a.id);
-    return `<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors ${isSelected?'bg-blue-50/60 dark:bg-blue-950/30':''}">
-      <td class="p-3 text-center"><input type="checkbox" ${isSelected?'checked':''} onchange="toggleArtSelect('${esc(a.id)}')" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500"></td>
-      <td class="px-4 py-3 font-semibold text-slate-900 dark:text-white font-lora">${esc(a.judul)}</td>
-      <td class="px-4 py-3"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold" style="background:${k.warna}20;color:${k.warna}">${esc(k.nama)}</span></td>
-      <td class="px-4 py-3 text-slate-500 dark:text-slate-400">${fmtDate(a.tanggal)}</td>
-      <td class="px-4 py-3">${a.featured?'<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-orange-100 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400">⭐ Unggulan</span>':'<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-500">Biasa</span>'}</td>
-      <td class="px-4 py-3">
-        <div class="td-actions flex items-center gap-1.5">
-          <button onclick="editArtikel('${esc(a.id)}')" class="px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 text-xs font-semibold transition-all">
-            <i class='bx bx-edit-alt mr-1'></i> Edit
-          </button>
-          <button onclick="openDelModal('art','${esc(a.id)}','${esc(a.judul)}')" class="p-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-red-500 hover:text-red-600 dark:hover:text-red-400 text-xs font-semibold transition-all">
-            <i class='bx bx-trash text-base'></i>
-          </button>
-        </div>
-      </td>
+    return `<tr style="animation:fadeUp 0.3s ease ${i*0.04}s both" class="${isSelected?'selected':''}">
+      <td class="checkbox-cell"><input type="checkbox" ${isSelected?'checked':''} onchange="toggleArtSelect('${esc(a.id)}')"></td>
+      <td><span class="td-title">${esc(a.judul)}</span></td>
+      <td><span class="badge" style="background:${k.warna}20;color:${k.warna}">${esc(k.nama)}</span></td>
+      <td>${fmtDate(a.tanggal)}</td>
+      <td>${a.featured?'<span class="badge badge-feat">⭐ Unggulan</span>':'<span class="badge badge-norm">Biasa</span>'}</td>
+      <td><div class="td-actions">
+        <button class="act-btn edit" onclick="editArtikel('${esc(a.id)}')"><i class='bx bx-edit-alt'></i> Edit</button>
+        <button class="act-btn del" onclick="openDelModal('art','${esc(a.id)}','${esc(a.judul)}')"><i class='bx bx-trash'></i></button>
+      </div></td>
     </tr>`;
   }).join('');
 }
@@ -850,8 +929,8 @@ function renderArtTable(){
 function renderKatTable(){
   const tbody = document.getElementById('kat-tbody');
   if(!DB.kategori.length){
-    tbody.innerHTML = `<tr><td colspan="5" class="text-center py-12 text-slate-400">
-      <i class='bx bx-purchase-tag-alt text-4xl mb-2 block opacity-40'></i>
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="5">
+      <i class='bx bx-purchase-tag-alt' style="font-size:36px;margin-bottom:10px;display:block;opacity:0.3"></i>
       Belum ada kategori.
     </td></tr>`;
     return;
@@ -859,18 +938,14 @@ function renderKatTable(){
   tbody.innerHTML = DB.kategori.map((k,i)=>{
     const count = DB.artikel.filter(a=>a.kategori_id===k.id).length;
     const isSelected = selectedKat.has(k.id);
-    return `<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors ${isSelected?'bg-blue-50/60 dark:bg-blue-950/30':''}">
-      <td class="p-3 text-center"><input type="checkbox" ${isSelected?'checked':''} onchange="toggleKatSelect('${esc(k.id)}')" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500"></td>
-      <td class="px-4 py-3 font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-        <span class="w-3 h-3 rounded-full flex-shrink-0" style="background:${k.warna}"></span>${esc(k.nama)}
-      </td>
-      <td class="px-4 py-3"><code class="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 font-mono">${esc(k.warna)}</code></td>
-      <td class="px-4 py-3 text-slate-600 dark:text-slate-300"><span class="font-bold text-blue-600 dark:text-blue-400">${count}</span> artikel</td>
-      <td class="px-4 py-3">
-        <button onclick="openDelModal('kat','${esc(k.id)}','${esc(k.nama)}')" class="px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-red-500 hover:text-red-600 dark:hover:text-red-400 text-xs font-semibold transition-all">
-          <i class='bx bx-trash mr-1'></i> Hapus
-        </button>
-      </td>
+    return `<tr style="animation:fadeUp 0.3s ease ${i*0.04}s both" class="${isSelected?'selected':''}">
+      <td class="checkbox-cell"><input type="checkbox" ${isSelected?'checked':''} onchange="toggleKatSelect('${esc(k.id)}')"></td>
+      <td><span class="kat-color-dot" style="background:${k.warna}"></span>${esc(k.nama)}</td>
+      <td><code style="font-size:12px;color:var(--ink3);background:var(--surface2);padding:2px 8px;border-radius:4px">${esc(k.warna)}</code></td>
+      <td><span style="font-weight:600;color:var(--primary)">${count}</span> artikel</td>
+      <td><div class="td-actions">
+        <button class="act-btn del" onclick="openDelModal('kat','${esc(k.id)}','${esc(k.nama)}')"><i class='bx bx-trash'></i> Hapus</button>
+      </div></td>
     </tr>`;
   }).join('');
 }
@@ -885,30 +960,21 @@ function renderKatSelect(){
 }
 
 /* ════════════════════════════════════════════════════
-   IMAGE PICKER
+   IMAGE PICKER — URL vs UPLOAD
    ════════════════════════════════════════════════════ */
 let imgMode = 'url';
 let uploadedImgUrl = '';
 
 function switchImgTab(mode){
   imgMode = mode;
-  const urlBtn = document.getElementById('tab-url-btn');
-  const uploadBtn = document.getElementById('tab-upload-btn');
-  const urlPanel = document.getElementById('img-panel-url');
-  const uploadPanel = document.getElementById('img-panel-upload');
-
-  if(mode === 'url'){
-    urlBtn.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs";
-    uploadBtn.className = "px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 dark:text-slate-400 transition-all flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white";
-    urlPanel.classList.remove('hidden');
-    uploadPanel.classList.add('hidden');
-    uploadedImgUrl = '';
+  document.getElementById('tab-url-btn').classList.toggle('active', mode==='url');
+  document.getElementById('tab-upload-btn').classList.toggle('active', mode==='upload');
+  document.getElementById('img-panel-url').classList.toggle('active', mode==='url');
+  document.getElementById('img-panel-upload').classList.toggle('active', mode==='upload');
+  if(mode==='url'){
+    uploadedImgUrl='';
     previewImage();
   } else {
-    uploadBtn.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs";
-    urlBtn.className = "px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 dark:text-slate-400 transition-all flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white";
-    uploadPanel.classList.remove('hidden');
-    urlPanel.classList.add('hidden');
     if(uploadedImgUrl) showPreview(uploadedImgUrl);
     else clearPreview();
   }
@@ -925,9 +991,8 @@ function setGambarValue(url){
   if(isGhRaw){
     switchImgTab('upload');
     uploadedImgUrl = url;
-    const succ = document.getElementById('upload-success');
-    succ.classList.remove('hidden');
-    succ.textContent = '✅ Menggunakan gambar yang sudah ada di GitHub';
+    document.getElementById('upload-success').style.display='block';
+    document.getElementById('upload-success').textContent='✅ Menggunakan gambar yang sudah ada di GitHub';
   } else {
     switchImgTab('url');
     document.getElementById('f-gambar').value = url;
@@ -938,25 +1003,21 @@ function setGambarValue(url){
 function showPreview(url){
   const img = document.getElementById('img-preview');
   const ph  = document.getElementById('img-ph');
-  if(url){
-    img.src = url;
-    img.classList.remove('hidden');
-    ph.classList.add('hidden');
-    img.onerror = () => { img.classList.add('hidden'); ph.classList.remove('hidden'); }
-  } else clearPreview();
+  if(url){ img.src=url; img.style.display='block'; ph.style.display='none'; img.onerror=()=>{img.style.display='none';ph.style.display=''} }
+  else clearPreview();
 }
 
 function clearPreview(){
-  document.getElementById('img-preview').classList.add('hidden');
-  document.getElementById('img-ph').classList.remove('hidden');
+  document.getElementById('img-preview').style.display='none';
+  document.getElementById('img-ph').style.display='';
 }
 
-/* Drag & Drop */
+/* Handle drag & drop */
 const uploadZone = document.getElementById('upload-zone');
-uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('border-blue-500', 'bg-blue-50/50'); });
-uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('border-blue-500', 'bg-blue-50/50'));
-uploadZone.addEventListener('drop', e => {
-  e.preventDefault(); uploadZone.classList.remove('border-blue-500', 'bg-blue-50/50');
+uploadZone.addEventListener('dragover', e=>{ e.preventDefault(); uploadZone.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', ()=> uploadZone.classList.remove('drag-over'));
+uploadZone.addEventListener('drop', e=>{
+  e.preventDefault(); uploadZone.classList.remove('drag-over');
   const file = e.dataTransfer.files[0];
   if(file && file.type.startsWith('image/')) processFile(file);
   else showToast('File harus berupa gambar!', true);
@@ -987,30 +1048,29 @@ async function uploadToGitHub(filename, base64){
   const txt  = document.getElementById('progress-text');
   const succ = document.getElementById('upload-success');
 
-  succ.classList.add('hidden');
-  prog.classList.remove('hidden');
-  prog.classList.add('flex');
-  bar.style.width = '30%'; txt.textContent = 'Mengunggah ke GitHub…';
+  succ.style.display='none';
+  prog.classList.add('show');
+  bar.style.width='30%'; txt.textContent='Mengunggah ke GitHub…';
 
   try {
-    bar.style.width = '60%';
+    bar.style.width='60%';
     const res = await fetch('/api/upload-image', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ filename, base64 })
     });
     const j = await res.json().catch(()=>({}));
-    bar.style.width = '100%';
+    bar.style.width='100%';
     if(!res.ok) throw new Error(j.message || 'HTTP '+res.status);
     uploadedImgUrl = j.url;
     showPreview(uploadedImgUrl);
-    txt.textContent = 'Selesai!';
-    setTimeout(() => { prog.classList.add('hidden'); prog.classList.remove('flex'); bar.style.width='0%'; }, 800);
-    succ.classList.remove('hidden');
-    succ.textContent = '✅ Berhasil diupload ke GitHub';
+    txt.textContent='Selesai!';
+    setTimeout(()=>{ prog.classList.remove('show'); bar.style.width='0%'; }, 800);
+    succ.style.display='block';
+    succ.textContent='✅ Berhasil diupload ke GitHub';
     showToast('✅ Gambar berhasil diupload ke GitHub!');
   } catch(e){
-    prog.classList.add('hidden'); prog.classList.remove('flex'); bar.style.width='0%';
+    prog.classList.remove('show'); bar.style.width='0%';
     showToast('Gagal upload gambar: '+e.message, true);
   }
 }
@@ -1021,36 +1081,36 @@ async function uploadToGitHub(filename, base64){
 let editMode = false;
 
 function resetForm(){
-  editMode = false;
-  document.getElementById('edit-id').value = '';
-  document.getElementById('f-judul').value = '';
-  document.getElementById('f-kategori').value = '';
-  document.getElementById('f-deskripsi').value = '';
-  document.getElementById('f-gambar').value = '';
-  document.getElementById('f-tanggal').value = '';
-  document.getElementById('f-featured').checked = false;
-  document.getElementById('form-title').innerHTML = "<i class='bx bx-edit text-blue-600 dark:text-blue-400 text-xl'></i> Tambah Artikel Baru";
-  document.getElementById('btn-cancel-edit').classList.add('hidden');
-  uploadedImgUrl = '';
-  imgMode = 'url';
+  editMode=false;
+  document.getElementById('edit-id').value='';
+  document.getElementById('f-judul').value='';
+  document.getElementById('f-kategori').value='';
+  document.getElementById('f-deskripsi').value='';
+  document.getElementById('f-gambar').value='';
+  document.getElementById('f-tanggal').value='';
+  document.getElementById('f-featured').checked=false;
+  document.getElementById('form-title').innerHTML="<i class='bx bx-edit'></i> Tambah Artikel Baru";
+  document.getElementById('btn-cancel-edit').style.display='none';
+  uploadedImgUrl='';
+  imgMode='url';
   switchImgTab('url');
   clearPreview();
-  document.getElementById('upload-success').classList.add('hidden');
-  document.getElementById('f-gambar-file').value = '';
+  document.getElementById('upload-success').style.display='none';
+  document.getElementById('f-gambar-file').value='';
 }
 
 function editArtikel(id){
   const a = DB.artikel.find(x=>x.id===id);
   if(!a) return;
-  editMode = true;
-  document.getElementById('edit-id').value = a.id;
-  document.getElementById('f-judul').value = a.judul||'';
-  document.getElementById('f-kategori').value = a.kategori_id||'';
-  document.getElementById('f-deskripsi').value = a.deskripsi||'';
-  document.getElementById('f-tanggal').value = a.tanggal||'';
-  document.getElementById('f-featured').checked = !!a.featured;
-  document.getElementById('form-title').innerHTML = "<i class='bx bx-edit text-blue-600 dark:text-blue-400 text-xl'></i> Edit Artikel";
-  document.getElementById('btn-cancel-edit').classList.remove('hidden');
+  editMode=true;
+  document.getElementById('edit-id').value=a.id;
+  document.getElementById('f-judul').value=a.judul||'';
+  document.getElementById('f-kategori').value=a.kategori_id||'';
+  document.getElementById('f-deskripsi').value=a.deskripsi||'';
+  document.getElementById('f-tanggal').value=a.tanggal||'';
+  document.getElementById('f-featured').checked=!!a.featured;
+  document.getElementById('form-title').innerHTML="<i class='bx bx-edit'></i> Edit Artikel";
+  document.getElementById('btn-cancel-edit').style.display='';
   setGambarValue(a.gambar||'');
   switchTab('tab-tambah');
 }
@@ -1060,6 +1120,7 @@ function previewImage(){
   showPreview(url);
 }
 
+/* Tombol Simpan Artikel */
 document.getElementById('btn-submit-art').addEventListener('click', async()=>{
   const judul = document.getElementById('f-judul').value.trim();
   const katId = document.getElementById('f-kategori').value;
@@ -1077,8 +1138,8 @@ document.getElementById('btn-submit-art').addEventListener('click', async()=>{
   };
 
   const btn = document.getElementById('btn-submit-art');
-  btn.disabled = true;
-  btn.innerHTML = `<span class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span> Menyimpan…`;
+  btn.disabled=true;
+  btn.innerHTML='<span class="spinner"></span> Menyimpan…';
 
   try {
     if(editId){
@@ -1097,8 +1158,8 @@ document.getElementById('btn-submit-art').addEventListener('click', async()=>{
   } catch(e){
     showToast('Gagal menyimpan: '+e.message, true);
   } finally {
-    btn.disabled = false;
-    btn.innerHTML = "<i class='bx bx-save text-lg'></i> Simpan Artikel";
+    btn.disabled=false;
+    btn.innerHTML="<i class='bx bx-save'></i> Simpan Artikel";
   }
 });
 
@@ -1114,20 +1175,20 @@ document.getElementById('btn-add-kat').addEventListener('click', async()=>{
   if(!nama){ showToast('Nama kategori tidak boleh kosong!', true); return; }
 
   const btn = document.getElementById('btn-add-kat');
-  btn.disabled = true;
-  btn.innerHTML = `<span class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span> Menyimpan…`;
+  btn.disabled=true;
+  btn.innerHTML='<span class="spinner"></span> Menyimpan…';
 
   try {
     const newKat = { id: uid(), nama, warna };
     await apiTambahKategori(newKat);
-    document.getElementById('kat-nama').value = '';
+    document.getElementById('kat-nama').value='';
     render();
     showToast('✅ Kategori berhasil ditambahkan dan disimpan ke GitHub!');
   } catch(e){
     showToast('Gagal menambah kategori: '+e.message, true);
   } finally {
-    btn.disabled = false;
-    btn.innerHTML = "<i class='bx bx-plus text-lg'></i> Tambah Kategori";
+    btn.disabled=false;
+    btn.innerHTML="<i class='bx bx-plus'></i> Tambah Kategori";
   }
 });
 
@@ -1137,46 +1198,44 @@ document.getElementById('btn-add-kat').addEventListener('click', async()=>{
 let _delType='', _delIds=[];
 
 function openDelModal(type, id, name){
-  _delType = type;
-  _delIds = [id];
-  document.getElementById('del-message').innerHTML = `Apakah kamu yakin ingin menghapus <strong>${esc(name)}</strong>?`;
-  document.getElementById('del-confirm-btn').disabled = false;
-  document.getElementById('del-confirm-btn').innerHTML = "<i class='bx bx-trash'></i> Hapus";
-  const modal = document.getElementById('del-modal');
-  modal.classList.remove('hidden');
-  modal.classList.add('flex');
+  _delType=type;
+  _delIds=[id];
+  let message = `Apakah kamu yakin ingin menghapus <strong>${esc(name)}</strong>?`;
+  document.getElementById('del-message').innerHTML = message;
+  document.getElementById('del-confirm-btn').disabled=false;
+  document.getElementById('del-confirm-btn').innerHTML="<i class='bx bx-trash'></i> Hapus";
+  document.getElementById('del-modal').classList.add('open');
 }
 
 function openDelBulkModal(type, ids){
-  _delType = type;
-  _delIds = ids;
-  document.getElementById('del-message').innerHTML = `Apakah kamu yakin ingin menghapus <strong>${ids.length} item</strong>? Tindakan ini tidak dapat dibatalkan.`;
-  document.getElementById('del-confirm-btn').disabled = false;
-  document.getElementById('del-confirm-btn').innerHTML = "<i class='bx bx-trash'></i> Hapus Semua";
-  const modal = document.getElementById('del-modal');
-  modal.classList.remove('hidden');
-  modal.classList.add('flex');
+  _delType=type;
+  _delIds=ids;
+  let message = `Apakah kamu yakin ingin menghapus <strong>${ids.length} item</strong>? Tindakan ini tidak dapat dibatalkan.`;
+  document.getElementById('del-message').innerHTML = message;
+  document.getElementById('del-confirm-btn').disabled=false;
+  document.getElementById('del-confirm-btn').innerHTML="<i class='bx bx-trash'></i> Hapus Semua";
+  document.getElementById('del-modal').classList.add('open');
 }
 
 function closeDelModal(){
-  const modal = document.getElementById('del-modal');
-  modal.classList.add('hidden');
-  modal.classList.remove('flex');
+  document.getElementById('del-modal').classList.remove('open');
 }
 
 document.getElementById('del-confirm-btn').addEventListener('click', async()=>{
   const btn = document.getElementById('del-confirm-btn');
   const cancelBtn = document.getElementById('del-cancel-btn');
-  btn.disabled = true;
-  cancelBtn.disabled = true;
-  btn.innerHTML = `<span class="inline-block w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin mr-1"></span> Menghapus…`;
+  btn.disabled=true;
+  cancelBtn.disabled=true;
+  btn.innerHTML='<span class="spinner"></span> Menghapus…';
 
   try {
+    let deleted = 0;
     for(const id of _delIds){
       await apiDelete(_delType, id);
+      deleted++;
     }
     
-    if(_delType === 'art'){
+    if(_delType==='art'){
       DB.artikel = DB.artikel.filter(a=>!_delIds.includes(a.id));
       clearArtSelection();
     } else {
@@ -1190,27 +1249,33 @@ document.getElementById('del-confirm-btn').addEventListener('click', async()=>{
     render();
   } catch(e){
     showToast('Gagal menghapus: '+e.message, true);
-    btn.innerHTML = "<i class='bx bx-trash'></i> Hapus";
+    btn.innerHTML="<i class='bx bx-trash'></i> Hapus";
   } finally {
-    btn.disabled = false;
-    cancelBtn.disabled = false;
+    btn.disabled=false;
+    cancelBtn.disabled=false;
   }
 });
 
-/* Bulk Buttons */
+/* ════════════════════════════════════════════════════
+   BULK DELETE BUTTONS
+   ════════════════════════════════════════════════════ */
 document.getElementById('art-bulk-delete').addEventListener('click', ()=>{
   if(selectedArt.size === 0) return;
   openDelBulkModal('art', Array.from(selectedArt));
 });
+
 document.getElementById('art-bulk-clear').addEventListener('click', clearArtSelection);
 
 document.getElementById('kat-bulk-delete').addEventListener('click', ()=>{
   if(selectedKat.size === 0) return;
   openDelBulkModal('kat', Array.from(selectedKat));
 });
+
 document.getElementById('kat-bulk-clear').addEventListener('click', clearKatSelection);
 
-/* Select All Checkboxes */
+/* ════════════════════════════════════════════════════
+   SELECT ALL CHECKBOXES
+   ════════════════════════════════════════════════════ */
 document.getElementById('art-select-all').addEventListener('change', (e)=>{
   const visibleIds = getFilteredArtikels().map(a=>a.id);
   if(e.target.checked){
@@ -1233,12 +1298,11 @@ document.getElementById('kat-select-all').addEventListener('change', (e)=>{
 });
 
 /* ════════════════════════════════════════════════════
-   SIMPAN KE GITHUB
+   SIMPAN KE GITHUB (tombol manual)
    ════════════════════════════════════════════════════ */
 document.getElementById('btn-save-gh').addEventListener('click', async()=>{
   const btn = document.getElementById('btn-save-gh');
-  btn.innerHTML = `<span class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span><span class="btn-label hidden sm:inline ml-2">Menyimpan…</span>`; 
-  btn.disabled = true;
+  btn.innerHTML='<span class="spinner"></span><span class="btn-label"> Menyimpan…</span>'; btn.disabled=true;
   try{
     const sha = await saveToServer();
     if(sha) DB._sha = sha;
@@ -1246,8 +1310,7 @@ document.getElementById('btn-save-gh').addEventListener('click', async()=>{
   } catch(e){
     showToast('Gagal simpan: '+e.message, true);
   } finally {
-    btn.innerHTML = `<i class='bx bx-cloud-upload text-base sm:text-lg'></i><span class="btn-label hidden sm:inline">Simpan ke GitHub</span>`; 
-    btn.disabled = false;
+    btn.innerHTML="<i class='bx bx-cloud-upload'></i><span class=\"btn-label\"> Simpan ke GitHub</span>"; btn.disabled=false;
   }
 });
 
@@ -1255,25 +1318,10 @@ document.getElementById('btn-save-gh').addEventListener('click', async()=>{
    UI UTILITIES
    ════════════════════════════════════════════════════ */
 function switchTab(tabId){
-  document.querySelectorAll('.tab-btn').forEach(b=>{
-    if(b.dataset.tab === tabId){
-      b.classList.add('active', 'bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-500/20');
-      b.classList.remove('text-slate-500', 'dark:text-slate-400');
-    } else {
-      b.classList.remove('active', 'bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-500/20');
-      b.classList.add('text-slate-500', 'dark:text-slate-400');
-    }
-  });
-
-  document.querySelectorAll('.panel').forEach(p=>{
-    if(p.id === tabId){
-      p.classList.remove('hidden');
-      p.classList.add('block');
-    } else {
-      p.classList.add('hidden');
-      p.classList.remove('block');
-    }
-  });
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+  document.getElementById(tabId).classList.add('active');
 }
 
 /* Search */
@@ -1283,62 +1331,45 @@ document.getElementById('art-search').addEventListener('input', e=>{
   renderArtTable();
 });
 
-/* Filter: Kategori */
+/* Filter: kategori */
 document.getElementById('art-filter-kat').addEventListener('change', e=>{
   artKatFilter = e.target.value;
   clearArtSelection();
   renderArtTable();
 });
 
-/* Filter: Unggulan */
-document.getElementById('art-filter-feat').addEventListener('click', (e)=>{
+/* Filter: unggulan saja (chip toggle) */
+document.getElementById('art-filter-feat').addEventListener('click', ()=>{
   artFeaturedOnly = !artFeaturedOnly;
-  const chip = document.getElementById('art-filter-feat');
-  if(artFeaturedOnly){
-    chip.classList.add('bg-orange-500', 'text-white', 'border-orange-500');
-    chip.classList.remove('bg-white', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
-  } else {
-    chip.classList.remove('bg-orange-500', 'text-white', 'border-orange-500');
-    chip.classList.add('bg-white', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
-  }
+  document.getElementById('art-filter-feat').classList.toggle('active', artFeaturedOnly);
   clearArtSelection();
   renderArtTable();
 });
 
-/* Tab Button Clicks */
+/* Tabs */
 document.querySelectorAll('.tab-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{ switchTab(btn.dataset.tab); });
 });
 
-/* Sidebar Mobile Toggle */
-const sidebar = document.getElementById('sidebar');
-const sidebarOverlay = document.getElementById('sidebar-overlay');
-const sidebarToggle = document.getElementById('sidebar-toggle');
-
-sidebarToggle.addEventListener('click', ()=>{
-  sidebar.classList.toggle('-translate-x-full');
-  sidebarOverlay.classList.toggle('hidden');
+/* Sidebar mobile */
+document.getElementById('sidebar-toggle').addEventListener('click',()=>{
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('open');
+});
+document.getElementById('sidebar-overlay').addEventListener('click',()=>{
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
 });
 
-sidebarOverlay.addEventListener('click', ()=>{
-  sidebar.classList.add('-translate-x-full');
-  sidebarOverlay.classList.add('hidden');
-});
-
-/* Toast Notification */
+/* Toast */
 let _tt;
 function showToast(msg, err=false){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = `fixed bottom-5 right-4 left-4 sm:left-auto max-w-xs bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-5 py-3.5 rounded-2xl text-xs sm:text-sm font-medium z-50 shadow-2xl transition-all duration-300 transform translate-y-0 opacity-100 border-l-4 ${err ? 'border-red-500' : 'border-emerald-500'}`;
-  clearTimeout(_tt);
-  _tt = setTimeout(()=>{
-    t.className = 'fixed bottom-5 right-4 left-4 sm:left-auto max-w-xs bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-5 py-3.5 rounded-2xl text-xs sm:text-sm font-medium z-50 shadow-2xl transition-all duration-300 transform translate-y-8 opacity-0 pointer-events-none border-l-4 border-emerald-500';
-  }, 3500);
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='show'+(err?' err':'');
+  clearTimeout(_tt); _tt=setTimeout(()=>t.classList.remove('show'),3500);
 }
 
-// Inisialisasi awal tampilan tab pertama
-switchTab('tab-artikel');
+/* ── INIT: loadData dipanggil setelah auth berhasil ── */
 </script>
 </body>
 </html>
